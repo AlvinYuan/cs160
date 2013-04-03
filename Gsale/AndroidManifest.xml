@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.MapActivity"
+            android:label="@string/title_activity_map"
+            android:parentActivityName="HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
