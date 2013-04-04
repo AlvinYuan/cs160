@@ -37,28 +37,28 @@
             android:weightSum="3" >
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/SearchSalesButton"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Button" />
+                android:text="Search Sales" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/FollowedSalesButton"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Button" />
+                android:text="Followed Sales" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/CreateEditSalesButton"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Button" />
+                android:text="Create/Edit Sales" />
 
         </LinearLayout>
 
@@ -70,28 +70,29 @@
             android:weightSum="3" >
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/ViewMapButton"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Button" />
+                android:text="View Map"
+                android:onClick="ViewMapButtonOnClick" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/SendViewMessagesButton"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Button" />
+                android:text="Send/View Messages" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/SettingsButton"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Button" />
+                android:text="Settings" />
 
         </LinearLayout>
 
