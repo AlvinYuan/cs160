@@ -26,11 +26,52 @@ public class HomeActivity extends Activity {
 	 */
 
 	/*
-	 * Method: ViewMapButton
+	 * Method: SearchSalesButtonOnClick
+	 */
+	public void SearchSalesButtonOnClick(View view) {
+		Intent intent = new Intent(this, SearchActivity.class);
+		startActivity(intent);
+	}
+
+	/*
+	 * Method: ViewMapButtonOnClick
 	 */
 	public void ViewMapButtonOnClick(View view) {
 		Intent intent = new Intent(this, MapActivity.class);
 		startActivity(intent);
 	}
+
+	/*
+	 * Method: FollowedSalesButtonOnClick
+	 */
+	public void FollowedSalesButtonOnClick(View view) {
+		Intent intent = new Intent(this, FollowedActivity.class);
+		startActivity(intent);
+	}
+	
+	/*
+	 * Method: SendViewMessagesButtonOnClick
+	 */
+	public void SendViewMessagesButtonOnClick(View view) {
+		Intent intent = new Intent(this, MessagesActivity.class);
+		startActivity(intent);
+	}
+
+	/*
+	 * Method: CreateEditSalesButtonOnClick
+	 */
+	public void CreateEditSalesButtonOnClick(View view) {
+		Intent intent = new Intent(this, CreateEditActivity.class);
+		startActivity(intent);
+	}
+
+	/*
+	 * Method: SettingsButtonOnClick
+	 */
+	public void SettingsButtonOnClick(View view) {
+		Intent intent = new Intent(this, SettingsActivity.class);
+		startActivity(intent);
+	}
+
 
 }

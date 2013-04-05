@@ -30,6 +30,46 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="HomeActivity" />
         </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:parentActivityName="HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.MessagesActivity"
+            android:label="@string/title_activity_messages"
+            android:parentActivityName="HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.FollowedActivity"
+            android:label="@string/title_activity_followed"
+            android:parentActivityName="HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.CreateEditActivity"
+            android:label="@string/title_activity_create_edit"
+            android:parentActivityName="HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

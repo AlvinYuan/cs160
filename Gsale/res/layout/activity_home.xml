@@ -42,7 +42,8 @@
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Search Sales" />
+                android:text="Search Sales"
+                android:onClick="SearchSalesButtonOnClick" />
 
             <Button
                 android:id="@+id/FollowedSalesButton"
@@ -50,7 +51,8 @@
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Followed Sales" />
+                android:text="Followed Sales"
+                android:onClick="FollowedSalesButtonOnClick" />
 
             <Button
                 android:id="@+id/CreateEditSalesButton"
@@ -58,7 +60,8 @@
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Create/Edit Sales" />
+                android:text="Create/Edit Sales"
+                android:onClick="CreateEditSalesButtonOnClick" />
 
         </LinearLayout>
 
@@ -84,7 +87,8 @@
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Send/View Messages" />
+                android:text="Send/View Messages"
+                android:onClick="SendViewMessagesButtonOnClick" />
 
             <Button
                 android:id="@+id/SettingsButton"
@@ -92,7 +96,8 @@
                 android:layout_height="0px"
                 android:layout_weight="1"
 				android:drawableTop="@drawable/ic_launcher"
-                android:text="Settings" />
+                android:text="Settings"
+                android:onClick="SettingsButtonOnClick" />
 
         </LinearLayout>
 
