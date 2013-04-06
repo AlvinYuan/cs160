@@ -9,6 +9,6 @@
     <string name="title_activity_messages">Messages</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_followed">Followed Sales</string>
-    <string name="title_activity_my_sales">Create/Edit Sales</string>
+    <string name="title_activity_create_edit">Create/Edit Sales</string>
 
 </resources>
