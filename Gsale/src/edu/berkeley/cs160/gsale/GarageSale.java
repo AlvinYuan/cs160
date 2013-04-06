@@ -15,4 +15,13 @@ public class GarageSale {
 	public GarageSale() {
 		super();
 	}
+	
+	
+	// Testing
+	public static GarageSale[] generateSales() {
+		GarageSale sales[] = {new GarageSale(), new GarageSale()};
+		sales[0].title = "Sale this saturday!";
+		sales[1].title = "Moving Sale - Sunday!";
+		return sales;
+	}
 }

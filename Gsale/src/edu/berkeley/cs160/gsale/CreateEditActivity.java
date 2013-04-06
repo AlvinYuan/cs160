@@ -2,14 +2,16 @@ package edu.berkeley.cs160.gsale;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 
 public class CreateEditActivity extends Activity {
-
+	public static String IS_NEW_SALE = "IS_NEW_SALE";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,8 +21,7 @@ public class CreateEditActivity extends Activity {
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.MySalesListView);
-		GarageSale mySales[] = {new GarageSale(), new GarageSale()};
-		GarageSaleAdapter adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, mySales);
+		GarageSaleAdapter adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, GarageSale.generateSales());
 		l.setAdapter(adapter);
 	}
 
@@ -47,5 +48,22 @@ public class CreateEditActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	/*
+	 * Method: CreateNewSaleButtonOnClick
+	 */
+	public void SearchSalesButtonOnClick(View view) {
+		CreateEditSale(true, null);
+	}
+	
+	public void CreateEditSale(boolean isNewSale, GarageSale editingSale) {
+		Intent intent = new Intent(this, Activity.class);
+		intent.putExtra(IS_NEW_SALE, isNewSale);
+		if (!isNewSale) {
+			// TODO: provide garage sale details to new Activity
+		}
+		startActivity(intent);
+	}
+
 
 }
