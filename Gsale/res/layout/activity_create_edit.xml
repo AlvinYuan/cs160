@@ -8,19 +8,20 @@
         android:id="@+id/MySalesListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/CreateNewSaleButton"
         android:listSelector="@drawable/list_selector" >
 
     </ListView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/CreateNewSaleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:drawableLeft="@drawable/ic_launcher"
-        android:text="Create New Sale" />
+        android:drawableLeft="@drawable/plus_sign"
+        android:text="Create New Sale"
+        android:onClick="CreateNewSaleButtonOnClick" />
 
 </RelativeLayout>
