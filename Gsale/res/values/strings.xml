@@ -11,6 +11,7 @@
     <string name="title_activity_followed">Followed Sales</string>
     <string name="title_activity_dummy_camera">DummyCamera</string>
     <string name="title_activity_create_edit">Create/Edit Sales</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>
