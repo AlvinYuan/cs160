@@ -10,4 +10,9 @@ public class GarageSale {
 	public String description;
 	public User planner;
 	public ArrayList<Photo> photos;
+	public int id; //Unique identifier
+	
+	public GarageSale() {
+		super();
+	}
 }
