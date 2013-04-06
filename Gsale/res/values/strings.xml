@@ -10,5 +10,7 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_followed">FollowedActivity</string>
     <string name="title_activity_create_edit">CreateEditActivity</string>
+    <string name="title_activity_dummy_camera">DummyCamera</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

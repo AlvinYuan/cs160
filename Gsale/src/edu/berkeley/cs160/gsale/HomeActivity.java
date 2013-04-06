@@ -69,7 +69,7 @@ public class HomeActivity extends Activity {
 	 * Method: SettingsButtonOnClick
 	 */
 	public void SettingsButtonOnClick(View view) {
-		Intent intent = new Intent(this, SettingsActivity.class);
+		Intent intent = new Intent(this, DummyCamera.class);
 		startActivity(intent);
 	}
 
