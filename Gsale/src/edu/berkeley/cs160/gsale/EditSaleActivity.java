@@ -2,33 +2,31 @@ package edu.berkeley.cs160.gsale;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 
-public class CreateEditActivity extends Activity {
-	public static String IS_NEW_SALE_KEY = "IS_NEW_SALE_KEY";
-	
+public class EditSaleActivity extends Activity {
+	public boolean isNewSale;
+	public int editingSaleId;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_create_edit);
+		setContentView(R.layout.activity_edit_sale);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		/* ListView */
-		ListView l = (ListView) findViewById(R.id.MySalesListView);
-		GarageSaleAdapter adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, GarageSale.generateSales());
-		l.setAdapter(adapter);
+		Bundle extras = this.getIntent().getExtras();
+		isNewSale = extras.getBoolean(CreateEditActivity.IS_NEW_SALE_KEY);
+		if (!isNewSale) {
+			editingSaleId = extras.getInt(GarageSale.SALE_ID_KEY);
+		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_create_edit, menu);
+		getMenuInflater().inflate(R.menu.activity_edit_sale, menu);
 		return true;
 	}
 
@@ -48,22 +46,5 @@ public class CreateEditActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	/*
-	 * Method: CreateNewSaleButtonOnClick
-	 */
-	public void CreateNewSaleButtonOnClick(View view) {
-		CreateEditSale(true, null);
-	}
-	
-	public void CreateEditSale(boolean isNewSale, GarageSale editingSale) {
-		Intent intent = new Intent(this, EditSaleActivity.class);
-		intent.putExtra(IS_NEW_SALE_KEY, isNewSale);
-		if (!isNewSale) {
-			intent.putExtra(GarageSale.SALE_ID_KEY, editingSale.id);
-		}
-		startActivity(intent);
-	}
-
 
 }
