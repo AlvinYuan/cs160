@@ -15,19 +15,21 @@
 
     <Button
         android:id="@+id/NextButton"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="Next" />
+        android:text="Next"
+        android:onClick="NextButtonOnClick" />
 
     <Button
         android:id="@+id/BackButton"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/NextButton"
-        android:text="Back" />
+        android:text="Back"
+        android:onClick="BackButtonOnClick" />
 
     <RelativeLayout
         android:id="@+id/EditLayout"

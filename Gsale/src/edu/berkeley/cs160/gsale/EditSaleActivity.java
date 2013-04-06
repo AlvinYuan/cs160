@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -19,6 +20,10 @@ public class EditSaleActivity extends Activity implements OnSeekBarChangeListene
 	public View editDescriptionView;
 	public View editPhotosView;
 	public View editReviewPublishView;
+	public View visibleEditView;
+	public SeekBar editProgressBar;
+	public Button backButton;
+	public Button nextButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,22 @@ public class EditSaleActivity extends Activity implements OnSeekBarChangeListene
 		LayoutInflater inflater = getLayoutInflater();
 		editBasicInfoView = inflater.inflate(R.layout.edit_basic_info_view, null);
 		editLayout.addView(editBasicInfoView);
+		editBasicInfoView.setVisibility(View.INVISIBLE);
+		editDescriptionView = inflater.inflate(R.layout.edit_description_view, null);
+		editLayout.addView(editDescriptionView);
+		editDescriptionView.setVisibility(View.INVISIBLE);
+		editPhotosView = inflater.inflate(R.layout.edit_photos_view, null);
+		editLayout.addView(editPhotosView);
+		editPhotosView.setVisibility(View.INVISIBLE);
+		editReviewPublishView = inflater.inflate(R.layout.edit_review_publish_view, null);
+		editLayout.addView(editReviewPublishView);
+		editReviewPublishView.setVisibility(View.INVISIBLE);
+		visibleEditView = null;
+		backButton = (Button) findViewById(R.id.BackButton);
+		nextButton = (Button) findViewById(R.id.NextButton);
 		
-		SeekBar editProgressBar = (SeekBar) findViewById(R.id.EditProgressBar);
+		
+		editProgressBar = (SeekBar) findViewById(R.id.EditProgressBar);
 		editProgressBar.setOnSeekBarChangeListener(this);
 		onProgressChanged(editProgressBar, 0, false); // Trigger on activity creation
 		
@@ -86,18 +105,25 @@ public class EditSaleActivity extends Activity implements OnSeekBarChangeListene
 	}
 	
 	public void loadBasicInfoView() {
-
+		editBasicInfoView.setVisibility(View.VISIBLE);
+		visibleEditView = editBasicInfoView;
 	}
 	
 	public void loadDescriptionView() {
+		editDescriptionView.setVisibility(View.VISIBLE);
+		visibleEditView = editDescriptionView;
 		
 	}
 	
 	public void loadPhotosView() {
+		editPhotosView.setVisibility(View.VISIBLE);
+		visibleEditView = editPhotosView;
 		
 	}
 	
 	public void loadReviewPublishView() {
+		editReviewPublishView.setVisibility(View.VISIBLE);
+		visibleEditView = editReviewPublishView;
 		
 	}
 	
@@ -108,7 +134,20 @@ public class EditSaleActivity extends Activity implements OnSeekBarChangeListene
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 		// TODO Auto-generated method stub
+		if (visibleEditView != null) {
+			visibleEditView.setVisibility(View.INVISIBLE);
+		}
 		step = progress;
+		if (step == 0) {
+			backButton.setText("Cancel");
+		} else {
+			backButton.setText("Back");
+		}
+		if (step == editProgressBar.getMax()) {
+			nextButton.setText("Publish");
+		} else {
+			nextButton.setText("Next");
+		}
 		updateEditView();
 	}
 
@@ -122,6 +161,25 @@ public class EditSaleActivity extends Activity implements OnSeekBarChangeListene
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/*
+	 * Button OnClick Methods
+	 */
+	public void BackButtonOnClick(View view) {
+		if(step == 0) {
+			
+		} else {
+			editProgressBar.setProgress(editProgressBar.getProgress() - 1);
+		}
+	}
+	
+	public void NextButtonOnClick(View view) {
+		if (step == editProgressBar.getMax()) {
+			
+		} else {
+			editProgressBar.setProgress(editProgressBar.getProgress() + 1);
+		}
 	}
 
 }
