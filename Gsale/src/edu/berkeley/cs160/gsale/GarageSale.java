@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class GarageSale {
+public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
 	public static HashMap<Integer, GarageSale> mapIdToSale;
 	

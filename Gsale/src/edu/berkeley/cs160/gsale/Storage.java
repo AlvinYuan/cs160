@@ -34,11 +34,10 @@ public class Storage {
         String followedSales = prefs.getString(key, "");
         String toAdd = Integer.toString(id);
         if (followedSales.length() == 0){
-        	followedSales.concat(toAdd);        	
-        } else {
-        	followedSales.concat("," + toAdd);
+        	followedSales = toAdd;        	
+        } else if (!followedSales.contains(toAdd)){
+        	followedSales = followedSales + "," + toAdd;
         }
-        
         SharedPreferences.Editor ed = prefs.edit();
         ed.putString(key, followedSales);
         ed.commit();
@@ -50,7 +49,8 @@ public class Storage {
 	public ArrayList<Integer> getIds(String key){
 		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
         String followedSales = prefs.getString(key, "");
-		ArrayList<String> stringOfIds =  new ArrayList(Arrays.asList(followedSales.split(",")));
+		ArrayList<String> stringOfIds =  new ArrayList<String>(Arrays.asList(followedSales.split(",")));
+		
 		ArrayList<Integer> toReturn = new ArrayList<Integer>();
 		for(String id : stringOfIds) {
 			toReturn.add(Integer.parseInt(id));
@@ -94,16 +94,27 @@ public class Storage {
 	    if (bytes.length == 0) {
 	        return null;
 	    }
-	    ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
-	    Base64InputStream base64InputStream = new Base64InputStream(byteArray, Base64.DEFAULT);
 	    ObjectInputStream in;
-	    GarageSale myObject = new GarageSale(); 
+	    GarageSale myObject = new GarageSale();
 	    try {
+	    	ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
+	    	Base64InputStream base64InputStream = new Base64InputStream(byteArray, Base64.DEFAULT);
+	    	byteArray.close();
+	    
 		    in = new ObjectInputStream(base64InputStream);
+		    base64InputStream.close();
 		    myObject = (GarageSale) in.readObject();
 		    in.close();
 	    } catch (IOException e) { 
-	    } catch (ClassNotFoundException e) {}
+	    	e.printStackTrace();
+	    } catch (ClassNotFoundException e) {
+	    	e.printStackTrace();
+	    }
+	    
+//	    SharedPreferences.Editor ed = prefs.edit();
+//	    ed.clear();
+//	    ed.commit();
+	    
 	    return myObject;
 	}
 	
