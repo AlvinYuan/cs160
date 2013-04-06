@@ -5,10 +5,31 @@
     tools:context=".MessagesActivity" >
 
     <TextView
+        android:id="@+id/storage_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/hello_world" />
+
+    <Button
+        android:id="@+id/store_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/store_button1"
+        android:layout_alignBottom="@+id/store_button1"
+        android:layout_toRightOf="@+id/storagetest"
+        android:text="test list" 
+        android:onClick="testList"/>
+
+    <Button
+        android:id="@+id/store_button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/storage_test"
+        android:layout_marginBottom="92dp"
+        android:layout_toRightOf="@+id/storage_test"
+        android:text="test retrieve" 
+        android:onClick="testRetrieve"/>
 
 </RelativeLayout>

@@ -4,11 +4,15 @@
     <string name="app_name">Gsale</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_map">MapActivity</string>
-    <string name="title_activity_search">SearchActivity</string>
-    <string name="title_activity_messages">MessagesActivity</string>
-    <string name="title_activity_settings">SettingsActivity</string>
-    <string name="title_activity_followed">FollowedActivity</string>
-    <string name="title_activity_create_edit">CreateEditActivity</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_search">Search</string>
+    <string name="title_activity_messages">Messages</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_followed">Followed Sales</string>
+    <string name="title_activity_dummy_camera">DummyCamera</string>
+    <string name="title_activity_create_edit">Create/Edit Sales</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_edit_sale">EditSaleActivity</string>
+    <string name="title_activity_details">DetailsActivity</string>
 
 </resources>
