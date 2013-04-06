@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 
@@ -19,8 +18,7 @@ public class CreateEditActivity extends Activity {
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.MySalesListView);
-		GarageSale mySales[] = {new GarageSale(), new GarageSale()};
-		GarageSaleAdapter adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, mySales);
+		GarageSaleAdapter adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, GarageSale.generateSales());
 		l.setAdapter(adapter);
 	}
 
