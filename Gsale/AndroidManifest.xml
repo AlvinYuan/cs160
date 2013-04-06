@@ -106,6 +106,10 @@
             android:name="edu.berkeley.cs160.gsale.DummyCamera"
             android:label="@string/title_activity_dummy_camera" >
         </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.DetailsActivity"
+            android:label="@string/title_activity_details" >
+        </activity>
     </application>
 
 </manifest>
