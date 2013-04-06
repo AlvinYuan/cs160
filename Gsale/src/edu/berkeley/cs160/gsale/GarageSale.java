@@ -10,4 +10,18 @@ public class GarageSale {
 	public String description;
 	public User planner;
 	public ArrayList<Photo> photos;
+	public int id; //Unique identifier
+	
+	public GarageSale() {
+		super();
+	}
+	
+	
+	// Testing
+	public static GarageSale[] generateSales() {
+		GarageSale sales[] = {new GarageSale(), new GarageSale()};
+		sales[0].title = "Sale this saturday!";
+		sales[1].title = "Moving Sale - Sunday!";
+		return sales;
+	}
 }
