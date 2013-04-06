@@ -114,6 +114,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="CreateEditActivity" />
         </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.DetailsActivity"
+            android:label="@string/title_activity_details" >
+        </activity>
+        
     </application>
 
 </manifest>
