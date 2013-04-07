@@ -2,16 +2,26 @@ package edu.berkeley.cs160.gsale;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 public class DetailsActivity extends Activity {
-
+	public View detailsView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt("SALE_ID");
+		
+		RelativeLayout detailsLayout = (RelativeLayout) findViewById(R.id.DetailsLayout);
+		LayoutInflater inflater = getLayoutInflater();
+		detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
+		detailsLayout.addView(detailsView);
+		
 	}
 
 	@Override

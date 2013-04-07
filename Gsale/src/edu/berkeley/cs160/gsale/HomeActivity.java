@@ -12,11 +12,17 @@ import android.view.Menu;
 import android.view.View;
 
 public class HomeActivity extends Activity {
+	public static User user;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		/*
+		 * PROTOTYPING: For now, just set User to new User with id = 0
+		 */
+		user = new User();
+		System.out.println("CUSTOM: USER ID " + user.id);
 	}
 
 	@Override

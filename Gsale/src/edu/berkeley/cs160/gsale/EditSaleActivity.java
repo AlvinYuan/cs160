@@ -81,6 +81,9 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editReviewPublishView = inflater.inflate(R.layout.edit_review_publish_view, null);
 		editLayout.addView(editReviewPublishView);
 		editReviewPublishView.setVisibility(View.INVISIBLE);
+		RelativeLayout editDetailsLayout = (RelativeLayout) editReviewPublishView.findViewById(R.id.EditDetailsLayout);
+		View detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
+		editDetailsLayout.addView(detailsView);
 
 		backButton = (Button) findViewById(R.id.BackButton);
 		nextButton = (Button) findViewById(R.id.NextButton);
