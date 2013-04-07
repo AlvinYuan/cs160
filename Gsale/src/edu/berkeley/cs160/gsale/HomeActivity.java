@@ -1,5 +1,7 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.HashMap;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
@@ -22,7 +24,7 @@ public class HomeActivity extends Activity {
 		 * PROTOTYPING: For now, just set User to new User with id = 0
 		 */
 		user = new User();
-		System.out.println("CUSTOM: USER ID " + user.id);
+		GarageSale.mapIdToSale = new HashMap<Integer, GarageSale>();
 	}
 
 	@Override

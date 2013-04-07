@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 public class DetailsActivity extends Activity {
 	public View detailsView;
+	public GarageSale sale;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,10 +17,12 @@ public class DetailsActivity extends Activity {
 		setContentView(R.layout.activity_details);
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt("SALE_ID");
+		sale = GarageSale.mapIdToSale.get(id);
 		
 		RelativeLayout detailsLayout = (RelativeLayout) findViewById(R.id.DetailsLayout);
 		LayoutInflater inflater = getLayoutInflater();
 		detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
+		GarageSale.loadDetailsIntoView(detailsView, sale);
 		detailsLayout.addView(detailsView);
 		
 	}

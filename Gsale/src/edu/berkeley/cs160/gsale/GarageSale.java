@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
-	public static HashMap<Integer, GarageSale> mapIdToSale;
+	public static HashMap<Integer, GarageSale> mapIdToSale = null;
 	
 	public Calendar startDate;
 	public Calendar endDate;
