@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import android.view.View;
+import android.widget.TextView;
+
 public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
 	public static HashMap<Integer, GarageSale> mapIdToSale;
@@ -20,9 +23,16 @@ public class GarageSale implements java.io.Serializable{
 	public int id; //Unique identifier
 	
 	public GarageSale() {
-		super();
+		photos = new ArrayList<Photo>();
 	}
 	
+	public static void loadDetailsIntoView(View detailsView, GarageSale sale) {
+		/* Title */
+		TextView detailsTitleTextView = (TextView) detailsView.findViewById(R.id.DetailsTitleTextView);
+		detailsTitleTextView.setText(sale.title);
+		/* Time */
+		
+	}
 	
 	// Testing
 	public static GarageSale[] generateSales() {
@@ -31,4 +41,5 @@ public class GarageSale implements java.io.Serializable{
 		sales[1].title = "Moving Sale - Sunday!";
 		return sales;
 	}
+	
 }
