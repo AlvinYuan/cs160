@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
-				android:drawableTop="@drawable/ic_launcher"
+				android:drawableTop="@drawable/search"
                 android:text="Search Sales"
                 android:onClick="SearchSalesButtonOnClick" />
 
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
-				android:drawableTop="@drawable/ic_launcher"
+				android:drawableTop="@drawable/follow"
                 android:text="Followed Sales"
                 android:onClick="FollowedSalesButtonOnClick" />
 
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
-				android:drawableTop="@drawable/ic_launcher"
+				android:drawableTop="@drawable/mysales"
                 android:text="Create/Edit Sales"
                 android:onClick="CreateEditSalesButtonOnClick" />
 
@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
-				android:drawableTop="@drawable/ic_launcher"
+				android:drawableTop="@drawable/map"
                 android:text="View Map"
                 android:onClick="ViewMapButtonOnClick" />
 
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
-				android:drawableTop="@drawable/ic_launcher"
+				android:drawableTop="@drawable/message"
                 android:text="Send/View Messages"
                 android:onClick="SendViewMessagesButtonOnClick" />
 
@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
-				android:drawableTop="@drawable/ic_launcher"
+				android:drawableTop="@drawable/settings"
                 android:text="Settings"
                 android:onClick="SettingsButtonOnClick" />
 

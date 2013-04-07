@@ -1,8 +1,13 @@
 package edu.berkeley.cs160.gsale;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -38,7 +43,21 @@ public class HomeActivity extends Activity {
 	 */
 	public void ViewMapButtonOnClick(View view) {
 		Intent intent = new Intent(this, MapActivity.class);
-		startActivity(intent);
+		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+		Log.i("googleplay", status+"");
+		    switch (status) {
+		        case ConnectionResult.SUCCESS:
+		            startActivity(intent);
+		            finish();
+		            break;
+
+		        default:
+		            int requestCode = 10;
+		            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
+		            Log.i("errordialog", dialog+"");
+		            dialog.show();
+		            break;
+		    }
 	}
 
 	/*
