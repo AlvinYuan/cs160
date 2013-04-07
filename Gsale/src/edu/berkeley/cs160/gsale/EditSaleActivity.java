@@ -7,6 +7,7 @@ import java.util.Locale;
 import android.os.Bundle;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +18,11 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TimePicker;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.text.format.DateFormat;
 
 public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener  {
 	public boolean isNewSale;
@@ -223,10 +226,25 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		selectingStart = false;
 		createDatePickerDialog();
 	}
+
+	public void StartTimeFieldOnClick(View view) {
+		selectingStart = true;
+		createTimePickerDialog();
+	}
 	
+	public void EndTimeFieldOnClick(View view) {
+		selectingStart = false;
+		createTimePickerDialog();
+	}
+
 	public void createDatePickerDialog() {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getSupportFragmentManager(), "datePicker");		
+	}
+
+	public void createTimePickerDialog() {
+		DialogFragment newFragment = new TimePickerFragment();
+		newFragment.show(getSupportFragmentManager(), "timePicker");		
 	}
 
 	/*
@@ -266,4 +284,47 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		}
 		
 	}
+
+	/*
+	 * TimePickerFragment Class
+	 * encapsulates a TimePickerDialog with Fragment support.
+	 * Follows android guide on pickers
+	 */
+	
+	public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			Calendar today = Calendar.getInstance();
+			TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), this, today.get(Calendar.HOUR_OF_DAY), today.get(Calendar.MINUTE), DateFormat.is24HourFormat(getActivity()));
+			return timePickerDialog;
+		}
+		
+		/*
+		 * TimePickerDialog.OnTimeSetListener Methods
+		 */
+
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			// TODO Auto-generated method stub
+			System.out.println("CUSTOM: " + hourOfDay);
+			EditSaleActivity activity = (EditSaleActivity) getActivity();
+			Calendar time = new GregorianCalendar(-1, -1, -1, hourOfDay, minute, 0);
+			int hour = time.get(Calendar.HOUR);
+			if (hour == 0) {
+				hour = 12;
+			}
+			String ampmString = time.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.US);
+			String timeString = hour + ":" + minute + " " + ampmString;
+			EditText timeField;
+			if (activity.selectingStart) {
+				activity.editingSale.startTime = time;
+				timeField = (EditText) activity.editBasicInfoView.findViewById(R.id.StartTimeField);
+			} else {
+				activity.editingSale.endTime = time;
+				timeField = (EditText) activity.editBasicInfoView.findViewById(R.id.EndTimeField);
+			}
+			timeField.setText(timeString);
+		}
+		
+	}
+
 }

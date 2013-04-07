@@ -127,7 +127,9 @@
         android:layout_alignRight="@+id/StartDateField"
         android:layout_below="@+id/StartTimeTextView"
         android:ems="10"
-        android:inputType="textPostalAddress" />
+        android:inputType="textPostalAddress" 
+        android:focusable="false"
+        android:onClick="StartTimeFieldOnClick" />
 
     <EditText
         android:id="@+id/EndTimeField"
@@ -137,6 +139,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/EndTimeTextView"
         android:ems="10"
-        android:inputType="textPostalAddress" />
+        android:inputType="textPostalAddress" 
+        android:focusable="false"
+        android:onClick="EndTimeFieldOnClick" />
 
 </RelativeLayout>

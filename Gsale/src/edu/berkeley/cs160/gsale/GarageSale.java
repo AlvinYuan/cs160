@@ -10,6 +10,8 @@ public class GarageSale implements java.io.Serializable{
 	
 	public Calendar startDate;
 	public Calendar endDate;
+	public Calendar startTime;
+	public Calendar endTime;
 	public String title;
 	public String description;
 	public User planner;
