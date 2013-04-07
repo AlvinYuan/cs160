@@ -12,32 +12,32 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <permission
-        android:name="edu.berkeley.cs160.gsale.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="edu.berkeley.cs160.gsale.permission.MAPS_RECEIVE" />
+    <!-- The following permissions are required for Google Maps use -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <!--
-	     The following two permissions are not required to use
-	     Google Maps Android API v2, but are recommended.
-    -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="edu.berkeley.cs160.gsale.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- The following permissions are required for camera use -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <permission
+        android:name="edu.berkeley.cs160.gsale.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <uses-library android:required="true" android:name="com.google.android.maps" />
+
         <activity
             android:name="edu.berkeley.cs160.gsale.HomeActivity"
             android:label="@string/app_name" >
@@ -114,7 +114,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCQQOXw7J75hYogneZYbqnphQb1E0HPX9Q" />
+            android:value="AIzaSyC9PCPN7HVreIn7AjHQGOZptLEV1EotKuw" />
     </application>
 
 </manifest>
