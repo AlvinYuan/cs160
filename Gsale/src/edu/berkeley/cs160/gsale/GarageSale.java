@@ -3,6 +3,7 @@ package edu.berkeley.cs160.gsale;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import android.view.View;
 import android.widget.TextView;
@@ -31,9 +32,56 @@ public class GarageSale implements java.io.Serializable{
 		TextView detailsTitleTextView = (TextView) detailsView.findViewById(R.id.DetailsTitleTextView);
 		detailsTitleTextView.setText(sale.title);
 		/* Time */
-		
+		TextView detailsTimeTextView = (TextView) detailsView.findViewById(R.id.DetailsTimeTextView);
+		detailsTimeTextView.setText(sale.timeString(true) + " - " + sale.timeString(false));
+		/* Date */
+		TextView detailsDateTextView = (TextView) detailsView.findViewById(R.id.DetailsDateTextView);
+		detailsDateTextView.setText(sale.dateString(true) + " - " + sale.dateString(false));
+		/* Location */
+		TextView detailsLocationTextView = (TextView) detailsView.findViewById(R.id.DetailsLocationTextView);
+		detailsLocationTextView.setText(sale.location);
+		/* Description */
+		TextView detailsDescriptionTextView = (TextView) detailsView.findViewById(R.id.DetailsDescriptionTextView);
+		detailsDescriptionTextView.setText(sale.description);
 	}
 	
+	public String dateString(boolean isStartDate) {
+		Calendar date;
+		if (isStartDate) {
+			date = startDate;
+		} else {
+			date = endDate;
+		}
+		String monthString = date.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US);
+		String weekdayString = date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US);
+		int dayOfMonth = date.get(Calendar.DAY_OF_MONTH);
+		int year = date.get(Calendar.YEAR);
+		String dateString = weekdayString + ", " + monthString + " " + dayOfMonth + ", " + year;
+		return dateString;
+	}
+	
+	public String timeString(boolean isStartTime) {
+		Calendar time;
+		if (isStartTime) {
+			time = startTime;
+		} else {
+			time = endTime;
+		}
+		int hour = time.get(Calendar.HOUR);
+		if (hour == 0) {
+			hour = 12;
+		}
+		int minute = time.get(Calendar.MINUTE);
+		String minuteString;
+		if (minute < 10) {
+			minuteString = "0" + minute;
+		} else {
+			minuteString = "" + minute;
+		}
+		String ampmString = time.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.US);
+		String timeString = hour + ":" + minuteString + " " + ampmString;
+		return timeString;
+	}
 	// Testing
 	public static GarageSale[] generateSales() {
 		GarageSale sales[] = {new GarageSale(), new GarageSale()};
