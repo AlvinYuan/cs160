@@ -1,15 +1,15 @@
 package edu.berkeley.cs160.gsale;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
 	public static HashMap<Integer, GarageSale> mapIdToSale;
 	
-	public Date startDate;
-	public Date stopDate;
+	public Calendar startDate;
+	public Calendar endDate;
 	public String title;
 	public String description;
 	public User planner;

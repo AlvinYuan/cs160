@@ -1,20 +1,30 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 import android.os.Bundle;
-import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 
-public class EditSaleActivity extends Activity implements OnSeekBarChangeListener {
+public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener  {
 	public boolean isNewSale;
 	public int editingSaleId;
+	public GarageSale editingSale;
 	public int step;
 	public View editBasicInfoView;
 	public View editDescriptionView;
@@ -24,6 +34,8 @@ public class EditSaleActivity extends Activity implements OnSeekBarChangeListene
 	public SeekBar editProgressBar;
 	public Button backButton;
 	public Button nextButton;
+	
+	public boolean selectingStart; //false = selectingEnd (for date/time)
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +47,41 @@ public class EditSaleActivity extends Activity implements OnSeekBarChangeListene
 		isNewSale = extras.getBoolean(CreateEditActivity.IS_NEW_SALE_KEY);
 		if (!isNewSale) {
 			editingSaleId = extras.getInt(GarageSale.SALE_ID_KEY);
+			editingSale = GarageSale.mapIdToSale.get(editingSaleId);
+		} else {
+			editingSale = new GarageSale();
 		}
+		
+		/*
+		 * EditViews
+		 */
 		RelativeLayout editLayout = (RelativeLayout) findViewById(R.id.EditLayout);
 		LayoutInflater inflater = getLayoutInflater();
+		visibleEditView = null;
+
+		/* Basic Info */
 		editBasicInfoView = inflater.inflate(R.layout.edit_basic_info_view, null);
 		editLayout.addView(editBasicInfoView);
 		editBasicInfoView.setVisibility(View.INVISIBLE);
+		
+		/* Description */
 		editDescriptionView = inflater.inflate(R.layout.edit_description_view, null);
 		editLayout.addView(editDescriptionView);
 		editDescriptionView.setVisibility(View.INVISIBLE);
+		
+		/* Photos */
 		editPhotosView = inflater.inflate(R.layout.edit_photos_view, null);
 		editLayout.addView(editPhotosView);
 		editPhotosView.setVisibility(View.INVISIBLE);
+
+		/* Review/Publish */
 		editReviewPublishView = inflater.inflate(R.layout.edit_review_publish_view, null);
 		editLayout.addView(editReviewPublishView);
 		editReviewPublishView.setVisibility(View.INVISIBLE);
-		visibleEditView = null;
+
+		
 		backButton = (Button) findViewById(R.id.BackButton);
 		nextButton = (Button) findViewById(R.id.NextButton);
-		
 		
 		editProgressBar = (SeekBar) findViewById(R.id.EditProgressBar);
 		editProgressBar.setOnSeekBarChangeListener(this);
@@ -181,5 +209,61 @@ public class EditSaleActivity extends Activity implements OnSeekBarChangeListene
 			editProgressBar.setProgress(editProgressBar.getProgress() + 1);
 		}
 	}
+	
+	public void AddNewPhotoButtonOnClick(View view) {
+		
+	}
+	
+	public void StartDateFieldOnClick(View view) {
+		selectingStart = true;
+		createDatePickerDialog();
+	}
+	
+	public void EndDateFieldOnClick(View view) {
+		selectingStart = false;
+		createDatePickerDialog();
+	}
+	
+	public void createDatePickerDialog() {
+		DialogFragment newFragment = new DatePickerFragment();
+		newFragment.show(getSupportFragmentManager(), "datePicker");		
+	}
 
+	/*
+	 * DatePickerFragment Class
+	 * encapsulates a DatePickerDialog with Fragment support.
+	 * Follows android guide on pickers
+	 */
+	
+	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			Calendar today = Calendar.getInstance();
+			DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
+			return datePickerDialog;
+		}
+		
+		/*
+		 * DatePickerDialog.OnDateSetListener Methods
+		 */
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			// TODO Auto-generated method stub
+			EditSaleActivity activity = (EditSaleActivity) getActivity();
+			Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+			String monthString = date.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US);
+			String weekdayString = date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US);
+			String dateString = weekdayString + ", " + monthString + " " + dayOfMonth + ", " + year;
+			EditText dateField;
+			if (activity.selectingStart) {
+				activity.editingSale.startDate = date;
+				dateField = (EditText) activity.editBasicInfoView.findViewById(R.id.StartDateField);
+			} else {
+				activity.editingSale.endDate = date;
+				dateField = (EditText) activity.editBasicInfoView.findViewById(R.id.EndDateField);
+			}
+			dateField.setText(dateString);
+		}
+		
+	}
 }
