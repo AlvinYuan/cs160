@@ -155,7 +155,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	public void loadReviewPublishView() {
-		GarageSale.loadDetailsIntoView(detailsView, editingSale);
+		editingSale.loadDetailsIntoView(detailsView);
 		editReviewPublishView.setVisibility(View.VISIBLE);
 		visibleEditView = editReviewPublishView;
 		

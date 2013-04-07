@@ -22,7 +22,7 @@ public class DetailsActivity extends Activity {
 		RelativeLayout detailsLayout = (RelativeLayout) findViewById(R.id.DetailsLayout);
 		LayoutInflater inflater = getLayoutInflater();
 		detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
-		GarageSale.loadDetailsIntoView(detailsView, sale);
+		sale.loadDetailsIntoView(detailsView);
 		detailsLayout.addView(detailsView);
 		
 	}

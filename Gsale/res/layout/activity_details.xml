@@ -17,7 +17,7 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_launcher"
+            android:drawableTop="@drawable/message"
             android:text="Messages" />
 
         <Button
@@ -25,7 +25,7 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_launcher"
+            android:drawableTop="@drawable/photo"
             android:text="Photos" />
 
         <Button
@@ -33,7 +33,7 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_launcher"
+            android:drawableTop="@drawable/follow"
             android:text="Follow" />
 
         <Button
@@ -41,7 +41,7 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/ic_launcher"
+            android:drawableTop="@drawable/hide"
             android:text="Hide" />
     </LinearLayout>
 

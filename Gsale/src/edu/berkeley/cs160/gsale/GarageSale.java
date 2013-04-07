@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GarageSale implements java.io.Serializable{
@@ -21,28 +22,36 @@ public class GarageSale implements java.io.Serializable{
 	public String location;
 	public User planner;
 	public ArrayList<Photo> photos;
+	public Photo mainPhoto = null;
 	public int id; //Unique identifier
 	
 	public GarageSale() {
 		photos = new ArrayList<Photo>();
 	}
 	
-	public static void loadDetailsIntoView(View detailsView, GarageSale sale) {
+	public void loadDetailsIntoView(View detailsView) {
 		/* Title */
 		TextView detailsTitleTextView = (TextView) detailsView.findViewById(R.id.DetailsTitleTextView);
-		detailsTitleTextView.setText(sale.title);
+		detailsTitleTextView.setText(title);
 		/* Time */
 		TextView detailsTimeTextView = (TextView) detailsView.findViewById(R.id.DetailsTimeTextView);
-		detailsTimeTextView.setText(sale.timeString(true) + " - " + sale.timeString(false));
+		detailsTimeTextView.setText(timeString(true) + " - " + timeString(false));
 		/* Date */
 		TextView detailsDateTextView = (TextView) detailsView.findViewById(R.id.DetailsDateTextView);
-		detailsDateTextView.setText(sale.dateString(true) + " - " + sale.dateString(false));
+		detailsDateTextView.setText(dateString(true) + " - " + dateString(false));
 		/* Location */
 		TextView detailsLocationTextView = (TextView) detailsView.findViewById(R.id.DetailsLocationTextView);
-		detailsLocationTextView.setText(sale.location);
+		detailsLocationTextView.setText(location);
 		/* Description */
 		TextView detailsDescriptionTextView = (TextView) detailsView.findViewById(R.id.DetailsDescriptionTextView);
-		detailsDescriptionTextView.setText(sale.description);
+		detailsDescriptionTextView.setText(description);
+		/* Main Photo */
+		ImageView detailsMainPhotoImageView = (ImageView) detailsView.findViewById(R.id.DetailsMainPhotoImageView);
+		if (mainPhoto != null) {
+			detailsMainPhotoImageView.setImageBitmap(mainPhoto.bitmap);
+		} else {
+			detailsMainPhotoImageView.setImageResource(R.drawable.ic_launcher);
+		}
 	}
 	
 	public String dateString(boolean isStartDate) {
