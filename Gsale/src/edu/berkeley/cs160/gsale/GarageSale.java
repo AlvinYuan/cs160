@@ -13,38 +13,49 @@ public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
 	public static HashMap<Integer, GarageSale> mapIdToSale = null;
 	
-	public Calendar startDate;
-	public Calendar endDate;
-	public Calendar startTime;
-	public Calendar endTime;
-	public String title;
-	public String description;
-	public String location;
-	public User planner;
-	public ArrayList<Photo> photos;
+	public Calendar startDate = null;
+	public Calendar endDate = null;
+	public Calendar startTime = null;
+	public Calendar endTime = null;
+	public String title = null;
+	public String description = null;
+	public String location = null;
+	public User planner = null;
+	public ArrayList<Photo> photos = null;
 	public Photo mainPhoto = null;
 	public int id; //Unique identifier
 	
 	public GarageSale() {
 		photos = new ArrayList<Photo>();
+		
 	}
 	
 	public void loadDetailsIntoView(View detailsView) {
 		/* Title */
-		TextView detailsTitleTextView = (TextView) detailsView.findViewById(R.id.DetailsTitleTextView);
-		detailsTitleTextView.setText(title);
+		if (title != null) {
+			TextView detailsTitleTextView = (TextView) detailsView.findViewById(R.id.DetailsTitleTextView);
+			detailsTitleTextView.setText(title);
+		}
 		/* Time */
-		TextView detailsTimeTextView = (TextView) detailsView.findViewById(R.id.DetailsTimeTextView);
-		detailsTimeTextView.setText(timeString(true) + " - " + timeString(false));
+		if (startTime != null && endTime != null) {
+			TextView detailsTimeTextView = (TextView) detailsView.findViewById(R.id.DetailsTimeTextView);
+			detailsTimeTextView.setText(timeString(true) + " - " + timeString(false));
+		}
 		/* Date */
-		TextView detailsDateTextView = (TextView) detailsView.findViewById(R.id.DetailsDateTextView);
-		detailsDateTextView.setText(dateString(true) + " - " + dateString(false));
+		if (startDate != null && endDate != null) {
+			TextView detailsDateTextView = (TextView) detailsView.findViewById(R.id.DetailsDateTextView);
+			detailsDateTextView.setText(dateString(true) + " - " + dateString(false));
+		}
 		/* Location */
-		TextView detailsLocationTextView = (TextView) detailsView.findViewById(R.id.DetailsLocationTextView);
-		detailsLocationTextView.setText(location);
+		if (location != null) {	
+			TextView detailsLocationTextView = (TextView) detailsView.findViewById(R.id.DetailsLocationTextView);
+			detailsLocationTextView.setText(location);
+		}
 		/* Description */
-		TextView detailsDescriptionTextView = (TextView) detailsView.findViewById(R.id.DetailsDescriptionTextView);
-		detailsDescriptionTextView.setText(description);
+		if (description != null) {
+			TextView detailsDescriptionTextView = (TextView) detailsView.findViewById(R.id.DetailsDescriptionTextView);
+			detailsDescriptionTextView.setText(description);
+		}
 		/* Main Photo */
 		ImageView detailsMainPhotoImageView = (ImageView) detailsView.findViewById(R.id.DetailsMainPhotoImageView);
 		if (mainPhoto != null) {
