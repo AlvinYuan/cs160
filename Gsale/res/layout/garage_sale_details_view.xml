@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
     
     <ImageView
-        android:id="@+id/mainPicture"
+        android:id="@+id/DetailsMainPhotoImageView"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_alignParentLeft="true"
@@ -12,40 +12,74 @@
         android:src="@drawable/gradient_bg" />
 
         <TextView
-            android:id="@+id/titleOfSale"
+            android:id="@+id/DetailsTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/mainPicture"
+            android:layout_alignTop="@+id/DetailsMainPhotoImageView"
             android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/mainPicture"
-            android:text="Title of Sale"
+            android:layout_toRightOf="@+id/DetailsMainPhotoImageView"
+            android:text="SALE TITLE"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/DetailsTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/date"
-            android:layout_below="@+id/date"
-            android:text="9am-4pm"
+            android:layout_alignLeft="@+id/DetailsDateTextView"
+            android:layout_below="@+id/DetailsDateTextView"
+            android:text="0:00 AM - 0:00 AM"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/DetailsDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/titleOfSale"
-            android:layout_below="@+id/titleOfSale"
-            android:text="Sun March 10"
+            android:layout_alignLeft="@+id/DetailsTitleTextView"
+            android:layout_below="@+id/DetailsTitleTextView"
+            android:text="DAY, MON 00, YEAR - DAY, MON 00, YEAR"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/DetailsLocationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/time"
-            android:layout_below="@+id/time"
-            android:text="Shattuck Ave"
+            android:layout_alignLeft="@+id/DetailsTimeTextView"
+            android:layout_below="@+id/DetailsTimeTextView"
+            android:layout_toLeftOf="@+id/mapIcon"
+            android:text="LOCATION"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_alignLeft="@+id/DetailsMainPhotoImageView"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/DetailsDescriptionHeaderTextView" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/DetailsDescriptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SALE DESCRIPTION"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/DetailsDescriptionHeaderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mapIcon"
+            android:layout_alignLeft="@+id/DetailsMainPhotoImageView"
+            android:text="Description"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
@@ -53,41 +87,9 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/address"
-            android:layout_toRightOf="@+id/time"
-            android:drawableTop="@drawable/ic_launcher"
-            android:text="MAP" />
-
-        <ScrollView
-            android:id="@+id/scrollView1"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_alignLeft="@+id/mainPicture"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/mapIcon" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/descriptionContent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="yadiyadiyada sdngsgndijgbsdigibdsgbdigbisdbgisbgsdjbgusbgisdbgidsbgiudbgisdbgisdbggugds"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-            </LinearLayout>
-
-        </ScrollView>
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/scrollView1"
-            android:layout_alignLeft="@+id/scrollView1"
-            android:text="Description"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_alignTop="@+id/DetailsLocationTextView"
+            android:drawableTop="@drawable/map"
+            android:text="View on map" />
     
 </RelativeLayout>
