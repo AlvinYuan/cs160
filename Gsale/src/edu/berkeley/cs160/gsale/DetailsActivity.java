@@ -16,7 +16,7 @@ public class DetailsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		Bundle extras = this.getIntent().getExtras();
-		int id = extras.getInt("SALE_ID");
+		int id = extras.getInt(GarageSale.SALE_ID_KEY);
 		sale = GarageSale.mapIdToSale.get(id);
 		
 		RelativeLayout detailsLayout = (RelativeLayout) findViewById(R.id.DetailsLayout);
