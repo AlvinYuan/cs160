@@ -14,6 +14,7 @@ public class GarageSale implements java.io.Serializable{
 	public Calendar endTime;
 	public String title;
 	public String description;
+	public String location;
 	public User planner;
 	public ArrayList<Photo> photos;
 	public int id; //Unique identifier

@@ -82,15 +82,13 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editLayout.addView(editReviewPublishView);
 		editReviewPublishView.setVisibility(View.INVISIBLE);
 
-		
 		backButton = (Button) findViewById(R.id.BackButton);
 		nextButton = (Button) findViewById(R.id.NextButton);
 		
 		editProgressBar = (SeekBar) findViewById(R.id.EditProgressBar);
 		editProgressBar.setOnSeekBarChangeListener(this);
 		onProgressChanged(editProgressBar, 0, false); // Trigger on activity creation
-		
-		
+
 	}
 
 	@Override
@@ -166,6 +164,22 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 		// TODO Auto-generated method stub
 		if (visibleEditView != null) {
+			if (visibleEditView.equals(editBasicInfoView)) {
+				EditText titleField = (EditText) editBasicInfoView.findViewById(R.id.TitleField);
+				EditText locationField = (EditText) editBasicInfoView.findViewById(R.id.LocationField);
+				editingSale.title = titleField.getText().toString();
+				editingSale.location = locationField.getText().toString();
+			}
+			if (visibleEditView.equals(editDescriptionView)) {
+				EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
+				editingSale.description = descriptionField.getText().toString();
+			}
+			if (visibleEditView.equals(editPhotosView)) {
+				
+			}
+			if (visibleEditView.equals(editReviewPublishView)) {
+				
+			}
 			visibleEditView.setVisibility(View.INVISIBLE);
 		}
 		step = progress;
@@ -197,9 +211,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	/*
 	 * Button OnClick Methods
 	 */
+	
 	public void BackButtonOnClick(View view) {
 		if(step == 0) {
-			
+			finish();
 		} else {
 			editProgressBar.setProgress(editProgressBar.getProgress() - 1);
 		}
