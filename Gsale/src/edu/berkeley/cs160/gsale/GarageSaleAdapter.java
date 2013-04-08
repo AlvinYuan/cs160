@@ -24,7 +24,7 @@ public class GarageSaleAdapter extends ArrayAdapter<GarageSale> {
 		
 		GarageSale item = (GarageSale) super.getItem(position);
 		((TextView) v.findViewById(R.id.title)).setText(item.title);
-		if (item.startDate != null) {
+		if (item.dateTime(true, true) != null) {
 			((TextView) v.findViewById(R.id.date)).setText(item.dateString(true));
 		}
 		return v;

@@ -2,7 +2,6 @@ package edu.berkeley.cs160.gsale;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -124,19 +123,19 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
 				descriptionField.setText(editingSale.description);				
 			}
-			if (editingSale.startTime != null) {
+			if (editingSale.dateTime(true, false) != null) {
 				EditText startTimeField = (EditText) editBasicInfoView.findViewById(R.id.StartTimeField);
 				startTimeField.setText(editingSale.timeString(true));
 			}
-			if (editingSale.endTime != null) {
+			if (editingSale.dateTime(false, false) != null) {
 				EditText endTimeField = (EditText) editBasicInfoView.findViewById(R.id.EndTimeField);
 				endTimeField.setText(editingSale.timeString(false));
 			}
-			if (editingSale.startDate != null) {
+			if (editingSale.dateTime(true, true) != null) {
 				EditText startDateField = (EditText) editBasicInfoView.findViewById(R.id.StartDateField);
 				startDateField.setText(editingSale.dateString(true));
 			}
-			if (editingSale.endDate != null) {
+			if (editingSale.dateTime(false, true) != null) {
 				EditText endDateField = (EditText) editBasicInfoView.findViewById(R.id.EndDateField);
 				endDateField.setText(editingSale.dateString(false));
 			}
@@ -383,13 +382,16 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 			// TODO Auto-generated method stub
 			EditSaleActivity activity = (EditSaleActivity) getActivity();
-			Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
 			EditText dateField;
 			if (activity.selectingStart) {
-				activity.editingSale.startDate = date;
+				activity.editingSale.startYear = year;
+				activity.editingSale.startMonth = monthOfYear;
+				activity.editingSale.startDay = dayOfMonth;
 				dateField = (EditText) activity.editBasicInfoView.findViewById(R.id.StartDateField);
 			} else {
-				activity.editingSale.endDate = date;
+				activity.editingSale.endYear = year;
+				activity.editingSale.endMonth = monthOfYear;
+				activity.editingSale.endDay = dayOfMonth;
 				dateField = (EditText) activity.editBasicInfoView.findViewById(R.id.EndDateField);
 			}
 			dateField.setText(activity.editingSale.dateString(activity.selectingStart));
@@ -417,15 +419,15 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			// TODO Auto-generated method stub
-			System.out.println("CUSTOM: " + hourOfDay);
 			EditSaleActivity activity = (EditSaleActivity) getActivity();
-			Calendar time = new GregorianCalendar(-1, -1, -1, hourOfDay, minute, 0);
 			EditText timeField;
 			if (activity.selectingStart) {
-				activity.editingSale.startTime = time;
+				activity.editingSale.startHour = hourOfDay;
+				activity.editingSale.startMinute = minute;
 				timeField = (EditText) activity.editBasicInfoView.findViewById(R.id.StartTimeField);
 			} else {
-				activity.editingSale.endTime = time;
+				activity.editingSale.endHour = hourOfDay;
+				activity.editingSale.endMinute = minute;
 				timeField = (EditText) activity.editBasicInfoView.findViewById(R.id.EndTimeField);
 			}
 			timeField.setText(activity.editingSale.timeString(activity.selectingStart));
