@@ -225,7 +225,14 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	
 	public void NextButtonOnClick(View view) {
 		if (step == editProgressBar.getMax()) {
-			
+			Storage store = new Storage(this);
+			//the id 123456 is just temporary until we can generate ids
+			store.storeSale(editingSale, 13376);
+			store.storeId(13376, Storage.PLANNED_SALES);
+			System.out.println("Storing test sale:");
+			System.out.println("The title of the sale is: " + editingSale.title);
+			System.out.println("The location of the sale is: " + editingSale.location);
+			System.out.println("The description of the sale is: " + editingSale.description);
 		} else {
 			editProgressBar.setProgress(editProgressBar.getProgress() + 1);
 		}

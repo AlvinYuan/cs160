@@ -19,6 +19,7 @@ import android.util.Base64OutputStream;
 public class Storage {
 	public static String FOLLOWED_SALES = "followed";
 	public static String PLANNED_SALES = "planned";
+	public static String OTHER_SALES = "other";
 	public static final String PREFS_NAME = "MyPrefsFile";
 	public Context context;
 	
@@ -41,6 +42,7 @@ public class Storage {
         SharedPreferences.Editor ed = prefs.edit();
         ed.putString(key, followedSales);
         ed.commit();
+        System.out.println("The sale id was stored");
 	}
 	
 	//For getting the IDs (multiple!) for displaying followed sales or sales that you've created.
@@ -49,13 +51,21 @@ public class Storage {
 	public ArrayList<Integer> getIds(String key){
 		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
         String followedSales = prefs.getString(key, "");
+        System.out.println("The followedSales is currently: " + followedSales);
 		ArrayList<String> stringOfIds =  new ArrayList<String>(Arrays.asList(followedSales.split(",")));
-		
-		ArrayList<Integer> toReturn = new ArrayList<Integer>();
-		for(String id : stringOfIds) {
-			toReturn.add(Integer.parseInt(id));
+		System.out.println("The ID list String has been split. The length of the arraylist is " + stringOfIds.size());
+		System.out.println("222The followedSales is currently: " + followedSales);
+		for (String s : stringOfIds) {
+			System.out.println("A String is: " + s);
 		}
-		return toReturn;
+		ArrayList<Integer> saleIds = new ArrayList<Integer>();
+		if(!(stringOfIds.size() == 1 && stringOfIds.get(0).length() == 0)){
+			for(String id : stringOfIds) {
+				saleIds.add(Integer.parseInt(id));
+			}
+		}
+		
+		return saleIds;
 	}
 	
 	//Save objects so that the "key" for getString/putString is the ID of the garage sale 
@@ -85,6 +95,7 @@ public class Storage {
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	    System.out.println("The sale was stored");
 	}
 	
 	//Get objects by the ID of the garage sale 
@@ -95,7 +106,7 @@ public class Storage {
 	        return null;
 	    }
 	    ObjectInputStream in;
-	    GarageSale myObject = new GarageSale();
+	    GarageSale mySale = new GarageSale();
 	    try {
 	    	ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
 	    	Base64InputStream base64InputStream = new Base64InputStream(byteArray, Base64.DEFAULT);
@@ -103,29 +114,42 @@ public class Storage {
 	    
 		    in = new ObjectInputStream(base64InputStream);
 		    base64InputStream.close();
-		    myObject = (GarageSale) in.readObject();
+		    mySale = (GarageSale) in.readObject();
 		    in.close();
 	    } catch (IOException e) { 
 	    	e.printStackTrace();
 	    } catch (ClassNotFoundException e) {
 	    	e.printStackTrace();
 	    }
-	    
-//	    SharedPreferences.Editor ed = prefs.edit();
-//	    ed.clear();
-//	    ed.commit();
-	    
-	    return myObject;
+	    System.out.println("The title of the sale is: " + mySale.title);
+		System.out.println("The location of the sale is: " + mySale.location);
+		System.out.println("The description of the sale is: " + mySale.description);
+	    System.out.println("Exiting getSale()");
+	    return mySale;
 	}
 	
 	//Returns an ArrayList of GarageSales
 	//key is the list that you want to get (followed sales or planned sales)
 	public ArrayList<GarageSale> getSales(String key) {
-		ArrayList<Integer> saleList = getIds(key);
-		ArrayList<GarageSale> toReturn = new ArrayList<GarageSale>();
-		for(int id : saleList) {
-			toReturn.add(getSale(id));
+		ArrayList<Integer> saleIds = getIds(key);
+		System.out.println("Got ids");
+
+		ArrayList<GarageSale> mySales = new ArrayList<GarageSale>();
+		for(int id : saleIds) {
+			System.out.println("Getting sale with id: " + id);
+			mySales.add(getSale(id));
+			System.out.println("Got the sale");
+			System.out.println("The Garage sale is called: " + getSale(id).title);
 		}
-		return toReturn;
+		System.out.println("The size of mySales is: " + mySales.size());
+		return mySales;
+	}
+	
+	public void clearStorage(){
+		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor ed = prefs.edit();
+	    ed.clear();
+	    ed.commit();
+	    System.out.println("SharedPreferences are cleared");
 	}
 }
