@@ -60,7 +60,6 @@ public class HomeActivity extends Activity {
 		    switch (status) {
 		        case ConnectionResult.SUCCESS:
 		            startActivity(intent);
-		            finish();
 		            break;
 
 		        default:

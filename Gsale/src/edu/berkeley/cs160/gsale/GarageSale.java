@@ -82,7 +82,7 @@ public class GarageSale implements java.io.Serializable{
 		if (mainPhoto != null) {
 			detailsMainPhotoImageView.setImageBitmap(mainPhoto.bitmap);
 		} else {
-			detailsMainPhotoImageView.setImageResource(R.drawable.ic_launcher);
+			detailsMainPhotoImageView.setImageResource(R.drawable.photo);
 		}
 	}
 	
