@@ -25,10 +25,14 @@ public class MessagesActivity extends Activity {
 		
 		GarageSale testSale1 = new GarageSale();
 		testSale1.title = "SALE SALE SALE";
+		testSale1.location = "testSale1 Location";
+		testSale1.description = "testSale1 Description";
 		testSale1.id = 123456;
 		
 		GarageSale testSale2 = new GarageSale();
 		testSale2.title = "Sale this Saturday";
+		testSale2.location = "testSale2 Location";
+		testSale2.description = "testSale2 Description";
 		testSale2.id = 98765;
 		
 		data = new Storage(this);
@@ -93,5 +97,11 @@ public class MessagesActivity extends Activity {
 		TextView result = (TextView)findViewById(R.id.storage_test);
 		GarageSale temp = data.getSale(123456);
 		result.append(temp.title + "\n");
+	}
+	
+	public void clearData(View view) {
+		TextView result = (TextView)findViewById(R.id.storage_test);
+		data.clearStorage();
+		result.append("Cleared SharedPreferences" + "\n");
 	}
 }

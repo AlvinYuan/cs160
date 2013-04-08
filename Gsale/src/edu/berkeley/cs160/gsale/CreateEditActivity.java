@@ -1,17 +1,23 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 
-public class CreateEditActivity extends Activity {
+public class CreateEditActivity extends Activity implements OnItemClickListener {
 	public static String IS_NEW_SALE_KEY = "IS_NEW_SALE_KEY";
-	
+
+	public GarageSaleAdapter adapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,8 +27,17 @@ public class CreateEditActivity extends Activity {
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.MySalesListView);
-		GarageSaleAdapter adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, GarageSale.generateSales());
+		Storage store = new Storage(this);
+		ArrayList<GarageSale> storedSales = store.getSales(Storage.PLANNED_SALES);
+		GarageSale[] salesList = GarageSale.generateSales();
+		System.out.println("The size of storedSales is: " + storedSales.size());
+		if(storedSales.size() != 0) {
+			System.out.println("The size of storedSales (> 0) is: " + storedSales.size());
+			salesList = storedSales.toArray(new GarageSale[0]);
+		}
+		adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, salesList);
 		l.setAdapter(adapter);
+		l.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -60,9 +75,29 @@ public class CreateEditActivity extends Activity {
 		Intent intent = new Intent(this, EditSaleActivity.class);
 		intent.putExtra(IS_NEW_SALE_KEY, isNewSale);
 		if (!isNewSale) {
+			GarageSale.mapIdToSale.put(editingSale.id, editingSale);
 			intent.putExtra(GarageSale.SALE_ID_KEY, editingSale.id);
 		}
 		startActivity(intent);
+	}
+
+	/*
+	 * AdapterView.OnItemClickListener Interface
+	 * Specifically for @+id/MySalesListView
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		GarageSale editingSale = (GarageSale) adapter.getItem(position);
+		CreateEditSale(false, editingSale);
+	}
+	
+	/*
+	 * Activity Override
+	 */
+	public void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
 	}
 
 

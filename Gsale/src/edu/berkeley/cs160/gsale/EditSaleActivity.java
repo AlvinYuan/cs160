@@ -3,7 +3,6 @@ package edu.berkeley.cs160.gsale;
 import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -39,17 +39,16 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public View editDescriptionView;
 	public View editPhotosView;
 	public View editReviewPublishView;
+	public View detailsView;
 	public View visibleEditView;
 	public SeekBar editProgressBar;
 	public Button backButton;
 	public Button nextButton;
-	public static final int MEDIA_TYPE_IMAGE = 1;
-	public static final int MEDIA_TYPE_VIDEO = 2;
-	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
-	private static int TAKE_PICTURE = 1;
-	private Uri outputFileUri;
-	private Uri fileUri;
+
+	public ListView editPhotosListView;
+	public PhotoAdapter photoAdapter;
+	
+
 	public boolean selectingStart; //false = selectingEnd (for date/time)
 
 	@Override
@@ -58,15 +57,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		setContentView(R.layout.activity_edit_sale);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		Bundle extras = this.getIntent().getExtras();
-		isNewSale = extras.getBoolean(CreateEditActivity.IS_NEW_SALE_KEY);
-		if (!isNewSale) {
-			editingSaleId = extras.getInt(GarageSale.SALE_ID_KEY);
-			editingSale = GarageSale.mapIdToSale.get(editingSaleId);
-		} else {
-			editingSale = new GarageSale();
-		}
-		
+
 		/*
 		 * EditViews
 		 */
@@ -88,14 +79,57 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editPhotosView = inflater.inflate(R.layout.edit_photos_view, null);
 		editLayout.addView(editPhotosView);
 		editPhotosView.setVisibility(View.INVISIBLE);
+		editPhotosListView = (ListView) editPhotosView.findViewById(R.id.EditPhotosListView);
+		Photo photosList[] = Photo.generatePhotos(this);
+		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, photosList);
+		editPhotosListView.setAdapter(photoAdapter);		
 
 		/* Review/Publish */
 		editReviewPublishView = inflater.inflate(R.layout.edit_review_publish_view, null);
 		editLayout.addView(editReviewPublishView);
 		editReviewPublishView.setVisibility(View.INVISIBLE);
 		RelativeLayout editDetailsLayout = (RelativeLayout) editReviewPublishView.findViewById(R.id.EditDetailsLayout);
-		View detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
+		detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
 		editDetailsLayout.addView(detailsView);
+		
+		Bundle extras = this.getIntent().getExtras();
+		isNewSale = extras.getBoolean(CreateEditActivity.IS_NEW_SALE_KEY);
+		if (!isNewSale) {
+			editingSaleId = extras.getInt(GarageSale.SALE_ID_KEY);
+			editingSale = GarageSale.mapIdToSale.get(editingSaleId);
+			/* Populate fields with existing information */
+			if (editingSale.title != null) {
+				EditText titleField = (EditText) editBasicInfoView.findViewById(R.id.TitleField);
+				titleField.setText(editingSale.title);
+			}
+			if (editingSale.location != null) {
+				EditText locationField = (EditText) editBasicInfoView.findViewById(R.id.LocationField);
+				locationField.setText(editingSale.location);				
+			}
+			if (editingSale.description != null) {
+				EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
+				descriptionField.setText(editingSale.description);				
+			}
+			if (editingSale.startTime != null) {
+				EditText startTimeField = (EditText) editBasicInfoView.findViewById(R.id.StartTimeField);
+				startTimeField.setText(editingSale.timeString(true));
+			}
+			if (editingSale.endTime != null) {
+				EditText endTimeField = (EditText) editBasicInfoView.findViewById(R.id.EndTimeField);
+				endTimeField.setText(editingSale.timeString(false));
+			}
+			if (editingSale.startDate != null) {
+				EditText startDateField = (EditText) editBasicInfoView.findViewById(R.id.StartDateField);
+				startDateField.setText(editingSale.dateString(true));
+			}
+			if (editingSale.endDate != null) {
+				EditText endDateField = (EditText) editBasicInfoView.findViewById(R.id.EndDateField);
+				endDateField.setText(editingSale.dateString(false));
+			}
+			
+		} else {
+			editingSale = new GarageSale();
+		}		
 
 		backButton = (Button) findViewById(R.id.BackButton);
 		nextButton = (Button) findViewById(R.id.NextButton);
@@ -166,6 +200,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	public void loadReviewPublishView() {
+		editingSale.loadDetailsIntoView(detailsView);
 		editReviewPublishView.setVisibility(View.VISIBLE);
 		visibleEditView = editReviewPublishView;
 		
@@ -237,7 +272,15 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	
 	public void NextButtonOnClick(View view) {
 		if (step == editProgressBar.getMax()) {
-			
+			Storage store = new Storage(this);
+			//the id 123456 is just temporary until we can generate ids
+			store.storeSale(editingSale, 13376);
+			store.storeId(13376, Storage.PLANNED_SALES);
+			System.out.println("Storing test sale:");
+			System.out.println("The title of the sale is: " + editingSale.title);
+			System.out.println("The location of the sale is: " + editingSale.location);
+			System.out.println("The description of the sale is: " + editingSale.description);
+			finish();
 		} else {
 			editProgressBar.setProgress(editProgressBar.getProgress() + 1);
 		}
@@ -323,9 +366,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			// TODO Auto-generated method stub
 			EditSaleActivity activity = (EditSaleActivity) getActivity();
 			Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-			String monthString = date.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US);
-			String weekdayString = date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US);
-			String dateString = weekdayString + ", " + monthString + " " + dayOfMonth + ", " + year;
 			EditText dateField;
 			if (activity.selectingStart) {
 				activity.editingSale.startDate = date;
@@ -334,7 +374,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				activity.editingSale.endDate = date;
 				dateField = (EditText) activity.editBasicInfoView.findViewById(R.id.EndDateField);
 			}
-			dateField.setText(dateString);
+			dateField.setText(activity.editingSale.dateString(activity.selectingStart));
 		}
 		
 	}
@@ -362,12 +402,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			System.out.println("CUSTOM: " + hourOfDay);
 			EditSaleActivity activity = (EditSaleActivity) getActivity();
 			Calendar time = new GregorianCalendar(-1, -1, -1, hourOfDay, minute, 0);
-			int hour = time.get(Calendar.HOUR);
-			if (hour == 0) {
-				hour = 12;
-			}
-			String ampmString = time.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.US);
-			String timeString = hour + ":" + minute + " " + ampmString;
 			EditText timeField;
 			if (activity.selectingStart) {
 				activity.editingSale.startTime = time;
@@ -376,7 +410,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				activity.editingSale.endTime = time;
 				timeField = (EditText) activity.editBasicInfoView.findViewById(R.id.EndTimeField);
 			}
-			timeField.setText(timeString);
+			timeField.setText(activity.editingSale.timeString(activity.selectingStart));
 		}
 		
 	}
