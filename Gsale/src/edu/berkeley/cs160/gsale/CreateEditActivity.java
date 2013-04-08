@@ -92,6 +92,14 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 		GarageSale editingSale = (GarageSale) adapter.getItem(position);
 		CreateEditSale(false, editingSale);
 	}
+	
+	/*
+	 * Activity Override
+	 */
+	public void onResume() {
+		super.onResume();
+		adapter.notifyDataSetChanged();
+	}
 
 
 }

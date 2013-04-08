@@ -266,6 +266,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			System.out.println("The title of the sale is: " + editingSale.title);
 			System.out.println("The location of the sale is: " + editingSale.location);
 			System.out.println("The description of the sale is: " + editingSale.description);
+			finish();
 		} else {
 			editProgressBar.setProgress(editProgressBar.getProgress() + 1);
 		}
