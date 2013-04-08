@@ -24,4 +24,5 @@ public class Photo {
 		photos.add(photo);		
 		return photos;
 	}
+	
 }

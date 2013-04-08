@@ -1,11 +1,12 @@
 package edu.berkeley.cs160.gsale;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -45,6 +47,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 
 	public ListView editPhotosListView;
 	public PhotoAdapter photoAdapter;
+	public boolean photoAdded = false;
 	
 	/* Camera Stuff */
 	public static final int MEDIA_TYPE_IMAGE = 1;
@@ -53,7 +56,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	
 
 	public boolean selectingStart; //false = selectingEnd (for date/time)
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -310,9 +313,17 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	    	    Photo p = new Photo();
 	    	    p.bitmap = mImageBitmap;
 	    	    p.description = "";
+	    	    
 	    	    editingSale.mainPhoto = p;
 	    	    editingSale.photos.add(p);
-	            photoAdapter.notifyDataSetChanged();
+	    	    
+	    	    /*
+	    	     * Can't start Fragment in this method. Known bug. Start in onResume
+	    	     * http://stackoverflow.com/questions/10114324/show-dialogfragment-from-onactivityresult
+	    	     */
+	    	    photoAdded = true;
+
+	    	    photoAdapter.notifyDataSetChanged();
 
 	        } else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture
@@ -320,8 +331,17 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	            // Image capture failed, advise user
 	        }
 	    }
-
-
+	}
+	
+	/*
+	 * Activity.onResume
+	 */
+	public void onResume() {
+		super.onResume();
+		if (photoAdded) {
+			createDescriptionDialog();
+		}
+		photoAdded = false;
 	}
 	
 	public void StartDateFieldOnClick(View view) {
@@ -341,7 +361,8 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	
 	public void EndTimeFieldOnClick(View view) {
 		selectingStart = false;
-		createTimePickerDialog();
+		//createTimePickerDialog();
+		createDescriptionDialog();
 	}
 
 	public void createDatePickerDialog() {
@@ -352,6 +373,11 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public void createTimePickerDialog() {
 		DialogFragment newFragment = new TimePickerFragment();
 		newFragment.show(getSupportFragmentManager(), "timePicker");		
+	}
+	
+	public void createDescriptionDialog() {
+		DialogFragment newFragment = new DescriptionDialogFragment();
+		newFragment.show(getSupportFragmentManager(), "photoDescription");		
 	}
 
 	/*
@@ -428,4 +454,27 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		
 	}
 
+	public static class DescriptionDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
+		public static EditText input;
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			//Alert Dialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle("Photo Description");
+			builder.setMessage("Add a description or leave blank");
+			input = new EditText(getActivity());
+			builder.setView(input);
+			builder.setPositiveButton("Ok", this);
+			builder.setNegativeButton("Cancel", this);
+			return builder.create();
+		}
+
+		@Override
+		public void onClick(DialogInterface dialog, int id) {
+			// TODO Auto-generated method stub
+			EditSaleActivity activity = (EditSaleActivity) getActivity();
+			Photo p = activity.editingSale.photos.get(activity.editingSale.photos.size() - 1);
+			p.description = input.getText().toString();
+			activity.photoAdapter.notifyDataSetChanged();
+		}
+	}
 }
