@@ -136,12 +136,16 @@ public class GarageSale implements java.io.Serializable{
 	}
 	
 	// Testing
-	public static GarageSale[] generateSales() {
-		GarageSale sales[] = {new GarageSale(), new GarageSale()};
-		sales[0].title = "Sale this saturday!";
-		sales[0].id = 1244;
-		sales[1].title = "Moving Sale - Sunday!";
-		sales[1].id = 1245;
+	public static ArrayList<GarageSale> generateSales() {
+		ArrayList<GarageSale> sales = new ArrayList<GarageSale>();
+		GarageSale sale = new GarageSale();
+		sale.title = "Sale this saturday!";
+		sale.id = 1244;
+		sales.add(sale);
+		sale = new GarageSale();
+		sale.title = "Moving Sale - Sunday!";
+		sale.id = 1245;
+		sales.add(sale);
 		return sales;
 	}
 	

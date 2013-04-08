@@ -1,5 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -25,6 +26,9 @@ public class HomeActivity extends Activity {
 		 */
 		user = new User();
 		GarageSale.mapIdToSale = new HashMap<Integer, GarageSale>();
+		Storage store = new Storage(this);
+		user.plannedSales = store.getSales(Storage.PLANNED_SALES);
+		
 	}
 
 	@Override

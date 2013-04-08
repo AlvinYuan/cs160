@@ -101,6 +101,7 @@ public class MessagesActivity extends Activity {
 	
 	public void clearData(View view) {
 		TextView result = (TextView)findViewById(R.id.storage_test);
+		HomeActivity.user.plannedSales.clear();
 		data.clearStorage();
 		result.append("Cleared SharedPreferences" + "\n");
 	}

@@ -1,16 +1,19 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GarageSaleAdapter extends ArrayAdapter<GarageSale> {
 	public LayoutInflater inflater;
 	public GarageSaleAdapter(Context context, int textViewResourceId,
-			GarageSale[] objects) {
+			List<GarageSale> objects) {
 		super(context, textViewResourceId, objects);
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// TODO Auto-generated constructor stub
@@ -26,6 +29,9 @@ public class GarageSaleAdapter extends ArrayAdapter<GarageSale> {
 		((TextView) v.findViewById(R.id.title)).setText(item.title);
 		if (item.dateTime(true, true) != null) {
 			((TextView) v.findViewById(R.id.date)).setText(item.dateString(true));
+		}
+		if (item.mainPhoto != null) {
+			((ImageView) v.findViewById(R.id.list_image)).setImageBitmap(item.mainPhoto.bitmap);
 		}
 		return v;
 	}

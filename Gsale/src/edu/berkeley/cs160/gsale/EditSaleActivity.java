@@ -1,6 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.DatePickerDialog;
@@ -8,10 +8,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -24,7 +21,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -87,8 +83,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editLayout.addView(editPhotosView);
 		editPhotosView.setVisibility(View.INVISIBLE);
 		editPhotosListView = (ListView) editPhotosView.findViewById(R.id.EditPhotosListView);
-		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, Photo.generatePhotos(this));
-		editPhotosListView.setAdapter(photoAdapter);		
 
 		/* Review/Publish */
 		editReviewPublishView = inflater.inflate(R.layout.edit_review_publish_view, null);
@@ -135,7 +129,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			
 		} else {
 			editingSale = new GarageSale();
-		}		
+		}
+		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos);
+		editPhotosListView.setAdapter(photoAdapter);
+
 
 		backButton = (Button) findViewById(R.id.BackButton);
 		nextButton = (Button) findViewById(R.id.NextButton);
@@ -282,6 +279,9 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			//the id 123456 is just temporary until we can generate ids
 			store.storeSale(editingSale, 13376);
 			store.storeId(13376, Storage.PLANNED_SALES);
+			if (HomeActivity.user.plannedSales.size() == 0) {
+				HomeActivity.user.plannedSales.add(editingSale);
+			}
 			System.out.println("Storing test sale:");
 			System.out.println("The title of the sale is: " + editingSale.title);
 			System.out.println("The location of the sale is: " + editingSale.location);
@@ -310,7 +310,8 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	    	    Photo p = new Photo();
 	    	    p.bitmap = mImageBitmap;
 	    	    p.description = "";
-	    	    photoAdapter.add(p);
+	    	    editingSale.mainPhoto = p;
+	    	    editingSale.photos.add(p);
 	            photoAdapter.notifyDataSetChanged();
 
 	        } else if (resultCode == RESULT_CANCELED) {
