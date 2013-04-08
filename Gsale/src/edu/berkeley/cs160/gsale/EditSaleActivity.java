@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -49,17 +50,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public ListView editPhotosListView;
 	public PhotoAdapter photoAdapter;
 	
-	
+	/* Camera Stuff */
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	public static final int MEDIA_TYPE_VIDEO = 2;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
-	private static int TAKE_PICTURE = 1;
-	private Uri outputFileUri;
-	private Uri fileUri;
-
-	private ImageView mImageView;
-	private Bitmap mImageBitmap;
 	
 
 	public boolean selectingStart; //false = selectingEnd (for date/time)
@@ -93,8 +87,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editLayout.addView(editPhotosView);
 		editPhotosView.setVisibility(View.INVISIBLE);
 		editPhotosListView = (ListView) editPhotosView.findViewById(R.id.EditPhotosListView);
-		Photo photosList[] = Photo.generatePhotos(this);
-		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, photosList);
+		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, Photo.generatePhotos(this));
 		editPhotosListView.setAdapter(photoAdapter);		
 
 		/* Review/Publish */
@@ -302,11 +295,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public void AddNewPhotoButtonOnClick(View view) {
 	    // create Intent to take a picture and return control to the calling application
 	    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	    File file = new File(Environment.getExternalStorageDirectory(), "test.jpg");
 	    
-	    fileUri = Uri.fromFile(file); // create a file to save the image
-	    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-
 	    // start the image capture Intent
 	    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
@@ -315,11 +304,14 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 	        if (resultCode == RESULT_OK) {
 	            // Image captured and saved to fileUri specified in the Intent
-	            Toast.makeText(this, "Image saved to:\n" +
-	                     data.getData(), Toast.LENGTH_LONG).show();
+	            Toast.makeText(this, "Image Captured!", Toast.LENGTH_LONG).show();
 	    	    Bundle extras = data.getExtras();
-	    	    mImageBitmap = (Bitmap) extras.get("data");
-	    	    mImageView.setImageBitmap(mImageBitmap);
+	    	    Bitmap mImageBitmap = (Bitmap) extras.get("data");
+	    	    Photo p = new Photo();
+	    	    p.bitmap = mImageBitmap;
+	    	    p.description = "";
+	    	    photoAdapter.add(p);
+	            photoAdapter.notifyDataSetChanged();
 
 	        } else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture

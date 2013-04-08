@@ -1,5 +1,7 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,7 @@ import android.widget.TextView;
 public class PhotoAdapter extends ArrayAdapter<Photo> {
 	public LayoutInflater inflater;
 	public PhotoAdapter(Context context, int textViewResourceId,
-			Photo[] objects) {
+			List<Photo> objects) {
 		super(context, textViewResourceId, objects);
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// TODO Auto-generated constructor stub
