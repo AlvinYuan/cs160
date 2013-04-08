@@ -111,7 +111,9 @@ public class GarageSale implements java.io.Serializable{
 	public static GarageSale[] generateSales() {
 		GarageSale sales[] = {new GarageSale(), new GarageSale()};
 		sales[0].title = "Sale this saturday!";
+		sales[0].id = 1244;
 		sales[1].title = "Moving Sale - Sunday!";
+		sales[1].id = 1245;
 		return sales;
 	}
 	

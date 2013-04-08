@@ -32,4 +32,15 @@
         android:text="test retrieve" 
         android:onClick="testRetrieve"/>
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="41dp"
+        android:layout_toRightOf="@+id/store_button2"
+        android:onClick="clearData"
+        android:text="Clear SharedPreferences" />
+
 </RelativeLayout>
