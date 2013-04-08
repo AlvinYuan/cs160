@@ -1,7 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import android.os.Bundle;
 import android.app.Activity;

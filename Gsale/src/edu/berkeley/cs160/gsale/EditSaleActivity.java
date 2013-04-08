@@ -2,7 +2,6 @@ package edu.berkeley.cs160.gsale;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import android.os.Bundle;
 import android.app.DatePickerDialog;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -38,6 +38,8 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public SeekBar editProgressBar;
 	public Button backButton;
 	public Button nextButton;
+	public ListView editPhotosListView;
+	public PhotoAdapter photoAdapter;
 	
 	public boolean selectingStart; //false = selectingEnd (for date/time)
 
@@ -69,6 +71,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editPhotosView = inflater.inflate(R.layout.edit_photos_view, null);
 		editLayout.addView(editPhotosView);
 		editPhotosView.setVisibility(View.INVISIBLE);
+		editPhotosListView = (ListView) editPhotosView.findViewById(R.id.EditPhotosListView);
+		Photo photosList[] = Photo.generatePhotos(this);
+		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, photosList);
+		editPhotosListView.setAdapter(photoAdapter);		
 
 		/* Review/Publish */
 		editReviewPublishView = inflater.inflate(R.layout.edit_review_publish_view, null);

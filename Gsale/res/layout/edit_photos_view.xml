@@ -14,4 +14,14 @@
         android:text="Add New Photo"
         android:onClick="AddNewPhotoButtonOnClick" />
     
+    <ListView
+        android:id="@+id/EditPhotosListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AddNewPhotoButton"
+        android:listSelector="@drawable/list_selector" >
+
+    </ListView>
+    
+    
 </RelativeLayout>
