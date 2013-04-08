@@ -11,8 +11,16 @@
 #proguard.config=${sdk.dir}/tools/proguard/proguard-android.txt:proguard-project.txt
 
 # Project target.
+<<<<<<< HEAD
+target=android-17
+android.library.reference.1=../../../Eclipse Workspace/gridlayout_v7
+android.library.reference.2=../../gridlayout_v7
+android.library.reference.3=../../../../adt-bundle-mac-x86_64/sdk/extras/google/google_play_services/libproject/google-play-services_lib
+android.library.reference.4=../../google_play_services/libproject/google-play-services_lib
+=======
 target=Google Inc.:Google APIs:17
 android.library.reference.1=..\\..\\..\\Eclipse Workspace\\gridlayout_v7
 android.library.reference.2=..\\..\\gridlayout_v7
 android.library.reference.3=..\\..\\..\\..\\adt-bundle-mac-x86_64\\sdk\\extras\\google\\google_play_services\\libproject\\google-play-services_lib
 android.library.reference.4=../../adt-bundle-windows-x86_64/adt-bundle-windows-x86_64/sdk/extras/google/google_play_services/libproject/google-play-services_lib
+>>>>>>> da0c83ea45408aa99757962576fe390f0ee9ecca

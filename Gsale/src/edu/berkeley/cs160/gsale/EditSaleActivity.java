@@ -33,6 +33,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public View editDescriptionView;
 	public View editPhotosView;
 	public View editReviewPublishView;
+	public View detailsView;
 	public View visibleEditView;
 	public SeekBar editProgressBar;
 	public Button backButton;
@@ -82,7 +83,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editLayout.addView(editReviewPublishView);
 		editReviewPublishView.setVisibility(View.INVISIBLE);
 		RelativeLayout editDetailsLayout = (RelativeLayout) editReviewPublishView.findViewById(R.id.EditDetailsLayout);
-		View detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
+		detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
 		editDetailsLayout.addView(detailsView);
 
 		backButton = (Button) findViewById(R.id.BackButton);
@@ -154,6 +155,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	public void loadReviewPublishView() {
+		editingSale.loadDetailsIntoView(detailsView);
 		editReviewPublishView.setVisibility(View.VISIBLE);
 		visibleEditView = editReviewPublishView;
 		
@@ -294,9 +296,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			// TODO Auto-generated method stub
 			EditSaleActivity activity = (EditSaleActivity) getActivity();
 			Calendar date = new GregorianCalendar(year, monthOfYear, dayOfMonth);
-			String monthString = date.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US);
-			String weekdayString = date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US);
-			String dateString = weekdayString + ", " + monthString + " " + dayOfMonth + ", " + year;
 			EditText dateField;
 			if (activity.selectingStart) {
 				activity.editingSale.startDate = date;
@@ -305,7 +304,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				activity.editingSale.endDate = date;
 				dateField = (EditText) activity.editBasicInfoView.findViewById(R.id.EndDateField);
 			}
-			dateField.setText(dateString);
+			dateField.setText(activity.editingSale.dateString(activity.selectingStart));
 		}
 		
 	}
@@ -333,12 +332,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			System.out.println("CUSTOM: " + hourOfDay);
 			EditSaleActivity activity = (EditSaleActivity) getActivity();
 			Calendar time = new GregorianCalendar(-1, -1, -1, hourOfDay, minute, 0);
-			int hour = time.get(Calendar.HOUR);
-			if (hour == 0) {
-				hour = 12;
-			}
-			String ampmString = time.getDisplayName(Calendar.AM_PM, Calendar.SHORT, Locale.US);
-			String timeString = hour + ":" + minute + " " + ampmString;
 			EditText timeField;
 			if (activity.selectingStart) {
 				activity.editingSale.startTime = time;
@@ -347,7 +340,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				activity.editingSale.endTime = time;
 				timeField = (EditText) activity.editBasicInfoView.findViewById(R.id.EndTimeField);
 			}
-			timeField.setText(timeString);
+			timeField.setText(activity.editingSale.timeString(activity.selectingStart));
 		}
 		
 	}

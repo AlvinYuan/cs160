@@ -112,9 +112,10 @@
             android:label="@string/title_activity_details" >
         </activity>
 
+        <!-- Google Maps Android API v2 key -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyC9PCPN7HVreIn7AjHQGOZptLEV1EotKuw" />
+            android:value="AIzaSyAFar8THSeWmrF601hccEIA_l-Aa8jcGUQ" />
     </application>
 
 </manifest>
