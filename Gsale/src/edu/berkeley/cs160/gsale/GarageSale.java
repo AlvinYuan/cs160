@@ -16,6 +16,10 @@ public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
 	public static HashMap<Integer, GarageSale> mapIdToSale = null;
 	
+	/*
+	 * http://stackoverflow.com/questions/15661713/android-calendar-serialization-incompatable-with-java-6/15661858#15661858
+	 * Cannot serialize Calendar fields. Use ints (hour, day, month, etc.) instead
+	 */
 	public Calendar startDate = null;
 	public Calendar endDate = null;
 	public Calendar startTime = null;
