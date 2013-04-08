@@ -1,6 +1,9 @@
 package edu.berkeley.cs160.gsale;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,9 +32,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends Activity implements OnMarkerClickListener,
 		OnInfoWindowClickListener {
-	static final LatLng SALE1 = new LatLng(37.875192, -122.266932);
-	static final LatLng SALE2 = new LatLng(37.877665,-122.25925);
+	static final GarageSale SALE1 = new GarageSale();
+	static final GarageSale SALE2 = new GarageSale();
+	static final LatLng s1_coord = new LatLng(37.875192, -122.266932);
+	static final LatLng s2_coord = new LatLng(37.877665, -122.25925);
 	private GoogleMap map;
+	public HashMap<String, GarageSale> MarkerIdMap = new HashMap<String, GarageSale>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +51,34 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		map.setMyLocationEnabled(true);
 		settings.setMyLocationButtonEnabled(true);
 
+		
+		SALE1.coords = s1_coord;
+		SALE1.id = 1010;
+		SALE1.title = "Bob's Moving Sale!!";
+		SALE1.location = "1780 Spruce St. Berkeley, CA";
+		SALE1.image = R.drawable.saleiconone;
+		SALE1.description = "I'm moving to SF and I need to get rid of some stuff! I'm selling lots of furniture and awesome stuff!";
 
-		Marker sale1 = map.addMarker(new MarkerOptions().position(SALE1).title("Bob's Moving Sale!!").snippet("1780 Spruce St. 10am-2pm"));
-		Marker sale2 = map.addMarker(new MarkerOptions().position(SALE2).title("Alice's Garage Sale TODAY").snippet("1500 LeRoy St. 9am-4pm"));
+		SALE2.coords = s2_coord;
+		SALE2.id = 2020;
+		SALE2.title = "Alice's Garage Sale TODAY";
+		SALE2.location = "1500 LeRoy St. Berkeley, CA";
+		SALE2.image = R.drawable.saleicontwo;
+		SALE2.description = "Stop by my garage sale! I have antiques and rare items for sale.";
 
+		Marker sale1 = map.addMarker(new MarkerOptions().position(SALE1.coords)
+				.title(SALE1.title).snippet(SALE1.location));
+		Marker sale2 = map.addMarker(new MarkerOptions().position(SALE2.coords)
+				.title(SALE2.title).snippet(SALE2.location));
+
+		MarkerIdMap.put(sale1.getId(), SALE1);
+		MarkerIdMap.put(sale2.getId(), SALE2);
+
+		GarageSale.mapIdToSale.put(SALE1.id, SALE1);
+		GarageSale.mapIdToSale.put(SALE2.id, SALE2);
 
 		// Move the camera instantly to soda with a zoom of 15.
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(SALE1, 15));
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(s1_coord, 15));
 
 		// Zoom in, animating the camera.
 		map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
@@ -88,14 +116,23 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 
 				// Setting the details
 				tvDetails.setText(marker.getSnippet());
-				
+
 				// Setting the image
-				
-				tvImage.setImageResource(R.drawable.saleiconone);
+
+				tvImage.setImageResource(MarkerIdMap.get(marker.getId()).image);
 
 				// Returning the view containing InfoWindow contents
 				return v;
 
+			}
+		});
+
+		map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+			public void onInfoWindowClick(Marker marker) {
+				int gsaleId = MarkerIdMap.get(marker.getId()).id;
+				Intent intent = new Intent(MapActivity.this, DetailsActivity.class);
+				intent.putExtra(GarageSale.SALE_ID_KEY, gsaleId);
+				startActivity(intent);
 			}
 		});
 
@@ -104,7 +141,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 			@Override
 			public void onMapClick(LatLng arg0) {
 				// Clears any existing markers from the GoogleMap
-				
+
 			}
 		});
 
@@ -136,9 +173,12 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		Intent intent = new Intent(this, DetailsActivity.class);
-		startActivity(intent);
-
+		// int gsaleId = MarkerIdMap.get(marker.getId());
+		// Intent intent = new Intent(this, DetailsActivity.class);
+		// intent.putExtra(GarageSale.SALE_ID_KEY, gsaleId);
+		// startActivity(intent);
+		//Toast.makeText(getApplicationContext(), "this onclick is working",
+				//Toast.LENGTH_LONG).show();
 	}
 
 	@Override

@@ -5,6 +5,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import android.content.res.Resources;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +27,8 @@ public class GarageSale implements java.io.Serializable{
 	public ArrayList<Photo> photos = null;
 	public Photo mainPhoto = null;
 	public int id; //Unique identifier
+	public LatLng coords = null;
+	public int image;
 	
 	public GarageSale() {
 		photos = new ArrayList<Photo>();
