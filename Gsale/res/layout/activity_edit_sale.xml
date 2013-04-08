@@ -4,21 +4,37 @@
     android:layout_height="match_parent"
     tools:context=".EditSaleActivity" >
 
-    <SeekBar
-        android:id="@+id/EditProgressBar"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/SeekBarLinearLayout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:max="3"
-        android:progress="0" />
+   	    android:layout_alignParentTop="true"
+   	    android:weightSum="8"  >
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+	    <SeekBar
+	        android:id="@+id/EditProgressBar"
+	        android:layout_width="0px"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="6" 
+	        android:max="3"
+    	    android:progress="0" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ProgressBarSubtext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/EditProgressBar"
+        android:layout_below="@+id/SeekBarLinearLayout"
         android:paddingBottom="25dp" >
 	    <TextView
 	        android:id="@+id/ProgressBarTextDetails"
