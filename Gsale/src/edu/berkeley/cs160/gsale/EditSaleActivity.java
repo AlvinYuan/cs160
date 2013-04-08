@@ -1,13 +1,18 @@
 package edu.berkeley.cs160.gsale;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TimePicker;
 import android.support.v4.app.DialogFragment;
@@ -37,7 +43,13 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public SeekBar editProgressBar;
 	public Button backButton;
 	public Button nextButton;
-	
+	public static final int MEDIA_TYPE_IMAGE = 1;
+	public static final int MEDIA_TYPE_VIDEO = 2;
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+	private static int TAKE_PICTURE = 1;
+	private Uri outputFileUri;
+	private Uri fileUri;
 	public boolean selectingStart; //false = selectingEnd (for date/time)
 
 	@Override
@@ -232,7 +244,31 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	public void AddNewPhotoButtonOnClick(View view) {
-		
+	    // create Intent to take a picture and return control to the calling application
+	    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    File file = new File(Environment.getExternalStorageDirectory(), "test.jpg");
+	    
+	    fileUri = Uri.fromFile(file); // create a file to save the image
+	    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+
+	    // start the image capture Intent
+	    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+	        if (resultCode == RESULT_OK) {
+	            // Image captured and saved to fileUri specified in the Intent
+	            Toast.makeText(this, "Image saved to:\n" +
+	                     data.getData(), Toast.LENGTH_LONG).show();
+	        } else if (resultCode == RESULT_CANCELED) {
+	            // User cancelled the image capture
+	        } else {
+	            // Image capture failed, advise user
+	        }
+	    }
+
+
 	}
 	
 	public void StartDateFieldOnClick(View view) {
