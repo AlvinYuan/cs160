@@ -361,8 +361,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	
 	public void EndTimeFieldOnClick(View view) {
 		selectingStart = false;
-		//createTimePickerDialog();
-		createDescriptionDialog();
+		createTimePickerDialog();
 	}
 
 	public void createDatePickerDialog() {
