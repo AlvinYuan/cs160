@@ -12,7 +12,49 @@
         android:layout_alignParentTop="true"
         android:max="3"
         android:progress="0" />
-
+    <LinearLayout
+        android:id="@+id/ProgressBarSubtext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/EditProgressBar"
+        android:paddingBottom="25dp" 
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+	    <TextView
+	        android:id="@+id/ProgressBarTextDetails"
+	        android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+	        android:text="Details" 
+	        android:layout_weight="1"/>
+	    
+	    <TextView
+	        android:id="@+id/ProgressBarTextDescription" 
+	        android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+	        android:text="Description" 
+	        android:layout_weight="1"
+	        android:paddingLeft="30dp"/>
+	    
+	    <TextView
+	        android:id="@+id/ProgressBarTextPhotos" 
+	        android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+	        android:text="Photos" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+	    
+	    <TextView
+	        android:id="@+id/ProgressBarTextReview" 
+	        android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+	        android:text="Review" 
+	        android:layout_weight="1"
+	        android:gravity="right"
+	        android:paddingLeft="60dp"/>
+	</LinearLayout>
+	
     <Button
         android:id="@+id/NextButton"
         android:layout_width="100dp"
@@ -36,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/EditProgressBar" 
+        android:layout_below="@+id/ProgressBarSubtext" 
         android:layout_above="@+id/NextButton" >
 
     </RelativeLayout>
