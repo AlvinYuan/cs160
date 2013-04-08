@@ -464,7 +464,13 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			input = new EditText(getActivity());
 			builder.setView(input);
 			builder.setPositiveButton("Ok", this);
-			builder.setNegativeButton("Cancel", this);
+			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}				
+			});
 			return builder.create();
 		}
 
