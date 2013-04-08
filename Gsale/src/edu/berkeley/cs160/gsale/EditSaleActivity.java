@@ -4,14 +4,19 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NavUtils;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,16 +24,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TimePicker;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
-import android.text.format.DateFormat;
+import android.widget.Toast;
 
 public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener  {
 	public boolean isNewSale;
@@ -47,6 +49,18 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 
 	public ListView editPhotosListView;
 	public PhotoAdapter photoAdapter;
+	
+	
+	public static final int MEDIA_TYPE_IMAGE = 1;
+	public static final int MEDIA_TYPE_VIDEO = 2;
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+	private static int TAKE_PICTURE = 1;
+	private Uri outputFileUri;
+	private Uri fileUri;
+
+	private ImageView mImageView;
+	private Bitmap mImageBitmap;
 	
 
 	public boolean selectingStart; //false = selectingEnd (for date/time)
@@ -304,6 +318,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	            // Image captured and saved to fileUri specified in the Intent
 	            Toast.makeText(this, "Image saved to:\n" +
 	                     data.getData(), Toast.LENGTH_LONG).show();
+	    	    Bundle extras = data.getExtras();
+	    	    mImageBitmap = (Bitmap) extras.get("data");
+	    	    mImageView.setImageBitmap(mImageBitmap);
+
 	        } else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture
 	        } else {
