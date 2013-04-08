@@ -24,4 +24,8 @@ public class Photo {
 		photos.add(photo);		
 		return photos;
 	}
+	
+	public void setDescription(String d){
+		description = d;
+	}
 }
