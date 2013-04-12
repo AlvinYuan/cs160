@@ -13,7 +13,7 @@
         android:weightSum="4" >
 
         <Button
-            android:id="@+id/messages"
+            android:id="@+id/MessagesButton"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -21,7 +21,7 @@
             android:text="Messages" />
 
         <Button
-            android:id="@+id/photos"
+            android:id="@+id/PhotosButton"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -29,15 +29,16 @@
             android:text="Photos" />
 
         <Button
-            android:id="@+id/follow"
+            android:id="@+id/FollowButton"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/follow"
-            android:text="Follow" />
+            android:text="Follow"
+            android:onClick="FollowButtonOnClick" />
 
         <Button
-            android:id="@+id/hide"
+            android:id="@+id/HideButton"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"

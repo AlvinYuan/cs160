@@ -7,12 +7,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 public class DetailsActivity extends Activity {
-	public View detailsView;
 	public GarageSale sale;
 	
+	public View detailsView;
+	public Button followButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +31,8 @@ public class DetailsActivity extends Activity {
 		sale.loadDetailsIntoView(detailsView);
 		detailsLayout.addView(detailsView);
 		
+		followButton = (Button) findViewById(R.id.FollowButton);
+		updateFollowButton();
 	}
 
 	@Override
@@ -55,5 +59,29 @@ public class DetailsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/*
+	 * Method: FollowButtonOnClick
+	 */
+	public void FollowButtonOnClick(View view) {
+		if (User.currentUser.followedSales.contains(sale)) {
+			User.currentUser.followedSales.remove(sale);
+		} else {
+			User.currentUser.followedSales.add(sale);			
+		}
+		updateFollowButton();
+	}
+	
+	/*
+	 * Method: updateFollowButton
+	 * Change Text to "Follow" or "Unfollow"
+	 * TODO: Change Image of Start (filled versus not filled)
+	 */
+	public void updateFollowButton() {
+		if (User.currentUser.followedSales.contains(sale)) {
+			followButton.setText("Unfollow");
+		} else {
+			followButton.setText("Follow");
+		}
+	}
 
 }
