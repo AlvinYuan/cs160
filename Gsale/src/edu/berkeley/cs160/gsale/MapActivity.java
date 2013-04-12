@@ -43,7 +43,10 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		settings.setMyLocationButtonEnabled(true);
 
 		for (int i = 0; i < GarageSale.allSales.size(); i++) {
-			addSaleToMap(GarageSale.allSales.get(i));
+			GarageSale sale = GarageSale.allSales.get(i);
+			if (sale.coords != null) {
+				addSaleToMap(GarageSale.allSales.get(i));				
+			}
 		}
 
 		// Move the camera instantly to soda with a zoom of 15.
