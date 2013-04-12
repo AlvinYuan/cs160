@@ -7,6 +7,8 @@ public class User {
 	public ArrayList<GarageSale> followedSales;
 	public ArrayList<GarageSale> plannedSales;
 	public int id; //Unique Identifier
+	public static User currentUser = null;
+	public static boolean justStartedApp = true; //set to false in HomeActivity
 		
 	public User() {
 		id = User.largestExistingUserId++;

@@ -15,8 +15,12 @@ import android.view.Menu;
 import android.view.View;
 
 public class HomeActivity extends Activity {
-	public static User user;
-
+	/*
+	 * Do not encode state in this activity.
+	 * Pressing the Up button recreates this activity.
+	 * Encode state in other classes as static variables.
+	 * Example: User.currentUser
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,11 +28,15 @@ public class HomeActivity extends Activity {
 		/*
 		 * PROTOTYPING: For now, just set User to new User with id = 0
 		 */
-		user = new User();
-		GarageSale.mapIdToSale = new HashMap<Integer, GarageSale>();
-		Storage store = new Storage(this);
-		user.plannedSales = store.getSales(Storage.PLANNED_SALES);
-		
+		if (User.justStartedApp) {
+			System.out.println("Just Started");
+			User.justStartedApp = false;
+			User.currentUser = new User();			
+			GarageSale.mapIdToSale = new HashMap<Integer, GarageSale>();
+			GarageSale.allSales = new ArrayList<GarageSale>();
+			Storage store = new Storage(this);
+			User.currentUser.plannedSales = store.getSales(Storage.PLANNED_SALES);
+		}		
 	}
 
 	@Override
@@ -102,6 +110,5 @@ public class HomeActivity extends Activity {
 		Intent intent = new Intent(this, DummyCamera.class);
 		startActivity(intent);
 	}
-
 
 }

@@ -16,6 +16,7 @@ public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
 	public static int INVALID = -1;
 	public static HashMap<Integer, GarageSale> mapIdToSale = null;
+	public static ArrayList<GarageSale> allSales = null;
 	
 	/*
 	 * http://stackoverflow.com/questions/15661713/android-calendar-serialization-incompatable-with-java-6/15661858#15661858

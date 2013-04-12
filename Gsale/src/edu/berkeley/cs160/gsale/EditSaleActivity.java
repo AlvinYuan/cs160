@@ -21,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -289,17 +288,19 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	
 	public void NextButtonOnClick(View view) {
 		if (step == editProgressBar.getMax()) {
-			Storage store = new Storage(this);
+			//Storage store = new Storage(this);
 			//the id 123456 is just temporary until we can generate ids
-			store.storeSale(editingSale, 13376);
-			store.storeId(13376, Storage.PLANNED_SALES);
-			if (HomeActivity.user.plannedSales.size() == 0) {
-				HomeActivity.user.plannedSales.add(editingSale);
+			//store.storeSale(editingSale, 13376);
+			//store.storeId(13376, Storage.PLANNED_SALES);
+			if (User.currentUser.plannedSales.size() == 0) {
+				User.currentUser.plannedSales.add(editingSale);
 			}
+			/*
 			System.out.println("Storing test sale:");
 			System.out.println("The title of the sale is: " + editingSale.title);
 			System.out.println("The location of the sale is: " + editingSale.location);
 			System.out.println("The description of the sale is: " + editingSale.description);
+			*/
 			finish();
 		} else {
 			editProgressBar.setProgress(editProgressBar.getProgress() + 1);

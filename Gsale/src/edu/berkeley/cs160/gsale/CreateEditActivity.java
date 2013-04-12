@@ -1,7 +1,5 @@
 package edu.berkeley.cs160.gsale;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -27,8 +25,7 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.MySalesListView);
-		System.out.println("The size of storedSales is: " + HomeActivity.user.plannedSales.size());
-		adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, HomeActivity.user.plannedSales);
+		adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.plannedSales);
 		l.setAdapter(adapter);
 		l.setOnItemClickListener(this);
 	}
