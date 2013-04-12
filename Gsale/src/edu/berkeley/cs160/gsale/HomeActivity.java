@@ -29,13 +29,7 @@ public class HomeActivity extends Activity {
 		 * PROTOTYPING: For now, just set User to new User with id = 0
 		 */
 		if (User.justStartedApp) {
-			System.out.println("Just Started");
-			User.justStartedApp = false;
-			User.currentUser = new User();			
-			GarageSale.mapIdToSale = new HashMap<Integer, GarageSale>();
-			GarageSale.allSales = new ArrayList<GarageSale>();
-			Storage store = new Storage(this);
-			User.currentUser.plannedSales = store.getSales(Storage.PLANNED_SALES);
+			onAppStartup();
 		}		
 	}
 
@@ -111,4 +105,18 @@ public class HomeActivity extends Activity {
 		startActivity(intent);
 	}
 
+	/*
+	 * Method: onAppStartup
+	 * Runs only once per launching of the app
+	 */
+	public void onAppStartup() {
+		System.out.println("Just Started");
+		User.justStartedApp = false;
+		User.currentUser = new User();			
+		GarageSale.idToSaleMap = new HashMap<Integer, GarageSale>();
+		GarageSale.allSales = new ArrayList<GarageSale>();
+		GarageSale.generateAllSales(this);
+		Storage store = new Storage(this);
+		User.currentUser.plannedSales = store.getSales(Storage.PLANNED_SALES);
+	}
 }

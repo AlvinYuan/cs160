@@ -8,6 +8,8 @@ import java.util.Locale;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,9 +17,17 @@ import android.widget.TextView;
 public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
 	public static int INVALID = -1;
-	public static HashMap<Integer, GarageSale> mapIdToSale = null;
+	public static HashMap<Integer, GarageSale> idToSaleMap = null;
 	public static ArrayList<GarageSale> allSales = null;
 	
+	/* Instance Variables */
+	/* General */
+	public int id; //Unique identifier
+	public String title = null;
+	public String description = null;
+	public User planner = null;
+
+	/* Date and Time */
 	/*
 	 * http://stackoverflow.com/questions/15661713/android-calendar-serialization-incompatable-with-java-6/15661858#15661858
 	 * Cannot serialize Calendar fields. Use ints (hour, day, month, etc.) instead
@@ -32,15 +42,14 @@ public class GarageSale implements java.io.Serializable{
 	public int endDay = INVALID;
 	public int endHour = INVALID;
 	public int endMinute = INVALID;
-	public String title = null;
-	public String description = null;
+	
+	/* Location */
 	public String location = null;
-	public User planner = null;
+	public LatLng coords = null;
+	
+	/* Photos */
 	public ArrayList<Photo> photos = null;
 	public Photo mainPhoto = null;
-	public int id; //Unique identifier
-	public LatLng coords = null;
-	public int image;
 	
 	public GarageSale() {
 		photos = new ArrayList<Photo>();
@@ -136,18 +145,46 @@ public class GarageSale implements java.io.Serializable{
 		}
 	}
 	
-	// Testing
-	public static ArrayList<GarageSale> generateSales() {
-		ArrayList<GarageSale> sales = new ArrayList<GarageSale>();
-		GarageSale sale = new GarageSale();
-		sale.title = "Sale this saturday!";
-		sale.id = 1244;
-		sales.add(sale);
-		sale = new GarageSale();
-		sale.title = "Moving Sale - Sunday!";
-		sale.id = 1245;
-		sales.add(sale);
-		return sales;
+	/*
+	 * Prototyping Purposes Only
+	 * Fills in sales (for map view) in GarageSales.allSales
+	 */
+	public static void generateAllSales(Context context) {
+		Photo p;
+
+		/* GarageSale 1 */
+		GarageSale SALE1 = new GarageSale();
+		LatLng s1_coord = new LatLng(37.875192, -122.266932);
+		SALE1.coords = s1_coord;
+		SALE1.id = 1010;
+		SALE1.title = "Bob's Moving Sale!!";
+		SALE1.location = "1780 Spruce St. Berkeley, CA";
+		p = new Photo();
+		p.bitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.saleiconone);
+		SALE1.photos.add(p);
+		SALE1.mainPhoto = p;
+		SALE1.description = "I'm moving to SF and I need to get rid of some stuff! I'm selling lots of furniture and awesome stuff!";
+
+		/* GarageSale 2 */
+		GarageSale SALE2 = new GarageSale();
+		LatLng s2_coord = new LatLng(37.877665, -122.25925);
+		SALE2.coords = s2_coord;
+		SALE2.id = 2020;
+		SALE2.title = "Alice's Garage Sale TODAY";
+		SALE2.location = "1500 LeRoy St. Berkeley, CA";
+		p = new Photo();
+		p.bitmap = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.saleicontwo);
+		SALE2.photos.add(p);
+		SALE2.mainPhoto = p;
+		SALE2.description = "Stop by my garage sale! I have antiques and rare items for sale.";
+
+		/* Add to allSales and mapIdToSale */
+		allSales.add(SALE1);
+		idToSaleMap.put(SALE1.id, SALE1);
+		allSales.add(SALE2);
+		idToSaleMap.put(SALE2.id, SALE2);
 	}
 	
 }

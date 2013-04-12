@@ -21,7 +21,7 @@ public class DetailsActivity extends Activity {
 
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt(GarageSale.SALE_ID_KEY);
-		sale = GarageSale.mapIdToSale.get(id);
+		sale = GarageSale.idToSaleMap.get(id);
 		
 		RelativeLayout detailsLayout = (RelativeLayout) findViewById(R.id.DetailsLayout);
 		LayoutInflater inflater = getLayoutInflater();
