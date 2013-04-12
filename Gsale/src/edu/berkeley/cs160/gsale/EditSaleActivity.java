@@ -9,12 +9,14 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.text.format.DateFormat;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -143,7 +145,16 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editProgressBar = (SeekBar) findViewById(R.id.EditProgressBar);
 		editProgressBar.setOnSeekBarChangeListener(this);
 		onProgressChanged(editProgressBar, 0, false); // Trigger on activity creation
-
+		/* Fix Layout to look nice with text */
+		int padding = editProgressBar.getPaddingLeft();
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		int width = size.x;
+		int margin = width * 1/8 - padding;
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) editProgressBar.getLayoutParams();
+		params.setMargins(margin, 0, margin, 0);
+		editProgressBar.setLayoutParams(params);
 	}
 
 	@Override

@@ -4,29 +4,12 @@
     android:layout_height="match_parent"
     tools:context=".EditSaleActivity" >
 
-    <LinearLayout
-        android:id="@+id/SeekBarLinearLayout"
-        android:layout_width="fill_parent"
+    <SeekBar
+        android:id="@+id/EditProgressBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentLeft="true"
-   	    android:layout_alignParentTop="true"
-   	    android:weightSum="8"  >
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-	    <SeekBar
-	        android:id="@+id/EditProgressBar"
-	        android:layout_width="0px"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="6" 
-	        android:max="3"
-    	    android:progress="0" />
-    </LinearLayout>
+        android:max="3"
+   	    android:progress="0" />
 
     <LinearLayout
         android:id="@+id/ProgressBarSubtext"
@@ -34,7 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/SeekBarLinearLayout"
+        android:layout_below="@+id/EditProgressBar"
         android:paddingBottom="25dp" >
 	    <TextView
 	        android:id="@+id/ProgressBarTextDetails"
@@ -58,7 +41,7 @@
    		    android:layout_height="wrap_content"
 	        android:text="Photos" 
 	        android:layout_weight="1"
-	        android:gravity="center"/>
+	        android:gravity="center" />
 	    
 	    <TextView
 	        android:id="@+id/ProgressBarTextReview" 
