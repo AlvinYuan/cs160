@@ -4,9 +4,14 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
 
-public class FollowedActivity extends Activity {
+public class FollowedActivity extends Activity implements OnItemClickListener {
+	public GarageSaleAdapter followedSalesAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +19,12 @@ public class FollowedActivity extends Activity {
 		setContentView(R.layout.activity_followed);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		/* ListView */
+		ListView l = (ListView) findViewById(R.id.FollowedSalesListView);
+		followedSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.followedSales);
+		l.setAdapter(followedSalesAdapter);
+		l.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -38,6 +49,20 @@ public class FollowedActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		GarageSale sale = (GarageSale) followedSalesAdapter.getItem(position);
+		sale.startDetailsActivity(this);
+	}
+	
+	/*
+	 * Activity Override
+	 */
+	public void onResume() {
+		super.onResume();
+		followedSalesAdapter.notifyDataSetChanged();
 	}
 
 }

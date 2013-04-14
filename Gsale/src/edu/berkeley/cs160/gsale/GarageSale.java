@@ -9,6 +9,7 @@ import java.util.Locale;
 import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
@@ -145,6 +146,11 @@ public class GarageSale implements java.io.Serializable{
 		}
 	}
 	
+	public void startDetailsActivity(Context context) {
+		Intent intent = new Intent(context, DetailsActivity.class);
+		intent.putExtra(GarageSale.SALE_ID_KEY, id);
+		context.startActivity(intent);
+	}
 	/*
 	 * Prototyping Purposes Only
 	 * Fills in sales (for map view) in GarageSales.allSales

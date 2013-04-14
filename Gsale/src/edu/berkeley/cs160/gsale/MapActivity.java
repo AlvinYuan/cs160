@@ -138,10 +138,8 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		int gsaleId = MarkerIdMap.get(marker.getId()).id;
-		Intent intent = new Intent(this, DetailsActivity.class);
-		intent.putExtra(GarageSale.SALE_ID_KEY, gsaleId);
-		startActivity(intent);
+		GarageSale sale = MarkerIdMap.get(marker.getId());
+		sale.startDetailsActivity(this);
 	}
 	
 	@Override

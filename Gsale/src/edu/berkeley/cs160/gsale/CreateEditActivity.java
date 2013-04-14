@@ -14,7 +14,7 @@ import android.support.v4.app.NavUtils;
 public class CreateEditActivity extends Activity implements OnItemClickListener {
 	public static String IS_NEW_SALE_KEY = "IS_NEW_SALE_KEY";
 
-	public GarageSaleAdapter adapter;
+	public GarageSaleAdapter mySalesAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,8 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.MySalesListView);
-		adapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.plannedSales);
-		l.setAdapter(adapter);
+		mySalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.plannedSales);
+		l.setAdapter(mySalesAdapter);
 		l.setOnItemClickListener(this);
 	}
 
@@ -78,7 +78,7 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		GarageSale editingSale = (GarageSale) adapter.getItem(position);
+		GarageSale editingSale = (GarageSale) mySalesAdapter.getItem(position);
 		CreateEditSale(false, editingSale);
 	}
 	
@@ -87,7 +87,7 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 	 */
 	public void onResume() {
 		super.onResume();
-		adapter.notifyDataSetChanged();
+		mySalesAdapter.notifyDataSetChanged();
 	}
 
 
