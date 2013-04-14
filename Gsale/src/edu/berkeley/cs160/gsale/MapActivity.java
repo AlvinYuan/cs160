@@ -44,7 +44,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 
 		for (int i = 0; i < GarageSale.allSales.size(); i++) {
 			GarageSale sale = GarageSale.allSales.get(i);
-			if (sale.coords != null) {
+			if (sale.coords != null && !User.currentUser.hiddenSales.contains(sale)) {
 				addSaleToMap(GarageSale.allSales.get(i));				
 			}
 		}

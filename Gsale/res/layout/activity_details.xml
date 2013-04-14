@@ -43,7 +43,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/hide"
-            android:text="Hide" />
+            android:text="Hide" 
+            android:onClick="HideButtonOnClick" />
     </LinearLayout>
 
     <RelativeLayout

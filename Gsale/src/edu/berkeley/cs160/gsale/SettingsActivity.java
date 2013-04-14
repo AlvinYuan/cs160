@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 
 public class SettingsActivity extends Activity {
@@ -40,4 +41,10 @@ public class SettingsActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/*
+	 * Method: UnhideAllSalesButtonOnClick
+	 */
+	public void UnhideAllSalesButtonOnClick(View view) {
+		User.currentUser.hiddenSales.clear();
+	}
 }

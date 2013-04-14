@@ -15,6 +15,7 @@ public class DetailsActivity extends Activity {
 	
 	public View detailsView;
 	public Button followButton;
+	public Button hideButton;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,7 +33,9 @@ public class DetailsActivity extends Activity {
 		detailsLayout.addView(detailsView);
 		
 		followButton = (Button) findViewById(R.id.FollowButton);
+		hideButton = (Button) findViewById(R.id.HideButton);
 		updateFollowButton();
+		updateHideButton();
 	}
 
 	@Override
@@ -84,4 +87,28 @@ public class DetailsActivity extends Activity {
 		}
 	}
 
+	/*
+	 * Method: HideButtonOnClick
+	 */
+	public void HideButtonOnClick(View view) {
+		if (User.currentUser.hiddenSales.contains(sale)) {
+			User.currentUser.hiddenSales.remove(sale);
+		} else {
+			User.currentUser.hiddenSales.add(sale);			
+		}
+		updateHideButton();
+	}
+
+	/*
+	 * Method: updateHideButton
+	 * Change Text to "Hide" or "Unhide"
+	 * TODO: Change Image of Start (hidden versus not hidden)
+	 */
+	public void updateHideButton() {
+		if (User.currentUser.hiddenSales.contains(sale)) {
+			hideButton.setText("Unhide");
+		} else {
+			hideButton.setText("Hide");
+		}
+	}
 }
