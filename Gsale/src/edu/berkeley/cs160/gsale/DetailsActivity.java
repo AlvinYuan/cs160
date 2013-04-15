@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 public class DetailsActivity extends Activity {
 	public GarageSale sale;
+	public String parentActivity;
 	
 	public View detailsView;
 	public Button followButton;
@@ -25,6 +26,8 @@ public class DetailsActivity extends Activity {
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt(GarageSale.SALE_ID_KEY);
 		sale = GarageSale.idToSaleMap.get(id);
+
+		parentActivity = extras.getString(GarageSale.DETAILS_ACTIVITY_PARENT_KEY);
 		
 		RelativeLayout detailsLayout = (RelativeLayout) findViewById(R.id.DetailsLayout);
 		LayoutInflater inflater = getLayoutInflater();
@@ -35,7 +38,6 @@ public class DetailsActivity extends Activity {
 		followButton = (Button) findViewById(R.id.FollowButton);
 		hideButton = (Button) findViewById(R.id.HideButton);
 		updateFollowButton();
-		updateHideButton();
 	}
 
 	@Override
@@ -89,26 +91,16 @@ public class DetailsActivity extends Activity {
 
 	/*
 	 * Method: HideButtonOnClick
+	 * TODO: Ask for confirmation via pop-up (possibly inform user can be undone in Settings)
 	 */
 	public void HideButtonOnClick(View view) {
-		if (User.currentUser.hiddenSales.contains(sale)) {
-			User.currentUser.hiddenSales.remove(sale);
-		} else {
-			User.currentUser.hiddenSales.add(sale);			
-		}
-		updateHideButton();
-	}
-
-	/*
-	 * Method: updateHideButton
-	 * Change Text to "Hide" or "Unhide"
-	 * TODO: Change Image of Start (hidden versus not hidden)
-	 */
-	public void updateHideButton() {
-		if (User.currentUser.hiddenSales.contains(sale)) {
-			hideButton.setText("Unhide");
-		} else {
-			hideButton.setText("Hide");
+		if (GarageSale.allSales.remove(sale)) {
+			User.currentUser.hiddenSales.add(sale);
+			User.currentUser.followedSales.remove(sale);
+			if (parentActivity.equals(GarageSale.MAP_ACTIVITY)) {
+				MapActivity.sourceMarker.remove();
+			}
+			finish();
 		}
 	}
 }

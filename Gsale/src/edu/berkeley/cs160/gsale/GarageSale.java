@@ -17,6 +17,11 @@ import android.widget.TextView;
 
 public class GarageSale implements java.io.Serializable{
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
+	public static String DETAILS_ACTIVITY_PARENT_KEY = "DETAIL_ACTIVITY_PARENT_KEY";
+	public static String MAP_ACTIVITY = "MAP_ACTIVTY";
+	public static String SEARCH_ACTIVITY = "SEARCH_ACTIVITY";
+	public static String FOLLOWED_ACTIVITY = "FOLLOWED_ACTIVITY";
+	
 	public static int INVALID = -1;
 	public static HashMap<Integer, GarageSale> idToSaleMap = null;
 	public static ArrayList<GarageSale> allSales = null;
@@ -148,7 +153,18 @@ public class GarageSale implements java.io.Serializable{
 	
 	public void startDetailsActivity(Context context) {
 		Intent intent = new Intent(context, DetailsActivity.class);
-		intent.putExtra(GarageSale.SALE_ID_KEY, id);
+		intent.putExtra(SALE_ID_KEY, id);
+		String parentActivity = "";
+		if (context instanceof MapActivity) {
+			parentActivity = MAP_ACTIVITY;
+		} else if (context instanceof SearchActivity) {
+			parentActivity = SEARCH_ACTIVITY;
+		} else if (context instanceof FollowedActivity) {
+			parentActivity = FOLLOWED_ACTIVITY;
+		}
+		System.out.println(parentActivity);
+		intent.putExtra(DETAILS_ACTIVITY_PARENT_KEY, parentActivity);
+
 		context.startActivity(intent);
 	}
 	/*

@@ -3,7 +3,6 @@ package edu.berkeley.cs160.gsale;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -28,6 +27,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		OnInfoWindowClickListener {
 	private GoogleMap map;
 	public HashMap<String, GarageSale> MarkerIdMap = new HashMap<String, GarageSale>();
+	public static Marker sourceMarker = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +44,15 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 
 		for (int i = 0; i < GarageSale.allSales.size(); i++) {
 			GarageSale sale = GarageSale.allSales.get(i);
-			if (sale.coords != null && !User.currentUser.hiddenSales.contains(sale)) {
+			if (sale.coords != null) {
 				addSaleToMap(GarageSale.allSales.get(i));				
 			}
 		}
 
 		// Move the camera instantly to soda with a zoom of 15.
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(GarageSale.allSales.get(0).coords, 15));
+		//TODO: Center camera on current location
+		LatLng hardcoded_coord = new LatLng(37.875192, -122.266932);
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(hardcoded_coord, 15));
 
 		// Zoom in, animating the camera.
 		map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
@@ -72,7 +74,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 						R.layout.custom_infowindow_contents, null);
 
 				// Getting the position from the marker
-				LatLng latLng = marker.getPosition();
+				//LatLng latLng = marker.getPosition();
 
 				// Getting reference to the TextView to set title
 				TextView tvTitle = (TextView) v.findViewById(R.id.tv_title);
@@ -139,12 +141,12 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 	@Override
 	public void onInfoWindowClick(Marker marker) {
 		GarageSale sale = MarkerIdMap.get(marker.getId());
+		sourceMarker = marker;
 		sale.startDetailsActivity(this);
 	}
 	
 	@Override
 	public boolean onMarkerClick(Marker marker) {
-		// TODO Auto-generated method stub
 		marker.showInfoWindow();
 		return true;
 	}

@@ -4,16 +4,27 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
 
-public class SearchActivity extends Activity {
-
+public class SearchActivity extends Activity implements OnItemClickListener {
+	public GarageSaleAdapter SearchSalesAdapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		/* ListView */
+		ListView l = (ListView) findViewById(R.id.SearchSalesListView);
+		SearchSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, GarageSale.allSales);
+		l.setAdapter(SearchSalesAdapter);
+		l.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -40,4 +51,21 @@ public class SearchActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/*
+	 * Activity Override
+	 */
+	public void onResume() {
+		super.onResume();
+		SearchSalesAdapter.notifyDataSetChanged();
+	}
+
+	/*
+	 * AdapterView.OnItemClickListener Interface
+	 * Specifically for @+id/MySalesListView
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		GarageSale sale = (GarageSale) SearchSalesAdapter.getItem(position);
+		sale.startDetailsActivity(this);
+	}
 }
