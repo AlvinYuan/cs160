@@ -35,7 +35,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical" 
             android:weightSum="3" >
-
+			
+			<!--
+			Old Button Style
             <Button
                 android:id="@+id/SearchSalesButton"
                 android:layout_width="match_parent"
@@ -44,24 +46,102 @@
 				android:drawableTop="@drawable/search"
                 android:text="Search Sales"
                 android:onClick="SearchSalesButtonOnClick" />
+                
+            If you want LinearLayout with button background, do
 
-            <Button
-                android:id="@+id/FollowedSalesButton"
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1"
-				android:drawableTop="@drawable/follow"
-                android:text="Followed Sales"
-                android:onClick="FollowedSalesButtonOnClick" />
+	            android:background="@android:drawable/btn_default"
+	            
+	        This isn't a perfect match with holo_light style buttons (slight white gradient at the top)
+	        But this is the best you can do I think. Unless you copy android-sdk:
+	        http://stackoverflow.com/questions/9652811/where-is-the-source-code-for-androids-button-widget-style
+             -->
+			
+			<LinearLayout
+			    android:id="@+id/SearchSalesButton"
+			    android:layout_width="match_parent"
+			    android:layout_height="0px"
+			    android:layout_weight="1"
+			    style="?android:attr/borderlessButtonStyle"
+			    android:clickable="true"
+			    android:onClick="SearchSalesButtonOnClick"
+			    android:orientation="vertical"
+			    android:weightSum="2" >
 
-            <Button
-                android:id="@+id/CreateEditSalesButton"
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1"
-				android:drawableTop="@drawable/mysales"
-                android:text="Create/Edit Sales"
-                android:onClick="CreateEditSalesButtonOnClick" />
+    			<ImageView
+        			android:id="@+id/img"
+        			android:layout_width="match_parent"
+        			android:layout_height="0px"
+        			android:layout_weight="1"
+        			android:src="@drawable/search" />
+
+    			<TextView
+    			    android:id="@+id/textView2"
+    			    android:layout_width="match_parent"
+    			    android:layout_height="0px"
+    			    android:layout_weight="1"
+    			    android:gravity="center_horizontal"
+    			    android:text="Search Sales"
+    			    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+          	</LinearLayout>
+          	
+          	<LinearLayout
+			    android:id="@+id/FollowedSalesButton"
+			    android:layout_width="match_parent"
+			    android:layout_height="0px"
+			    android:layout_weight="1"
+			    style="?android:attr/borderlessButtonStyle"
+			    android:clickable="true"
+			    android:onClick="FollowedSalesButtonOnClick"
+			    android:orientation="vertical"
+			    android:weightSum="2" >
+
+    			<ImageView
+        			android:id="@+id/img"
+        			android:layout_width="match_parent"
+        			android:layout_height="0px"
+        			android:layout_weight="1"
+        			android:src="@drawable/follow" />
+
+    			<TextView
+    			    android:id="@+id/textView2"
+    			    android:layout_width="match_parent"
+    			    android:layout_height="0px"
+    			    android:layout_weight="1"
+    			    android:gravity="center_horizontal"
+    			    android:text="Followed Sales"
+    			    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+          	</LinearLayout>
+
+           	<LinearLayout
+			    android:id="@+id/CreateEditSalesButton"
+			    android:layout_width="match_parent"
+			    android:layout_height="0px"
+			    android:layout_weight="1"
+			    style="?android:attr/borderlessButtonStyle"
+			    android:clickable="true"
+			    android:onClick="CreateEditSalesButtonOnClick"
+			    android:orientation="vertical"
+			    android:weightSum="2" >
+
+    			<ImageView
+        			android:id="@+id/img"
+        			android:layout_width="match_parent"
+        			android:layout_height="0px"
+        			android:layout_weight="1"
+        			android:src="@drawable/mysales" />
+
+    			<TextView
+    			    android:id="@+id/textView2"
+    			    android:layout_width="match_parent"
+    			    android:layout_height="0px"
+    			    android:layout_weight="1"
+    			    android:gravity="center_horizontal"
+    			    android:text="Create/Edit Sales"
+    			    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+          	</LinearLayout>          	         	
 
         </LinearLayout>
 
@@ -71,33 +151,93 @@
             android:layout_height="match_parent"
             android:orientation="vertical" 
             android:weightSum="3" >
+           	
+			<LinearLayout
+			    android:id="@+id/ViewMapButton"
+			    android:layout_width="match_parent"
+			    android:layout_height="0px"
+			    android:layout_weight="1"
+			    style="?android:attr/borderlessButtonStyle"
+			    android:clickable="true"
+			    android:onClick="ViewMapButtonOnClick"
+			    android:orientation="vertical"
+			    android:weightSum="2" >
 
-            <Button
-                android:id="@+id/ViewMapButton"
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1"
-				android:drawableTop="@drawable/map"
-                android:text="View Map"
-                android:onClick="ViewMapButtonOnClick" />
+    			<ImageView
+        			android:id="@+id/img"
+        			android:layout_width="match_parent"
+        			android:layout_height="0px"
+        			android:layout_weight="1"
+        			android:src="@drawable/map" />
 
-            <Button
-                android:id="@+id/SendViewMessagesButton"
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1"
-				android:drawableTop="@drawable/message"
-                android:text="Send/View Messages"
-                android:onClick="SendViewMessagesButtonOnClick" />
+    			<TextView
+    			    android:id="@+id/textView2"
+    			    android:layout_width="match_parent"
+    			    android:layout_height="0px"
+    			    android:layout_weight="1"
+    			    android:gravity="center_horizontal"
+    			    android:text="View Map"
+    			    android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <Button
-                android:id="@+id/SettingsButton"
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:layout_weight="1"
-				android:drawableTop="@drawable/settings"
-                android:text="Settings"
-                android:onClick="SettingsButtonOnClick" />
+          	</LinearLayout>
+          	
+          	<LinearLayout
+			    android:id="@+id/SendViewMessagesButton"
+			    android:layout_width="match_parent"
+			    android:layout_height="0px"
+			    android:layout_weight="1"
+			    style="?android:attr/borderlessButtonStyle"
+			    android:clickable="true"
+			    android:onClick="SendViewMessagesButtonOnClick"
+			    android:orientation="vertical"
+			    android:weightSum="2" >
+
+    			<ImageView
+        			android:id="@+id/img"
+        			android:layout_width="match_parent"
+        			android:layout_height="0px"
+        			android:layout_weight="1"
+        			android:src="@drawable/message" />
+
+    			<TextView
+    			    android:id="@+id/textView2"
+    			    android:layout_width="match_parent"
+    			    android:layout_height="0px"
+    			    android:layout_weight="1"
+    			    android:gravity="center_horizontal"
+    			    android:text="Send/View Messages"
+    			    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+          	</LinearLayout>
+
+           	<LinearLayout
+			    android:id="@+id/SettingsButton"
+			    android:layout_width="match_parent"
+			    android:layout_height="0px"
+			    android:layout_weight="1"
+			    style="?android:attr/borderlessButtonStyle"
+			    android:clickable="true"
+			    android:onClick="SettingsButtonOnClick"
+			    android:orientation="vertical"
+			    android:weightSum="2" >
+
+    			<ImageView
+        			android:id="@+id/img"
+        			android:layout_width="match_parent"
+        			android:layout_height="0px"
+        			android:layout_weight="1"
+        			android:src="@drawable/settings" />
+
+    			<TextView
+    			    android:id="@+id/textView2"
+    			    android:layout_width="match_parent"
+    			    android:layout_height="0px"
+    			    android:layout_weight="1"
+    			    android:gravity="center_horizontal"
+    			    android:text="Settings"
+    			    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+          	</LinearLayout>
 
         </LinearLayout>
 
