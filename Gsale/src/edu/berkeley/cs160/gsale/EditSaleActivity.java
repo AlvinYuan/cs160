@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -387,8 +390,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	public void createDescriptionDialog() {
-		DialogFragment newFragment = new DescriptionDialogFragment();
-		newFragment.show(getSupportFragmentManager(), "photoDescription");		
+		DescriptionDialogFragment newFragment = new DescriptionDialogFragment();
+		newFragment.show(getSupportFragmentManager(), "photoDescription");
+        //InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        //imm.showSoftInput(newFragment.input, InputMethodManager.SHOW_IMPLICIT);
 	}
 
 	/*
@@ -466,13 +471,14 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 
 	public static class DescriptionDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
-		public static EditText input;
+		public EditText input;
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			//Alert Dialog
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			builder.setTitle("Photo Description");
 			builder.setMessage("Add a description or leave blank");
 			input = new EditText(getActivity());
+
 			builder.setView(input);
 			builder.setPositiveButton("Ok", this);
 			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -482,7 +488,17 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 					
 				}				
 			});
-			return builder.create();
+			/* http://stackoverflow.com/questions/2403632/android-show-soft-keyboard-automatically-when-focus-is-on-an-edittext */
+			final AlertDialog dialog = builder.create();
+			input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			    @Override
+			    public void onFocusChange(View v, boolean hasFocus) {
+			        if (hasFocus) {
+			            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+			        }
+			    }
+			});
+			return dialog;
 		}
 
 		@Override
