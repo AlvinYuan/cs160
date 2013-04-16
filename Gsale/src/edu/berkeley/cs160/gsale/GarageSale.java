@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GarageSale implements java.io.Serializable{
+	public static String HAS_SALE_ID_KEY = "HAS_SALE_ID_KEY";
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
 	public static String DETAILS_ACTIVITY_PARENT_KEY = "DETAIL_ACTIVITY_PARENT_KEY";
 	public static String MAP_ACTIVITY = "MAP_ACTIVTY";

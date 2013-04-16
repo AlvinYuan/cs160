@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 
 public class CreateEditActivity extends Activity implements OnItemClickListener {
-	public static String IS_NEW_SALE_KEY = "IS_NEW_SALE_KEY";
 
 	public GarageSaleAdapter mySalesAdapter;
 
@@ -58,13 +57,13 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 	 * Method: CreateNewSaleButtonOnClick
 	 */
 	public void CreateNewSaleButtonOnClick(View view) {
-		CreateEditSale(true, null);
+		CreateEditSale(false, null);
 	}
 	
-	public void CreateEditSale(boolean isNewSale, GarageSale editingSale) {
+	public void CreateEditSale(boolean isEditing, GarageSale editingSale) {
 		Intent intent = new Intent(this, EditSaleActivity.class);
-		intent.putExtra(IS_NEW_SALE_KEY, isNewSale);
-		if (!isNewSale) {
+		intent.putExtra(GarageSale.HAS_SALE_ID_KEY, isEditing);
+		if (isEditing) {
 			GarageSale.idToSaleMap.put(editingSale.id, editingSale);
 			intent.putExtra(GarageSale.SALE_ID_KEY, editingSale.id);
 		}
@@ -79,7 +78,7 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		GarageSale editingSale = (GarageSale) mySalesAdapter.getItem(position);
-		CreateEditSale(false, editingSale);
+		CreateEditSale(true, editingSale);
 	}
 	
 	/*

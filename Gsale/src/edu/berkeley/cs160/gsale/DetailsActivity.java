@@ -1,8 +1,14 @@
 package edu.berkeley.cs160.gsale;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -102,5 +108,38 @@ public class DetailsActivity extends Activity {
 			}
 			finish();
 		}
+	}
+	
+	/*
+	 * Method: ViewOnMapButtonOnClick
+	 */
+	public void ViewOnMapButtonOnClick(View view) {
+		if (parentActivity.equals(GarageSale.MAP_ACTIVITY)) {
+			/* If user presses ViewOnMap from Details screen coming from Map screen
+			 * it is better to just close the Details screen than to start a new Map screen.
+			 * The old Map screen will already be in the right state.
+			 * Closing the Details screen prevents infinite nesting of Details and Map screens.
+			 */
+			finish();
+			return;
+		}
+		/* Copied from HomeActivity */
+		Intent intent = new Intent(this, MapActivity.class);
+		intent.putExtra(GarageSale.HAS_SALE_ID_KEY, true);
+		intent.putExtra(GarageSale.SALE_ID_KEY, sale.id);
+		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+		Log.i("googleplay", status+"");
+		    switch (status) {
+		        case ConnectionResult.SUCCESS:
+		            startActivity(intent);
+		            break;
+
+		        default:
+		            int requestCode = 10;
+		            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
+		            Log.i("errordialog", dialog+"");
+		            dialog.show();
+		            break;
+		    }
 	}
 }

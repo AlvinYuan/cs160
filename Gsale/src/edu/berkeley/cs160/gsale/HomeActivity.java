@@ -57,6 +57,7 @@ public class HomeActivity extends Activity {
 	 */
 	public void ViewMapButtonOnClick(View view) {
 		Intent intent = new Intent(this, MapActivity.class);
+		intent.putExtra(GarageSale.HAS_SALE_ID_KEY, false);
 		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
 		Log.i("googleplay", status+"");
 		    switch (status) {
