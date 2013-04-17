@@ -24,7 +24,7 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.MySalesListView);
-		mySalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.plannedSales);
+		mySalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.plannedSales, true);
 		l.setAdapter(mySalesAdapter);
 		l.setOnItemClickListener(this);
 	}

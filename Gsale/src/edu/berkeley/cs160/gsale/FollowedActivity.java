@@ -22,7 +22,7 @@ public class FollowedActivity extends Activity implements OnItemClickListener {
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.FollowedSalesListView);
-		followedSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.followedSales);
+		followedSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.followedSales, false);
 		l.setAdapter(followedSalesAdapter);
 		l.setOnItemClickListener(this);
 	}
@@ -64,5 +64,4 @@ public class FollowedActivity extends Activity implements OnItemClickListener {
 		super.onResume();
 		followedSalesAdapter.notifyDataSetChanged();
 	}
-
 }

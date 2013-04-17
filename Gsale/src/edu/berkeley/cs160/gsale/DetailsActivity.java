@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -85,14 +86,19 @@ public class DetailsActivity extends Activity {
 	/*
 	 * Method: updateFollowButton
 	 * Change Text to "Follow" or "Unfollow"
-	 * TODO: Change Image of Start (filled versus not filled)
 	 */
 	public void updateFollowButton() {
+		Drawable followDrawable;
+		String followText;
 		if (User.currentUser.followedSales.contains(sale)) {
-			followButton.setText("Unfollow");
+			followText = "Unfollow";
+			followDrawable = getResources().getDrawable(R.drawable.followed);
 		} else {
-			followButton.setText("Follow");
+			followText = "Follow";
+			followDrawable = getResources().getDrawable(R.drawable.unfollowed);
 		}
+		followButton.setText(followText);
+		followButton.setCompoundDrawablesWithIntrinsicBounds(null, followDrawable, null, null);
 	}
 
 	/*

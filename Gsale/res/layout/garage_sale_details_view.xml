@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/DetailsTimeTextView"
             android:layout_below="@+id/DetailsTimeTextView"
-            android:layout_toLeftOf="@+id/mapIcon"
+            android:layout_toLeftOf="@+id/ViewOnMapButton"
             android:text="LOCATION"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -77,7 +77,7 @@
             android:id="@+id/DetailsDescriptionHeaderTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mapIcon"
+            android:layout_below="@+id/ViewOnMapButton"
             android:layout_alignLeft="@+id/DetailsMainPhotoImageView"
             android:text="Description"
             android:textAppearance="?android:attr/textAppearanceMedium" />

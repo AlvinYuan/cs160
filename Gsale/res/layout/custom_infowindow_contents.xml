@@ -7,8 +7,8 @@
     <ImageView
         android:id="@+id/tv_image"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/follow" />
+        android:layout_height="fill_parent"
+        android:src="@drawable/photo" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,12 +20,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="20px" />
+            android:textSize="20sp"
+            android:text="Garage Sale Title" />
 
         <TextView
             android:id="@+id/tv_details"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Garage Sale Details" />
     </LinearLayout>
+    
+    <!-- If you want to add a Followed Star that's clickable, you cannot use GoogleMap's InfoWindow. You have to create your own view.
+    http://stackoverflow.com/questions/13706925/adding-a-button-to-a-custom-infowindowadapter-view-that-can-register-clicks -->
 
 </LinearLayout>
