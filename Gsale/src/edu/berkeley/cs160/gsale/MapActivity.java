@@ -63,11 +63,12 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 
 		// Move the camera instantly to soda with a zoom of 15.
 		//TODO: Center camera on current location
-		LatLng hardcoded_coord = new LatLng(37.875192, -122.266932);
 		if (hasFocusedSale && focusedSale.coords != null) {
 			map.moveCamera(CameraUpdateFactory.newLatLngZoom(focusedSale.coords, 15));	
 		} else {
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(hardcoded_coord, 15));			
+			/* Not perfectly centered for some reason, but very close. Good enough I guess. */
+			LatLng location = new LatLng(HomeActivity.currentLocation.getLatitude(), HomeActivity.currentLocation.getLongitude());
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));			
 		}
 
 		// Zoom in, animating the camera.
