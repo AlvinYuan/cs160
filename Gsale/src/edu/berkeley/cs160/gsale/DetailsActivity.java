@@ -148,4 +148,13 @@ public class DetailsActivity extends Activity {
 		            break;
 		    }
 	}
+
+	/*
+	 * Method: PhotosButtonOnClick
+	 */
+	public void PhotosButtonOnClick(View view) {
+		Intent intent = new Intent(this, ViewPhotosActivity.class);
+		intent.putExtra(GarageSale.SALE_ID_KEY, sale.id);
+		startActivity(intent);
+	}
 }

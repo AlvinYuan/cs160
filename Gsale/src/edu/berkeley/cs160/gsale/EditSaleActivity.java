@@ -298,11 +298,13 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public void NextButtonOnClick(View view) {
 		if (step == editProgressBar.getMax()) {
 			//Storage store = new Storage(this);
-			//the id 123456 is just temporary until we can generate ids
 			//store.storeSale(editingSale, 13376);
 			//store.storeId(13376, Storage.PLANNED_SALES);
 			if (User.currentUser.plannedSales.size() == 0) {
+				editingSale.id = 13376;
+				GarageSale.idToSaleMap.put(editingSale.id, editingSale);
 				User.currentUser.plannedSales.add(editingSale);
+				GarageSale.allSales.add(editingSale);
 			}
 			/*
 			System.out.println("Storing test sale:");

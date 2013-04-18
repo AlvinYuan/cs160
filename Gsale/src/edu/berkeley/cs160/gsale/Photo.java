@@ -7,9 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class Photo {
-	public Bitmap bitmap;
-	public String description;
+	public Bitmap bitmap = null;
+	public String description = null;
 	
+	public Photo() {
+		description = "";
+	}
+
 	public static ArrayList<Photo> generatePhotos(Context context) {
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		Photo photo = new Photo();

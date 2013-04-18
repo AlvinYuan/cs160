@@ -26,7 +26,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/photo"
-            android:text="Photos" />
+            android:text="Photos"
+            android:onClick="PhotosButtonOnClick" />
 
         <Button
             android:id="@+id/FollowButton"

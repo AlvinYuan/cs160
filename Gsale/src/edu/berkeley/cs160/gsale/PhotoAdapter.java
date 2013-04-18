@@ -16,7 +16,6 @@ public class PhotoAdapter extends ArrayAdapter<Photo> {
 			List<Photo> objects) {
 		super(context, textViewResourceId, objects);
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		// TODO Auto-generated constructor stub
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
