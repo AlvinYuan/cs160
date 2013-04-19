@@ -21,7 +21,7 @@ public class ViewPhotosActivity extends Activity {
 		
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt(GarageSale.SALE_ID_KEY);
-		sale = GarageSale.idToSaleMap.get(id);
+		sale = GarageSale.allSales.get(id);
 
 		viewPhotosListView = (ListView) findViewById(R.id.ViewPhotosListView);
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos);

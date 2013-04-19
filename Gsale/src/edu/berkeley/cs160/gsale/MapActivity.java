@@ -1,5 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -42,7 +43,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		hasFocusedSale = extras.getBoolean(GarageSale.HAS_SALE_ID_KEY);
 		if (hasFocusedSale) {
 			int id = extras.getInt(GarageSale.SALE_ID_KEY);
-			focusedSale = GarageSale.idToSaleMap.get(id);
+			focusedSale = GarageSale.allSales.get(id);
 		}
 		
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
@@ -54,10 +55,11 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		map.setOnInfoWindowClickListener(this);
 		map.setOnMapClickListener(this);
 
-		for (int i = 0; i < GarageSale.allSales.size(); i++) {
-			GarageSale sale = GarageSale.allSales.get(i);
+		ArrayList<GarageSale> allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
+		for (int i = 0; i < allSalesList.size(); i++) {
+			GarageSale sale = allSalesList.get(i);
 			if (sale.coords != null) {
-				addSaleToMap(GarageSale.allSales.get(i));				
+				addSaleToMap(allSalesList.get(i));				
 			}
 		}
 

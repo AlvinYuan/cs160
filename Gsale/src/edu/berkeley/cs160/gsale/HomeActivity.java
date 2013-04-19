@@ -125,9 +125,10 @@ public class HomeActivity extends Activity implements LocationListener {
 		System.out.println("Just Started");
 		User.justStartedApp = false;
 		User.currentUser = new User();			
-		GarageSale.idToSaleMap = new HashMap<Integer, GarageSale>();
-		GarageSale.allSales = new ArrayList<GarageSale>();
+		GarageSale.allSales = new HashMap<Integer, GarageSale>();
 		GarageSale.generateAllSales(this);
+		GetAllSalesAsyncTask getTask = new GetAllSalesAsyncTask(this);
+		getTask.execute();
 		Storage store = new Storage(this);
 		User.currentUser.plannedSales = store.getSales(Storage.PLANNED_SALES);
 	}

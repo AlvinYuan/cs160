@@ -64,7 +64,7 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 		Intent intent = new Intent(this, EditSaleActivity.class);
 		intent.putExtra(GarageSale.HAS_SALE_ID_KEY, isEditing);
 		if (isEditing) {
-			GarageSale.idToSaleMap.put(editingSale.id, editingSale);
+			GarageSale.allSales.put(editingSale.id, editingSale);
 			intent.putExtra(GarageSale.SALE_ID_KEY, editingSale.id);
 		}
 		startActivity(intent);

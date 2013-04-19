@@ -8,6 +8,8 @@ import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -29,10 +31,12 @@ public class GarageSale implements java.io.Serializable{
 	
 	public static String SERVER_URL = "http://alvinyuan.pythonanywhere.com";
 	public static String POST_SALE_URL_SUFFIX = "/sale";
+	public static String GET_ALL_SALES_URL_SUFFIX = "/sales";
 	
 	public static int INVALID = -1;
-	public static HashMap<Integer, GarageSale> idToSaleMap = null;
-	public static ArrayList<GarageSale> allSales = null;
+
+	/* allSales maps GarageSale id to object */
+	public static HashMap<Integer, GarageSale> allSales = null;
 	
 	/* Instance Variables */
 	/* General */
@@ -67,6 +71,16 @@ public class GarageSale implements java.io.Serializable{
 	
 	public GarageSale() {
 		photos = new ArrayList<Photo>();
+	}
+	
+	public GarageSale(JSONArray JSONsale) {
+		this();
+		try {
+			id = JSONsale.getInt(0);
+			title = JSONsale.getString(1);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -181,6 +195,7 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("title", title));
 		return postParameters;
 	}
+	
 	/*
 	 * Prototyping Purposes Only
 	 * Fills in sales (for map view) in GarageSales.allSales
@@ -216,11 +231,9 @@ public class GarageSale implements java.io.Serializable{
 		SALE2.mainPhoto = p;
 		SALE2.description = "Stop by my garage sale! I have antiques and rare items for sale.";
 
-		/* Add to allSales and mapIdToSale */
-		allSales.add(SALE1);
-		idToSaleMap.put(SALE1.id, SALE1);
-		allSales.add(SALE2);
-		idToSaleMap.put(SALE2.id, SALE2);
+		/* Add to allSales */
+		allSales.put(SALE1.id, SALE1);
+		allSales.put(SALE2.id, SALE2);
 	}
 	
 }

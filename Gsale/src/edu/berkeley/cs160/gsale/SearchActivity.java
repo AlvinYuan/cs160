@@ -1,5 +1,7 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -22,7 +24,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.SearchSalesListView);
-		SearchSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, GarageSale.allSales, false);
+		SearchSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, new ArrayList<GarageSale>(GarageSale.allSales.values()), false);
 		l.setAdapter(SearchSalesAdapter);
 		l.setOnItemClickListener(this);
 	}

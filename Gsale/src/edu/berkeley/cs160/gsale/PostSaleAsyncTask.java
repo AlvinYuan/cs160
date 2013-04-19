@@ -2,8 +2,6 @@ package edu.berkeley.cs160.gsale;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -17,7 +15,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class PostSaleAsyncTask extends AsyncTask<String, Void, JSONObject> {
+public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	public Context context;
 	public GarageSale sale;
 
@@ -27,7 +25,7 @@ public class PostSaleAsyncTask extends AsyncTask<String, Void, JSONObject> {
 		this.sale = sale;
 	}
 	@Override
-	protected JSONObject doInBackground(String... params) {
+	protected JSONObject doInBackground(Void... params) {
 		try {
 			/* Prepare Request */
 			HttpClient httpclient = new DefaultHttpClient();
@@ -63,8 +61,7 @@ public class PostSaleAsyncTask extends AsyncTask<String, Void, JSONObject> {
 			try {
 				id = result.getInt("id");
 				sale.id = id;
-				GarageSale.idToSaleMap.put(sale.id, sale);
-				GarageSale.allSales.add(sale);
+				GarageSale.allSales.put(sale.id, sale);
 				System.out.println("PostSaleAsyncTask: SALE ID - " + sale.id);
 				/* TODO: Display some Toast */
 			} catch (JSONException e) {

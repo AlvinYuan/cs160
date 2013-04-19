@@ -45,7 +45,10 @@ public class SettingsActivity extends Activity {
 	 * Method: UnhideAllSalesButtonOnClick
 	 */
 	public void UnhideAllSalesButtonOnClick(View view) {
-		GarageSale.allSales.addAll(User.currentUser.hiddenSales);
+		for (int i = 0; i < User.currentUser.hiddenSales.size(); i++) {
+			GarageSale sale = User.currentUser.hiddenSales.get(i);
+			GarageSale.allSales.put(sale.id, sale);
+		}
 		User.currentUser.hiddenSales.clear();
 	}
 }

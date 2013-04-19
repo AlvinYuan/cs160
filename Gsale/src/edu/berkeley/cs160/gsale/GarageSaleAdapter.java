@@ -41,8 +41,12 @@ public class GarageSaleAdapter extends ArrayAdapter<GarageSale> implements OnCli
 		if (sale.dateTime(true, true) != null) {
 			((TextView) v.findViewById(R.id.date)).setText(sale.dateString(true));
 		}
+		
+		ImageView listImageView = (ImageView) v.findViewById(R.id.list_image);
 		if (sale.mainPhoto != null) {
-			((ImageView) v.findViewById(R.id.list_image)).setImageBitmap(sale.mainPhoto.bitmap);
+			listImageView.setImageBitmap(sale.mainPhoto.bitmap);
+		} else {
+			listImageView.setImageResource(R.drawable.photo);			
 		}
 		if (!isEditing) {
 			Drawable followedDrawable;

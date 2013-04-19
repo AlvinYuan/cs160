@@ -32,7 +32,7 @@ public class DetailsActivity extends Activity {
 
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt(GarageSale.SALE_ID_KEY);
-		sale = GarageSale.idToSaleMap.get(id);
+		sale = GarageSale.allSales.get(id);
 
 		parentActivity = extras.getString(GarageSale.DETAILS_ACTIVITY_PARENT_KEY);
 		
@@ -106,7 +106,7 @@ public class DetailsActivity extends Activity {
 	 * TODO: Ask for confirmation via pop-up (possibly inform user can be undone in Settings)
 	 */
 	public void HideButtonOnClick(View view) {
-		if (GarageSale.allSales.remove(sale)) {
+		if (GarageSale.allSales.remove(sale.id) != null) {
 			User.currentUser.hiddenSales.add(sale);
 			User.currentUser.followedSales.remove(sale);
 			if (parentActivity.equals(GarageSale.MAP_ACTIVITY)) {

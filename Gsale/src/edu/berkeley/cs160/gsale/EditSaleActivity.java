@@ -101,7 +101,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		isEditing = extras.getBoolean(GarageSale.HAS_SALE_ID_KEY);
 		if (isEditing) {
 			editingSaleId = extras.getInt(GarageSale.SALE_ID_KEY);
-			editingSale = GarageSale.idToSaleMap.get(editingSaleId);
+			editingSale = GarageSale.allSales.get(editingSaleId);
 			/* Populate fields with existing information */
 			if (editingSale.title != null) {
 				EditText titleField = (EditText) editBasicInfoView.findViewById(R.id.TitleField);
