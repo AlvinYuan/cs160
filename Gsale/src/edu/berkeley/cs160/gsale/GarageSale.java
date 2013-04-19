@@ -6,6 +6,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
@@ -18,10 +21,14 @@ import android.widget.TextView;
 public class GarageSale implements java.io.Serializable{
 	public static String HAS_SALE_ID_KEY = "HAS_SALE_ID_KEY";
 	public static String SALE_ID_KEY = "SALE_ID_KEY";
+	
 	public static String DETAILS_ACTIVITY_PARENT_KEY = "DETAIL_ACTIVITY_PARENT_KEY";
 	public static String MAP_ACTIVITY = "MAP_ACTIVTY";
 	public static String SEARCH_ACTIVITY = "SEARCH_ACTIVITY";
 	public static String FOLLOWED_ACTIVITY = "FOLLOWED_ACTIVITY";
+	
+	public static String SERVER_URL = "http://alvinyuan.pythonanywhere.com";
+	public static String POST_SALE_URL_SUFFIX = "/sale";
 	
 	public static int INVALID = -1;
 	public static HashMap<Integer, GarageSale> idToSaleMap = null;
@@ -167,6 +174,12 @@ public class GarageSale implements java.io.Serializable{
 		intent.putExtra(DETAILS_ACTIVITY_PARENT_KEY, parentActivity);
 
 		context.startActivity(intent);
+	}
+	
+	public ArrayList<NameValuePair> constructPostParameters() {
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		postParameters.add(new BasicNameValuePair("title", title));
+		return postParameters;
 	}
 	/*
 	 * Prototyping Purposes Only

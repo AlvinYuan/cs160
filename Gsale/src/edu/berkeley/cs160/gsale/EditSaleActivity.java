@@ -276,9 +276,12 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	/*
-	 * Button OnClick Methods
+	 * OnClick Methods
 	 */
 	
+	/*
+	 * Method: BackButtonOnClick
+	 */
 	public void BackButtonOnClick(View view) {
 		if(step == 0) {
 			finish();
@@ -288,23 +291,17 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 
 	/*
-	 * Method: HideButtonOnClick
-	 * TODO: Have something happen. Maybe say this is disabled with Toast or go to Map View.
+	 * Method: NextButtonOnClick
 	 */
-	public void ViewOnMapButtonOnClick(View view) {
-		
-	}
-	
 	public void NextButtonOnClick(View view) {
 		if (step == editProgressBar.getMax()) {
 			//Storage store = new Storage(this);
 			//store.storeSale(editingSale, 13376);
 			//store.storeId(13376, Storage.PLANNED_SALES);
 			if (User.currentUser.plannedSales.size() == 0) {
-				editingSale.id = 13376;
-				GarageSale.idToSaleMap.put(editingSale.id, editingSale);
+				PostSaleAsyncTask postTask = new PostSaleAsyncTask(this, editingSale);
+				postTask.execute();
 				User.currentUser.plannedSales.add(editingSale);
-				GarageSale.allSales.add(editingSale);
 			}
 			/*
 			System.out.println("Storing test sale:");
@@ -318,12 +315,54 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		}
 	}
 	
+	/*
+	 * Method: StartDateFieldOnClick
+	 */
+	public void StartDateFieldOnClick(View view) {
+		selectingStart = true;
+		createDatePickerDialog();
+	}
+	
+	/*
+	 * Method: EndDateFieldOnClick
+	 */
+	public void EndDateFieldOnClick(View view) {
+		selectingStart = false;
+		createDatePickerDialog();
+	}
+
+	/*
+	 * Method: StartTimeFieldOnClick
+	 */
+	public void StartTimeFieldOnClick(View view) {
+		selectingStart = true;
+		createTimePickerDialog();
+	}
+	
+	/*
+	 * Method: EndTimeFieldOnClick
+	 */
+	public void EndTimeFieldOnClick(View view) {
+		selectingStart = false;
+		createTimePickerDialog();
+	}
+
+	/*
+	 * Method: AddNewPhotoButtonOnClick
+	 */
 	public void AddNewPhotoButtonOnClick(View view) {
 	    // create Intent to take a picture and return control to the calling application
 	    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	    
 	    // start the image capture Intent
 	    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+	
+	/*
+	 * Method: ViewOnMapButtonOnClick
+	 * TODO: Have something happen. Maybe say this is disabled with Toast or go to Map View.
+	 */
+	public void ViewOnMapButtonOnClick(View view) {
+		
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -367,25 +406,9 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		photoAdded = false;
 	}
 	
-	public void StartDateFieldOnClick(View view) {
-		selectingStart = true;
-		createDatePickerDialog();
-	}
-	
-	public void EndDateFieldOnClick(View view) {
-		selectingStart = false;
-		createDatePickerDialog();
-	}
-
-	public void StartTimeFieldOnClick(View view) {
-		selectingStart = true;
-		createTimePickerDialog();
-	}
-	
-	public void EndTimeFieldOnClick(View view) {
-		selectingStart = false;
-		createTimePickerDialog();
-	}
+	/*
+	 * CreateDialog Methods
+	 */
 
 	public void createDatePickerDialog() {
 		DialogFragment newFragment = new DatePickerFragment();
@@ -477,6 +500,11 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		}
 		
 	}
+	
+	/*
+	 * DescriptionDialogFragment Class
+	 * For photo descriptions
+	 */
 
 	public static class DescriptionDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
 		public EditText input;
