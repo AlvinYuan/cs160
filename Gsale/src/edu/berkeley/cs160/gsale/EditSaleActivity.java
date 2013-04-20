@@ -134,6 +134,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			
 		} else {
 			editingSale = new GarageSale();
+			editingSale.plannerId = User.currentUser.id;
 		}
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos);
 		editPhotosListView.setAdapter(photoAdapter);

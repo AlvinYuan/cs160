@@ -60,6 +60,15 @@ public class GarageSaleAdapter extends ArrayAdapter<GarageSale> implements OnCli
 			followedViewToPositionMap.put(followedImageView, position);
 			followedImageView.setOnClickListener(this);
 		}
+		
+		if (!isEditing) {
+			TextView locationTextView = (TextView) v.findViewById(R.id.location);
+			if (!sale.location.equals(GarageSale.INVALID_STRING)) {
+				locationTextView.setText(sale.location);
+			} else {
+				locationTextView.setText("Garage Sale Location");
+			}
+		}
 		return v;
 	}
 	

@@ -1,6 +1,5 @@
 package edu.berkeley.cs160.gsale;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.android.gms.common.ConnectionResult;

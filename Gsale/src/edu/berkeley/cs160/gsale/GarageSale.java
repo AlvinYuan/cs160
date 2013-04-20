@@ -33,7 +33,8 @@ public class GarageSale implements java.io.Serializable{
 	public static String POST_SALE_URL_SUFFIX = "/sale";
 	public static String GET_ALL_SALES_URL_SUFFIX = "/sales";
 	
-	public static int INVALID = -1;
+	public static int INVALID_INT = -1;
+	public static String INVALID_STRING = "";
 
 	/* allSales maps GarageSale id to object */
 	public static HashMap<Integer, GarageSale> allSales = null;
@@ -41,28 +42,28 @@ public class GarageSale implements java.io.Serializable{
 	/* Instance Variables */
 	/* General */
 	public int id; //Unique identifier
-	public String title = null;
-	public String description = null;
-	public User planner = null;
+	public String title = INVALID_STRING;
+	public String description = INVALID_STRING;
+	public int plannerId = INVALID_INT;
 
 	/* Date and Time */
 	/*
 	 * http://stackoverflow.com/questions/15661713/android-calendar-serialization-incompatable-with-java-6/15661858#15661858
 	 * Cannot serialize Calendar fields. Use ints (hour, day, month, etc.) instead
 	 */
-	public int startYear = INVALID;
-	public int startMonth = INVALID;
-	public int startDay = INVALID;
-	public int startHour = INVALID;
-	public int startMinute = INVALID;
-	public int endYear = INVALID;
-	public int endMonth = INVALID;
-	public int endDay = INVALID;
-	public int endHour = INVALID;
-	public int endMinute = INVALID;
+	public int startYear = INVALID_INT;
+	public int startMonth = INVALID_INT;
+	public int startDay = INVALID_INT;
+	public int startHour = INVALID_INT;
+	public int startMinute = INVALID_INT;
+	public int endYear = INVALID_INT;
+	public int endMonth = INVALID_INT;
+	public int endDay = INVALID_INT;
+	public int endHour = INVALID_INT;
+	public int endMinute = INVALID_INT;
 	
 	/* Location */
-	public String location = null;
+	public String location = INVALID_STRING;
 	public LatLng coords = null;
 	
 	/* Photos */
@@ -76,12 +77,45 @@ public class GarageSale implements java.io.Serializable{
 	public GarageSale(JSONArray JSONsale) {
 		this();
 		try {
-			id = JSONsale.getInt(0);
-			title = JSONsale.getString(1);
+			int i = 0;
+			id = JSONsale.getInt(i++);
+			title = JSONsale.getString(i++);
+			plannerId = JSONsale.getInt(i++);
+			startYear = JSONsale.getInt(i++);
+			startMonth = JSONsale.getInt(i++);
+			startDay = JSONsale.getInt(i++);
+			startHour = JSONsale.getInt(i++);
+			startMinute = JSONsale.getInt(i++);
+			endYear = JSONsale.getInt(i++);
+			endMonth = JSONsale.getInt(i++);
+			endDay = JSONsale.getInt(i++);
+			endHour = JSONsale.getInt(i++);
+			endMinute = JSONsale.getInt(i++);
+			location = JSONsale.getString(i++);
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public ArrayList<NameValuePair> constructPostParameters() {
+		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		postParameters.add(new BasicNameValuePair("title", title));
+		postParameters.add(new BasicNameValuePair("description", description));
+		postParameters.add(new BasicNameValuePair("plannerId", ""+plannerId));
+		postParameters.add(new BasicNameValuePair("startYear", ""+startYear));
+		postParameters.add(new BasicNameValuePair("startMonth", ""+startMonth));
+		postParameters.add(new BasicNameValuePair("startDay", ""+startDay));
+		postParameters.add(new BasicNameValuePair("startHour", ""+startHour));
+		postParameters.add(new BasicNameValuePair("startMinute", ""+startMinute));
+		postParameters.add(new BasicNameValuePair("endYear", ""+endYear));
+		postParameters.add(new BasicNameValuePair("endMonth", ""+endMonth));
+		postParameters.add(new BasicNameValuePair("endDay", ""+endDay));
+		postParameters.add(new BasicNameValuePair("endHour", ""+endHour));
+		postParameters.add(new BasicNameValuePair("endMinute", ""+endMinute));
+		postParameters.add(new BasicNameValuePair("location", location));
+		return postParameters;
 	}
 	
 	public void loadDetailsIntoView(View detailsView) {
@@ -91,7 +125,7 @@ public class GarageSale implements java.io.Serializable{
 		Calendar endTime = dateTime(false, false);
 
 		/* Title */
-		if (title != null) {
+		if (!title.equals(INVALID_STRING)) {
 			TextView detailsTitleTextView = (TextView) detailsView.findViewById(R.id.DetailsTitleTextView);
 			detailsTitleTextView.setText(title);
 		}
@@ -106,12 +140,12 @@ public class GarageSale implements java.io.Serializable{
 			detailsDateTextView.setText(dateString(true) + " - " + dateString(false));
 		}
 		/* Location */
-		if (location != null) {	
+		if (!location.equals(INVALID_STRING)) {	
 			TextView detailsLocationTextView = (TextView) detailsView.findViewById(R.id.DetailsLocationTextView);
 			detailsLocationTextView.setText(location);
 		}
 		/* Description */
-		if (description != null) {
+		if (!description.equals(INVALID_STRING)) {
 			TextView detailsDescriptionTextView = (TextView) detailsView.findViewById(R.id.DetailsDescriptionTextView);
 			detailsDescriptionTextView.setText(description);
 		}
@@ -161,15 +195,15 @@ public class GarageSale implements java.io.Serializable{
 		int hour = isStart ? startHour : endHour;
 		int minute = isStart ? startMinute : endMinute;
 		if (getDate) {
-			if (year == INVALID) {
+			if (year == INVALID_INT) {
 				return null;
 			}
 			return new GregorianCalendar(year, month, day);
 		} else {
-			if (hour == INVALID) {
+			if (hour == INVALID_INT) {
 				return null;
 			}
-		return new GregorianCalendar(INVALID, INVALID, INVALID, hour, minute, 0);
+		return new GregorianCalendar(INVALID_INT, INVALID_INT, INVALID_INT, hour, minute, 0);
 		}
 	}
 	
@@ -188,12 +222,6 @@ public class GarageSale implements java.io.Serializable{
 		intent.putExtra(DETAILS_ACTIVITY_PARENT_KEY, parentActivity);
 
 		context.startActivity(intent);
-	}
-	
-	public ArrayList<NameValuePair> constructPostParameters() {
-		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-		postParameters.add(new BasicNameValuePair("title", title));
-		return postParameters;
 	}
 	
 	/*

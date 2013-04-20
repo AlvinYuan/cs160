@@ -11,7 +11,10 @@ DATABASE = 'data.db'
 def db_init():
     connection = sqlite3.connect(DATABASE)
     cur = connection.cursor()
-    cur.execute('CREATE TABLE IF NOT EXISTS GarageSales (title TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS GarageSales (title TEXT, 
+description TEXT, plannerId INT, startYear INT, startMonth INT, startDay 
+INT, startHour INT, startMinute INT, endYear INT, endMonth INT, endDay 
+INT, endHour INT, endMinute INT, location TEXT)')
     connection.commit()
     connection.close()
 
@@ -21,6 +24,16 @@ def db_init():
 @app.route('/')
 def index():
     return json.dumps({'message': 'hello world'})
+
+@app.route('/clear', methods=['GET'])
+def clear():
+    #remove tables
+    connection = sqlite3.connect(DATABASE)
+    cur = connection.cursor()
+    cur.execute('DROP TABLE IF EXISTS GarageSales')
+    connection.commit()
+    connection.close()
+    return json.dumps({'message': 'deleted tables'})
 
 @app.route('/sales', methods=['GET'])
 def all():
@@ -41,8 +54,15 @@ def add():
     #then add a new item to the database
     #return the id of the new item
     params = request.form
-    new_item_id = add_to_db('INSERT INTO GarageSales values(?)', 
-[params.get('title')])
+    new_item_id = add_to_db('INSERT INTO GarageSales 
+values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [params.get('title'), 
+params.get('description'), int(params.get('plannerId')), 
+int(params.get('startYear')), int(params.get('startMonth')), 
+int(params.get('startDay')), int(params.get('startHour')), 
+int(params.get('startMinute')), int(params.get('endYear')), 
+int(params.get('endMonth')), int(params.get('endDay')), 
+int(params.get('endHour')), int(params.get('endMinute')), 
+params.get('location')])
 
     return json.dumps({'id' : new_item_id})
 
