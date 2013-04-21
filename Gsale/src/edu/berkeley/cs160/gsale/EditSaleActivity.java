@@ -317,32 +317,39 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	/*
-	 * Method: StartDateFieldOnClick
+	 * ProgressBarText OnClick Methods
+	 */
+    public void ProgressBarTextDetailsOnClick(View view) {
+		editProgressBar.setProgress(0);
+    }
+    public void ProgressBarTextDescriptionOnClick(View view) {
+		editProgressBar.setProgress(1);    	
+    }
+    public void ProgressBarTextPhotosOnClick(View view) {
+		editProgressBar.setProgress(2);    	
+    }
+    public void ProgressBarTextReviewOnClick(View view) {
+		editProgressBar.setProgress(3);    	
+    }
+	
+	/*
+	 * Date and Time Field OnClick Methods
 	 */
 	public void StartDateFieldOnClick(View view) {
 		selectingStart = true;
 		createDatePickerDialog();
 	}
 	
-	/*
-	 * Method: EndDateFieldOnClick
-	 */
 	public void EndDateFieldOnClick(View view) {
 		selectingStart = false;
 		createDatePickerDialog();
 	}
 
-	/*
-	 * Method: StartTimeFieldOnClick
-	 */
 	public void StartTimeFieldOnClick(View view) {
 		selectingStart = true;
 		createTimePickerDialog();
 	}
 	
-	/*
-	 * Method: EndTimeFieldOnClick
-	 */
 	public void EndTimeFieldOnClick(View view) {
 		selectingStart = false;
 		createTimePickerDialog();
