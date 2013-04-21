@@ -73,15 +73,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/EditProgressBar"
-        android:paddingBottom="25dp" >
+        android:layout_below="@+id/EditProgressBar" >
 	    <TextView
 	        android:id="@+id/ProgressBarTextDetails"
 	        android:layout_width="0px"
    		    android:layout_height="wrap_content"
 	        android:text="Details" 
 	        android:layout_weight="1"
-	        android:gravity="center" />
+	        android:gravity="center"
+	        android:clickable="true"
+	        android:onClick="ProgressBarTextDetailsOnClick"
+	        android:paddingBottom="25dp" />
 	    
 	    <TextView
 	        android:id="@+id/ProgressBarTextDescription" 
@@ -89,7 +91,10 @@
    		    android:layout_height="wrap_content"
 	        android:text="Description" 
 	        android:layout_weight="1"
-	        android:gravity="center" />
+	        android:gravity="center"
+   	        android:clickable="true"
+	        android:onClick="ProgressBarTextDescriptionOnClick"
+	        android:paddingBottom="25dp" />
 	    
 	    <TextView
 	        android:id="@+id/ProgressBarTextPhotos" 
@@ -97,7 +102,10 @@
    		    android:layout_height="wrap_content"
 	        android:text="Photos" 
 	        android:layout_weight="1"
-	        android:gravity="center" />
+	        android:gravity="center"
+   	        android:clickable="true"
+	        android:onClick="ProgressBarTextPhotosOnClick"
+	        android:paddingBottom="25dp" />
 	    
 	    <TextView
 	        android:id="@+id/ProgressBarTextReview" 
@@ -105,7 +113,10 @@
    		    android:layout_height="wrap_content"
 	        android:text="Review" 
 	        android:layout_weight="1"
-	        android:gravity="center" />
+	        android:gravity="center" 
+   	        android:clickable="true"
+	        android:onClick="ProgressBarTextReviewOnClick"
+	        android:paddingBottom="25dp" />
 	</LinearLayout>
 	
     <Button

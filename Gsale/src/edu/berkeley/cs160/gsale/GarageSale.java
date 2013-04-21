@@ -80,6 +80,7 @@ public class GarageSale implements java.io.Serializable{
 			int i = 0;
 			id = JSONsale.getInt(i++);
 			title = JSONsale.getString(i++);
+			description = JSONsale.getString(i++);
 			plannerId = JSONsale.getInt(i++);
 			startYear = JSONsale.getInt(i++);
 			startMonth = JSONsale.getInt(i++);
