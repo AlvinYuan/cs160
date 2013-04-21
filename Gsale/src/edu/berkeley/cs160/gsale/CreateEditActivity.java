@@ -1,8 +1,24 @@
 package edu.berkeley.cs160.gsale;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,6 +104,5 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 		super.onResume();
 		mySalesAdapter.notifyDataSetChanged();
 	}
-
-
+	
 }

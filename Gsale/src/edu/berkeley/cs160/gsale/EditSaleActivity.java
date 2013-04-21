@@ -1,6 +1,22 @@
 package edu.berkeley.cs160.gsale;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -10,12 +26,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -302,6 +321,9 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			if (User.currentUser.plannedSales.size() == 0) {
 				PostSaleAsyncTask postTask = new PostSaleAsyncTask(this, editingSale);
 				postTask.execute();
+				// TODO (Mon): this doesn't work yet...
+				GetLatLngFromAddressAsyncTask markerTask = new GetLatLngFromAddressAsyncTask(this, editingSale);
+				markerTask.execute();
 				User.currentUser.plannedSales.add(editingSale);
 			}
 			/*
@@ -547,4 +569,5 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			activity.photoAdapter.notifyDataSetChanged();
 		}
 	}
+	
 }
