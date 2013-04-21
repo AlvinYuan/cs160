@@ -462,6 +462,12 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				activity.editingSale.startMonth = monthOfYear;
 				activity.editingSale.startDay = dayOfMonth;
 				dateField = (EditText) activity.editBasicInfoView.findViewById(R.id.StartDateField);
+				if (activity.editingSale.endYear == GarageSale.INVALID_INT) {
+					activity.editingSale.endYear = year;
+					activity.editingSale.endMonth = monthOfYear;
+					activity.editingSale.endDay = dayOfMonth;
+					((EditText) activity.editBasicInfoView.findViewById(R.id.EndDateField)).setText(activity.editingSale.dateString(false));
+				}
 			} else {
 				activity.editingSale.endYear = year;
 				activity.editingSale.endMonth = monthOfYear;
