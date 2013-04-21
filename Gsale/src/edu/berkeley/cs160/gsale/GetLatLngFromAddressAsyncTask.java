@@ -22,7 +22,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class GetLatLngFromAddressAsyncTask extends AsyncTask<Void, Void, JSONObject> {
+public class GetLatLngFromAddressAsyncTask extends
+		AsyncTask<Void, Void, JSONObject> {
 	public Context context;
 	public GarageSale sale;
 
@@ -36,52 +37,57 @@ public class GetLatLngFromAddressAsyncTask extends AsyncTask<Void, Void, JSONObj
 		JSONObject jsonObject = null;
 		/* Prepare Request */
 		try {
-		HttpGet httpGet = new HttpGet(
-				"http://maps.google.com/maps/api/geocode/json?address="
-						+ sale.location + "&sensor=false");
-		HttpClient client = new DefaultHttpClient();
-		HttpResponse response;
-		StringBuilder stringBuilder = new StringBuilder();
-		response = client.execute(httpGet);
-		HttpEntity entity = response.getEntity();
-		InputStream stream = entity.getContent();
-		int b;
-		while ((b = stream.read()) != -1) {
-			stringBuilder.append((char) b);
-		}
-		jsonObject = new JSONObject(stringBuilder.toString());
-		
+			if (sale.location != null) {
+				String address = sale.location;
+				String parsed = address.replaceAll("\\s+", "%20");
+				Log.i("ParsedAddress", parsed);
+
+				HttpGet httpGet = new HttpGet(
+						"http://maps.google.com/maps/api/geocode/json?address="
+								+ parsed + "&sensor=false");
+				HttpClient client = new DefaultHttpClient();
+				HttpResponse response;
+				StringBuilder stringBuilder = new StringBuilder();
+				response = client.execute(httpGet);
+				HttpEntity entity = response.getEntity();
+				InputStream stream = entity.getContent();
+				int b;
+				while ((b = stream.read()) != -1) {
+					stringBuilder.append((char) b);
+				}
+				jsonObject = new JSONObject(stringBuilder.toString());
+			} 
+
 		} catch (Exception e) {
-			System.out.println("PostSaleAsyncTask: " + e.toString());
+			System.out
+					.println("GetLatLngFromAddressAsyncTask: " + e.toString());
 		}
+		Log.i("Json", jsonObject + "");
 		return jsonObject;
+
 	}
 
 	protected void onPostExecute(JSONObject result) {
 		LatLng coordinates = null;
-		double lng = (Double) null;
+
 		try {
-			lng = ((JSONArray) result.get("results")).getJSONObject(0)
+			double lng = ((JSONArray) result.get("results")).getJSONObject(0)
 					.getJSONObject("geometry").getJSONObject("location")
 					.getDouble("lng");
-		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
-		double lat = (Double) null;
-		try {
-			lat = ((JSONArray) result.get("results")).getJSONObject(0)
+			double lat = ((JSONArray) result.get("results")).getJSONObject(0)
 					.getJSONObject("geometry").getJSONObject("location")
 					.getDouble("lat");
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			Log.i("latitude", lat + "");
+			Log.i("longitude", lng + "");
+
+			coordinates = new LatLng(lat, lng);
+			sale.coords = coordinates;
+		} catch (Exception e) {
+			System.out
+					.println("GetLatLngFromAddressAsyncTask: " + e.toString());
 		}
 
-		coordinates = new LatLng(lat, lng);
-		sale.coords = coordinates;
-		Log.i("latitude", lat + "");
-		Log.i("longitude", lng + "");
 	}
 }

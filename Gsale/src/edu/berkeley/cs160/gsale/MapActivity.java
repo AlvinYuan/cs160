@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -156,14 +158,27 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		ImageView tvImage = (ImageView) v.findViewById(R.id.tv_image);
 
 		// Setting the title
-		tvTitle.setText(marker.getTitle());
+		if (marker.getTitle() != null) {
+			tvTitle.setText(marker.getTitle());
+		} else {
+			tvTitle.setText(" ");
+		}
 
 		// Setting the details
-		tvDetails.setText(marker.getSnippet());
+		if (marker.getSnippet() != null) {
+			tvDetails.setText(marker.getSnippet());
+		} else {
+			tvDetails.setText(" ");
+		}
 
 		// Setting the image
-
-		tvImage.setImageBitmap(MarkerIdMap.get(marker.getId()).mainPhoto.bitmap);
+		if (MarkerIdMap.get(marker.getId()).mainPhoto != null ){
+			tvImage.setImageBitmap(MarkerIdMap.get(marker.getId()).mainPhoto.bitmap);
+		} else {
+			Bitmap defaultIcon = BitmapFactory.decodeResource(this.getResources(),
+                    R.drawable.photo);
+			tvImage.setImageBitmap(defaultIcon);
+		}
 
 		// Returning the view containing InfoWindow contents
 		return v;
