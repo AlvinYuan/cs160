@@ -2,8 +2,14 @@ package edu.berkeley.cs160.gsale;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,4 +76,24 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		GarageSale sale = (GarageSale) SearchSalesAdapter.getItem(position);
 		sale.startDetailsActivity(this);
 	}
+	
+	public void MapButtonOnClick(View view) {
+		Intent intent = new Intent(this, MapActivity.class);
+		intent.putExtra(GarageSale.HAS_SALE_ID_KEY, false);
+		int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+		Log.i("googleplay", status+"");
+		    switch (status) {
+		        case ConnectionResult.SUCCESS:
+		            startActivity(intent);
+		            break;
+
+		        default:
+		            int requestCode = 10;
+		            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
+		            Log.i("errordialog", dialog+"");
+		            dialog.show();
+		            break;
+		    }
+	}
+	
 }

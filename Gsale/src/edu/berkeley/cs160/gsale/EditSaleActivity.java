@@ -321,9 +321,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			if (User.currentUser.plannedSales.size() == 0) {
 				PostSaleAsyncTask postTask = new PostSaleAsyncTask(this, editingSale);
 				postTask.execute();
-				// TODO (Mon): this doesn't work yet...
+				// converts address to latlng coords
 				GetLatLngFromAddressAsyncTask markerTask = new GetLatLngFromAddressAsyncTask(this, editingSale);
 				markerTask.execute();
+				// TODO(mon): should we be adding to allSales as well?
 				User.currentUser.plannedSales.add(editingSale);
 			}
 			/*
