@@ -14,7 +14,8 @@ def db_init():
     cur.execute('CREATE TABLE IF NOT EXISTS GarageSales (title TEXT, 
 description TEXT, plannerId INT, startYear INT, startMonth INT, startDay 
 INT, startHour INT, startMinute INT, endYear INT, endMonth INT, endDay 
-INT, endHour INT, endMinute INT, location TEXT)')
+INT, endHour INT, endMinute INT, location TEXT, latitude REAL, longitude 
+REAL)')
     connection.commit()
     connection.close()
 
@@ -55,14 +56,15 @@ def add():
     #return the id of the new item
     params = request.form
     new_item_id = add_to_db('INSERT INTO GarageSales 
-values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [params.get('title'), 
+values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [params.get('title'), 
 params.get('description'), int(params.get('plannerId')), 
 int(params.get('startYear')), int(params.get('startMonth')), 
 int(params.get('startDay')), int(params.get('startHour')), 
 int(params.get('startMinute')), int(params.get('endYear')), 
 int(params.get('endMonth')), int(params.get('endDay')), 
 int(params.get('endHour')), int(params.get('endMinute')), 
-params.get('location')])
+params.get('location'), float(params.get('latitude')), 
+float(params.get('longittude'))])
 
     return json.dumps({'id' : new_item_id})
 
