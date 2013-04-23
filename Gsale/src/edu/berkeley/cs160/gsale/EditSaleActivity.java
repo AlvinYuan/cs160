@@ -256,6 +256,9 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				EditText locationField = (EditText) editBasicInfoView.findViewById(R.id.LocationField);
 				editingSale.title = titleField.getText().toString();
 				editingSale.location = locationField.getText().toString();
+				// converts address to latlng coords
+				GetLatLngFromAddressAsyncTask markerTask = new GetLatLngFromAddressAsyncTask(this, editingSale);
+				markerTask.execute();
 			}
 			if (visibleEditView.equals(editDescriptionView)) {
 				EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
@@ -321,10 +324,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			if (User.currentUser.plannedSales.size() == 0) {
 				PostSaleAsyncTask postTask = new PostSaleAsyncTask(this, editingSale);
 				postTask.execute();
-				// converts address to latlng coords
-				GetLatLngFromAddressAsyncTask markerTask = new GetLatLngFromAddressAsyncTask(this, editingSale);
-				markerTask.execute();
-				// TODO(mon): should we be adding to allSales as well?
 				User.currentUser.plannedSales.add(editingSale);
 			}
 			/*

@@ -120,13 +120,6 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("endHour", ""+endHour));
 		postParameters.add(new BasicNameValuePair("endMinute", ""+endMinute));
 		postParameters.add(new BasicNameValuePair("location", location));
-		if (coords == null) {
-			System.out.println("NULL");
-			if (INVALID_COORDS == null) {
-				System.out.println("NULL 2");
-			}
-		}
-		System.out.println(coords.latitude + " " + coords.longitude);
 		postParameters.add(new BasicNameValuePair("latitude", ""+coords.latitude));
 		postParameters.add(new BasicNameValuePair("longitude", ""+coords.longitude));
 		return postParameters;
