@@ -60,7 +60,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		ArrayList<GarageSale> allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
 		for (int i = 0; i < allSalesList.size(); i++) {
 			GarageSale sale = allSalesList.get(i);
-			if (sale.coords != null) {
+			if (!sale.coords.equals(GarageSale.INVALID_COORDS)) {
 				addSaleToMap(allSalesList.get(i));				
 			}
 		}

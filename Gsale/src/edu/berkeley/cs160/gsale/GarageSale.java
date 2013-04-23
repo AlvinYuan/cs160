@@ -34,6 +34,7 @@ public class GarageSale implements java.io.Serializable{
 	public static String GET_ALL_SALES_URL_SUFFIX = "/sales";
 	
 	public static int INVALID_INT = -1;
+	public static LatLng INVALID_COORDS = new LatLng(999, 999);
 	public static String INVALID_STRING = "";
 
 	/* allSales maps GarageSale id to object */
@@ -64,7 +65,7 @@ public class GarageSale implements java.io.Serializable{
 	
 	/* Location */
 	public String location = INVALID_STRING;
-	public LatLng coords = null;
+	public LatLng coords = INVALID_COORDS;
 	
 	/* Photos */
 	public ArrayList<Photo> photos = null;
@@ -93,6 +94,9 @@ public class GarageSale implements java.io.Serializable{
 			endHour = JSONsale.getInt(i++);
 			endMinute = JSONsale.getInt(i++);
 			location = JSONsale.getString(i++);
+			double latitude = JSONsale.getDouble(i++);
+			double longitude = JSONsale.getDouble(i++);
+			coords = new LatLng(latitude, longitude);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -116,6 +120,8 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("endHour", ""+endHour));
 		postParameters.add(new BasicNameValuePair("endMinute", ""+endMinute));
 		postParameters.add(new BasicNameValuePair("location", location));
+		postParameters.add(new BasicNameValuePair("latitude", ""+coords.latitude));
+		postParameters.add(new BasicNameValuePair("latitude", ""+coords.longitude));
 		return postParameters;
 	}
 	
