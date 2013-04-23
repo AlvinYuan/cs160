@@ -34,7 +34,7 @@ public class GarageSale implements java.io.Serializable{
 	public static String GET_ALL_SALES_URL_SUFFIX = "/sales";
 	
 	public static int INVALID_INT = -1;
-	public static LatLng INVALID_COORDS = new LatLng(999, 999);
+	public static LatLng INVALID_COORDS = new LatLng(-90, 0);
 	public static String INVALID_STRING = "";
 
 	/* allSales maps GarageSale id to object */
@@ -120,8 +120,15 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("endHour", ""+endHour));
 		postParameters.add(new BasicNameValuePair("endMinute", ""+endMinute));
 		postParameters.add(new BasicNameValuePair("location", location));
+		if (coords == null) {
+			System.out.println("NULL");
+			if (INVALID_COORDS == null) {
+				System.out.println("NULL 2");
+			}
+		}
+		System.out.println(coords.latitude + " " + coords.longitude);
 		postParameters.add(new BasicNameValuePair("latitude", ""+coords.latitude));
-		postParameters.add(new BasicNameValuePair("latitude", ""+coords.longitude));
+		postParameters.add(new BasicNameValuePair("longitude", ""+coords.longitude));
 		return postParameters;
 	}
 	

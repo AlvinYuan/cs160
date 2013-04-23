@@ -64,7 +64,7 @@ int(params.get('startMinute')), int(params.get('endYear')),
 int(params.get('endMonth')), int(params.get('endDay')), 
 int(params.get('endHour')), int(params.get('endMinute')), 
 params.get('location'), float(params.get('latitude')), 
-float(params.get('longittude'))])
+float(params.get('longitude'))])
 
     return json.dumps({'id' : new_item_id})
 
