@@ -32,6 +32,7 @@
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Garage Sale Title"
+        android:fontFamily="sans-serif-light"
         android:textColor="#040404"
         android:typeface="sans"
         android:textSize="15sp"
@@ -47,7 +48,8 @@
         android:textSize="10sp"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
-        android:text="Garage Sale Date" />
+        android:text="Garage Sale Date"
+        android:fontFamily="sans-serif-light" />
   
     <!--  Location -->
     <TextView
@@ -59,7 +61,8 @@
         android:textColor="#343434"
         android:textSize="10sp"
         android:layout_marginTop="1dip"
-        android:text="Garage Sale Location" />
+        android:text="Garage Sale Location"
+        android:fontFamily="sans-serif-light" />
     
     <!-- Rightend Arrow -->
     <ImageView

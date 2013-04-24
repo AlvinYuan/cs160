@@ -11,6 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="Unhide all sales"
+        android:fontFamily="sans-serif-light"
         android:onClick="UnhideAllSalesButtonOnClick" />
 
 </RelativeLayout>

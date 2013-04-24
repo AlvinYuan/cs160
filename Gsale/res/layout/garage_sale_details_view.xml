@@ -19,6 +19,7 @@
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@+id/DetailsMainPhotoImageView"
             android:text="SALE TITLE"
+            android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -28,6 +29,7 @@
             android:layout_alignLeft="@+id/DetailsDateTextView"
             android:layout_below="@+id/DetailsDateTextView"
             android:text="0:00 AM - 0:00 AM"
+            android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -37,6 +39,7 @@
             android:layout_alignLeft="@+id/DetailsTitleTextView"
             android:layout_below="@+id/DetailsTitleTextView"
             android:text="DAY, MON 00, YEAR - DAY, MON 00, YEAR"
+            android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -47,6 +50,7 @@
             android:layout_below="@+id/DetailsTimeTextView"
             android:layout_toLeftOf="@+id/ViewOnMapButton"
             android:text="LOCATION"
+            android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ScrollView
@@ -67,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SALE DESCRIPTION"
+                    android:fontFamily="sans-serif-light"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>
@@ -80,6 +85,7 @@
             android:layout_below="@+id/ViewOnMapButton"
             android:layout_alignLeft="@+id/DetailsMainPhotoImageView"
             android:text="Description"
+            android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
@@ -91,6 +97,7 @@
             android:layout_alignTop="@+id/DetailsLocationTextView"
             android:drawableTop="@drawable/map"
             android:text="View on map"
+            android:fontFamily="sans-serif-light"
             android:onClick="ViewOnMapButtonOnClick" />
     
 </RelativeLayout>

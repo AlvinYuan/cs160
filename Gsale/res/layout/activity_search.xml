@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Adv.\nSearch" />
+        android:text="Adv.\nSearch"
+        android:fontFamily="sans-serif-light" />
 
     <Button
         android:id="@+id/button1"
@@ -33,7 +34,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:onClick="MapButtonOnClick"
-        android:text="Map" />
+        android:text="Map"
+        android:fontFamily="sans-serif-light" />
     
     <ListView
         android:id="@+id/SearchSalesListView"

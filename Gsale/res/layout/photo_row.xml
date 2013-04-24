@@ -32,6 +32,7 @@
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Photo Description" 
+        android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
   
      <!-- Rightend Arrow -->

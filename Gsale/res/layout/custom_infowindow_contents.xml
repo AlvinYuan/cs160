@@ -21,13 +21,15 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:text="Garage Sale Title" />
+            android:text="Garage Sale Title"
+            android:fontFamily="sans-serif" />
 
         <TextView
             android:id="@+id/tv_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Garage Sale Details" />
+            android:text="Garage Sale Details" 
+            android:fontFamily="sans-serif-light"/>
     </LinearLayout>
     
     <!-- If you want to add a Followed Star that's clickable, you cannot use GoogleMap's InfoWindow. You have to create your own view.

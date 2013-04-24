@@ -10,6 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Description"
+        android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -19,7 +20,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/DescriptionTextView"
         android:ems="10"
-        android:inputType="textMultiLine" >
+        android:inputType="textMultiLine"
+        android:fontFamily="sans-serif-light" >
 
         <requestFocus />
     </EditText>

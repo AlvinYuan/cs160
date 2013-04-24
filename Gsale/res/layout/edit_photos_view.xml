@@ -12,6 +12,7 @@
         android:layout_alignParentTop="true"
         android:drawableLeft="@drawable/plus_sign"
         android:text="Add New Photo"
+        android:fontFamily="sans-serif-light"
         android:onClick="AddNewPhotoButtonOnClick" />
     
     <ListView

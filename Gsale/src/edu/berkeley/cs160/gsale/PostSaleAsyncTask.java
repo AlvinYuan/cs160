@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	public Context context;
@@ -59,6 +60,7 @@ public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	protected void onPostExecute(JSONObject result) {
 			int id;
 			try {
+				Log.i("postJson", result+"");
 				id = result.getInt("id");
 				sale.id = id;
 				GarageSale.allSales.put(sale.id, sale);

@@ -78,7 +78,8 @@
 	        android:id="@+id/ProgressBarTextDetails"
 	        android:layout_width="0px"
    		    android:layout_height="wrap_content"
-	        android:text="Details" 
+	        android:text="Details"
+	        android:fontFamily="sans-serif" 
 	        android:layout_weight="1"
 	        android:gravity="center"
 	        android:clickable="true"
@@ -89,7 +90,8 @@
 	        android:id="@+id/ProgressBarTextDescription" 
 	        android:layout_width="0px"
    		    android:layout_height="wrap_content"
-	        android:text="Description" 
+	        android:text="Description"
+	        android:fontFamily="sans-serif" 
 	        android:layout_weight="1"
 	        android:gravity="center"
    	        android:clickable="true"
@@ -100,7 +102,8 @@
 	        android:id="@+id/ProgressBarTextPhotos" 
 	        android:layout_width="0px"
    		    android:layout_height="wrap_content"
-	        android:text="Photos" 
+	        android:text="Photos"
+	        android:fontFamily="sans-serif" 
 	        android:layout_weight="1"
 	        android:gravity="center"
    	        android:clickable="true"
@@ -111,7 +114,8 @@
 	        android:id="@+id/ProgressBarTextReview" 
 	        android:layout_width="0px"
    		    android:layout_height="wrap_content"
-	        android:text="Review" 
+	        android:text="Review"
+	        android:fontFamily="sans-serif" 
 	        android:layout_weight="1"
 	        android:gravity="center" 
    	        android:clickable="true"
@@ -126,6 +130,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="Next"
+        android:fontFamily="sans-serif-light"
         android:onClick="NextButtonOnClick" />
 
     <Button
@@ -135,6 +140,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/NextButton"
         android:text="Back"
+        android:fontFamily="sans-serif-light"
         android:onClick="BackButtonOnClick" />
 
     <RelativeLayout

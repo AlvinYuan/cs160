@@ -10,6 +10,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Sale Details Preview"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <RelativeLayout

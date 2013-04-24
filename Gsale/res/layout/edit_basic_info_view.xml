@@ -10,6 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="Title"
+        android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -18,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/TitleTextView"
-        android:ems="10" >
+        android:ems="10"
+        android:fontFamily="sans-serif-light" >
 
         <requestFocus />
 
@@ -31,6 +33,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/TitleField"
         android:text="Location"
+        android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -39,7 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/LocationTextView"
-        android:ems="10" />
+        android:ems="10"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:id="@+id/StartDateTextView"
@@ -48,6 +52,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/LocationField"
         android:text="Start Date"
+        android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -60,7 +65,8 @@
         android:ems="10"
         android:inputType="none"
         android:focusable="false"
-        android:onClick="StartDateFieldOnClick" />
+        android:onClick="StartDateFieldOnClick"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:id="@+id/Dash1TextView"
@@ -78,6 +84,7 @@
         android:layout_alignBottom="@+id/StartDateTextView"
         android:layout_toRightOf="@+id/Dash1TextView"
         android:text="End Date"
+        android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -90,7 +97,8 @@
         android:ems="10"
         android:inputType="textPostalAddress" 
         android:focusable="false"
-        android:onClick="EndDateFieldOnClick" />
+        android:onClick="EndDateFieldOnClick"
+        android:fontFamily="sans-serif-light" />
 
     <TextView
         android:id="@+id/StartTimeTextView"
@@ -99,6 +107,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/StartDateField"
         android:text="Start Time"
+        android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -117,6 +126,7 @@
         android:layout_alignBottom="@+id/StartTimeTextView"
         android:layout_toRightOf="@+id/Dash2TextView"
         android:text="End Time"
+        android:fontFamily="sans-serif-light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -129,7 +139,8 @@
         android:ems="10"
         android:inputType="textPostalAddress" 
         android:focusable="false"
-        android:onClick="StartTimeFieldOnClick" />
+        android:onClick="StartTimeFieldOnClick"
+        android:fontFamily="sans-serif-light" />
 
     <EditText
         android:id="@+id/EndTimeField"
@@ -141,6 +152,7 @@
         android:ems="10"
         android:inputType="textPostalAddress" 
         android:focusable="false"
-        android:onClick="EndTimeFieldOnClick" />
+        android:onClick="EndTimeFieldOnClick"
+        android:fontFamily="sans-serif-light" />
 
 </RelativeLayout>
