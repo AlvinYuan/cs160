@@ -307,12 +307,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				postTask.execute();
 				User.currentUser.plannedSales.add(editingSale);
 			}
-			/*
-			System.out.println("Storing test sale:");
-			System.out.println("The title of the sale is: " + editingSale.title);
-			System.out.println("The location of the sale is: " + editingSale.location);
-			System.out.println("The description of the sale is: " + editingSale.description);
-			*/
+			Toast.makeText(this, "Published!", Toast.LENGTH_SHORT).show();
 			finish();
 		} else {
 			editProgressBar.setProgress(editProgressBar.getProgress() + 1);
