@@ -79,11 +79,7 @@ public class GarageSaleAdapter extends ArrayAdapter<GarageSale> implements OnCli
 	public void onClick(View view) {
 		int position = followedViewToPositionMap.get(view);
 		GarageSale sale = getItem(position);
-		if (User.currentUser.followedSales.contains(sale)) {
-			User.currentUser.followedSales.remove(sale);
-		} else {
-			User.currentUser.followedSales.add(sale);
-		}
+		sale.toggleFollowed(getContext());
 		notifyDataSetChanged();
 	}
 }

@@ -19,6 +19,7 @@ import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GarageSale implements java.io.Serializable{
 	public static String HAS_SALE_ID_KEY = "HAS_SALE_ID_KEY";
@@ -231,6 +232,16 @@ public class GarageSale implements java.io.Serializable{
 		context.startActivity(intent);
 	}
 	
+	public void toggleFollowed(Context context) {
+		if (User.currentUser.followedSales.contains(this)) {
+			User.currentUser.followedSales.remove(this);
+			Toast.makeText(context, "Unfollowed.", Toast.LENGTH_SHORT).show();
+		} else {
+			User.currentUser.followedSales.add(this);			
+			Toast.makeText(context, "Followed!", Toast.LENGTH_SHORT).show();
+		}
+
+	}
 	/*
 	 * Prototyping Purposes Only
 	 * Fills in sales (for map view) in GarageSales.allSales

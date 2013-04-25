@@ -75,11 +75,7 @@ public class DetailsActivity extends Activity {
 	 * Method: FollowButtonOnClick
 	 */
 	public void FollowButtonOnClick(View view) {
-		if (User.currentUser.followedSales.contains(sale)) {
-			User.currentUser.followedSales.remove(sale);
-		} else {
-			User.currentUser.followedSales.add(sale);			
-		}
+		sale.toggleFollowed(this);
 		updateFollowButton();
 	}
 	
