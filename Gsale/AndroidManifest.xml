@@ -105,10 +105,11 @@
         <activity
             android:name="edu.berkeley.cs160.gsale.EditSaleActivity"
             android:label="@string/title_activity_edit_sale"
-            android:parentActivityName="CreateEditActivity" >
+            android:windowSoftInputMode="adjustResize"
+            android:parentActivityName="HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="CreateEditActivity" />
+                android:value="HomeActivity" />
         </activity>
         <activity
             android:name="edu.berkeley.cs160.gsale.DetailsActivity"

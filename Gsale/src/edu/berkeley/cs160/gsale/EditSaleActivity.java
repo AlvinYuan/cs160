@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,11 +23,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TimePicker;
@@ -77,12 +80,21 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		editBasicInfoView = inflater.inflate(R.layout.edit_basic_info_view, null);
 		editLayout.addView(editBasicInfoView);
 		editBasicInfoView.setVisibility(View.INVISIBLE);
-		
+
 		/* Description */
 		editDescriptionView = inflater.inflate(R.layout.edit_description_view, null);
 		editLayout.addView(editDescriptionView);
 		editDescriptionView.setVisibility(View.INVISIBLE);
-		
+		final EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
+		descriptionField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+		    @Override
+		    public void onFocusChange(View v, boolean hasFocus) {
+		        if (hasFocus) {
+		        	((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(descriptionField, InputMethodManager.SHOW_IMPLICIT);
+		        }
+		    }
+		});
+
 		/* Photos */
 		editPhotosView = inflater.inflate(R.layout.edit_photos_view, null);
 		editLayout.addView(editPhotosView);
@@ -96,7 +108,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		RelativeLayout editDetailsLayout = (RelativeLayout) editReviewPublishView.findViewById(R.id.EditDetailsLayout);
 		detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
 		editDetailsLayout.addView(detailsView);
-		
+
 		Bundle extras = this.getIntent().getExtras();
 		isEditing = extras.getBoolean(GarageSale.HAS_SALE_ID_KEY);
 		if (isEditing) {
@@ -112,7 +124,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				locationField.setText(editingSale.location);				
 			}
 			if (editingSale.description != null) {
-				EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
+				//EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
 				descriptionField.setText(editingSale.description);				
 			}
 			if (editingSale.dateTime(true, false) != null) {
@@ -230,7 +242,8 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-		// TODO Auto-generated method stub
+		EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
+		
 		if (visibleEditView != null) {
 			if (visibleEditView.equals(editBasicInfoView)) {
 				EditText titleField = (EditText) editBasicInfoView.findViewById(R.id.TitleField);
@@ -242,14 +255,11 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 				markerTask.execute();
 			}
 			if (visibleEditView.equals(editDescriptionView)) {
-				EditText descriptionField = (EditText) editDescriptionView.findViewById(R.id.DescriptionField);
 				editingSale.description = descriptionField.getText().toString();
 			}
 			if (visibleEditView.equals(editPhotosView)) {
-				
 			}
 			if (visibleEditView.equals(editReviewPublishView)) {
-				
 			}
 			visibleEditView.setVisibility(View.INVISIBLE);
 		}
@@ -259,11 +269,16 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		} else {
 			backButton.setText("Back");
 		}
+		if (step == 2) {
+			((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(descriptionField.getWindowToken(), 0);
+		}
 		if (step == editProgressBar.getMax()) {
 			nextButton.setText("Publish");
+			((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(descriptionField.getWindowToken(), 0);
 		} else {
 			nextButton.setText("Next");
 		}
+
 		updateEditView();
 	}
 

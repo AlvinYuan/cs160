@@ -1,156 +1,172 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
     tools:context=".EditSaleActivity" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/EditProgressBar"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:weightSum="8" >
-
-        <View
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <View
-    		android:layout_width="1dip"
-  		  	android:layout_height="fill_parent"
-    		android:background="#ffcccccc" />
-
-        <View
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
-
-        <View
-    		android:layout_width="1dip"
-  		  	android:layout_height="fill_parent"
-    		android:background="#ffcccccc" />
-        
-        <View
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
-        
-        <View
-    		android:layout_width="1dip"
-  		  	android:layout_height="fill_parent"
-    		android:background="#ffcccccc" />
-        
-        <View
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
-       	
-        <View
-    		android:layout_width="1dip"
-  		  	android:layout_height="fill_parent"
-    		android:background="#ffcccccc" />
-
-        <View
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        
-    </LinearLayout>
-
-    <SeekBar
-        android:id="@+id/EditProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="3"
-   	    android:progress="0" />
-
-    <LinearLayout
-        android:id="@+id/ProgressBarSubtext"
+    <RelativeLayout
+        android:id="@+id/EditHeaderRelativeLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/EditProgressBar" >
-	    <TextView
-	        android:id="@+id/ProgressBarTextDetails"
-	        android:layout_width="0px"
-   		    android:layout_height="wrap_content"
-	        android:text="Details"
-	        android:fontFamily="sans-serif" 
-	        android:layout_weight="1"
-	        android:gravity="center"
-	        android:clickable="true"
-	        android:onClick="ProgressBarTextDetailsOnClick"
-	        android:paddingBottom="25dp" />
-	    
-	    <TextView
-	        android:id="@+id/ProgressBarTextDescription" 
-	        android:layout_width="0px"
-   		    android:layout_height="wrap_content"
-	        android:text="Description"
-	        android:fontFamily="sans-serif" 
-	        android:layout_weight="1"
-	        android:gravity="center"
-   	        android:clickable="true"
-	        android:onClick="ProgressBarTextDescriptionOnClick"
-	        android:paddingBottom="25dp" />
-	    
-	    <TextView
-	        android:id="@+id/ProgressBarTextPhotos" 
-	        android:layout_width="0px"
-   		    android:layout_height="wrap_content"
-	        android:text="Photos"
-	        android:fontFamily="sans-serif" 
-	        android:layout_weight="1"
-	        android:gravity="center"
-   	        android:clickable="true"
-	        android:onClick="ProgressBarTextPhotosOnClick"
-	        android:paddingBottom="25dp" />
-	    
-	    <TextView
-	        android:id="@+id/ProgressBarTextReview" 
-	        android:layout_width="0px"
-   		    android:layout_height="wrap_content"
-	        android:text="Review"
-	        android:fontFamily="sans-serif" 
-	        android:layout_weight="1"
-	        android:gravity="center" 
-   	        android:clickable="true"
-	        android:onClick="ProgressBarTextReviewOnClick"
-	        android:paddingBottom="25dp" />
-	</LinearLayout>
-	
-    <Button
-        android:id="@+id/NextButton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Next"
-        android:fontFamily="sans-serif-light"
-        android:onClick="NextButtonOnClick" />
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/EditFooterRelativeLayout" >
+        
+	    <LinearLayout
+    	    android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_alignBottom="@+id/EditProgressBar"
+        	android:layout_marginBottom="5dp"
+        	android:layout_marginTop="5dp"
+        	android:weightSum="8" >
 
-    <Button
-        android:id="@+id/BackButton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/NextButton"
-        android:text="Back"
-        android:fontFamily="sans-serif-light"
-        android:onClick="BackButtonOnClick" />
+        	<View
+        	    android:layout_width="0px"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1" />
 
+	        <View
+	    		android:layout_width="1dip"
+	  		  	android:layout_height="fill_parent"
+   		 		android:background="#ffcccccc" />
+
+        	<View
+            	android:layout_width="0px"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="2" />
+
+        	<View
+    			android:layout_width="1dip"
+  		  		android:layout_height="fill_parent"
+    			android:background="#ffcccccc" />
+        
+        	<View
+            	android:layout_width="0px"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="2" />
+        
+        	<View
+    			android:layout_width="1dip"
+  		  		android:layout_height="fill_parent"
+    			android:background="#ffcccccc" />
+        
+        	<View
+            	android:layout_width="0px"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="2" />
+       	
+        	<View
+    			android:layout_width="1dip"
+  		  		android:layout_height="fill_parent"
+    			android:background="#ffcccccc" />
+
+        	<View
+            	android:layout_width="0px"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1" />
+        
+    	</LinearLayout>
+
+    	<SeekBar
+        	android:id="@+id/EditProgressBar"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:max="3"
+   	    	android:progress="0" />
+
+	    <LinearLayout
+    	    android:id="@+id/ProgressBarSubtext"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"
+        	android:layout_alignParentLeft="true"
+        	android:layout_below="@+id/EditProgressBar" >
+	    	<TextView
+	    	    android:id="@+id/ProgressBarTextDetails"
+	    	    android:layout_width="0px"
+   			    android:layout_height="wrap_content"
+	    	    android:text="Details"
+	    	    android:fontFamily="sans-serif" 
+	    	    android:layout_weight="1"
+	    	    android:gravity="center"
+	    	    android:clickable="true"
+	    	    android:onClick="ProgressBarTextDetailsOnClick"
+	    	    android:paddingBottom="25dp" />
+	    
+	    	<TextView
+	    	    android:id="@+id/ProgressBarTextDescription" 
+	    	    android:layout_width="0px"
+   			    android:layout_height="wrap_content"
+	    	    android:text="Description"
+	    	    android:fontFamily="sans-serif" 
+	       		android:layout_weight="1"
+	       	 	android:gravity="center"
+   	        	android:clickable="true"
+	        	android:onClick="ProgressBarTextDescriptionOnClick"
+	        	android:paddingBottom="25dp" />
+
+		    <TextView
+		        android:id="@+id/ProgressBarTextPhotos" 
+	    	    android:layout_width="0px"
+   		    	android:layout_height="wrap_content"
+	        	android:text="Photos"
+	        	android:fontFamily="sans-serif" 
+	        	android:layout_weight="1"
+	        	android:gravity="center"
+   	        	android:clickable="true"
+	        	android:onClick="ProgressBarTextPhotosOnClick"
+	        	android:paddingBottom="25dp" />
+	    
+	    	<TextView
+	        	android:id="@+id/ProgressBarTextReview" 
+	        	android:layout_width="0px"
+   		    	android:layout_height="wrap_content"
+	        	android:text="Review"
+	        	android:fontFamily="sans-serif" 
+	        	android:layout_weight="1"
+	        	android:gravity="center" 
+   	        	android:clickable="true"
+	        	android:onClick="ProgressBarTextReviewOnClick"
+	        	android:paddingBottom="25dp" />
+		</LinearLayout>
+    
+    	<ScrollView 
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_below="@+id/ProgressBarSubtext" >
+    		<RelativeLayout
+        		android:id="@+id/EditLayout"
+        		android:layout_width="match_parent"
+        		android:layout_height="wrap_content" >
+
+    		</RelativeLayout>
+    	</ScrollView>
+	    	
+	</RelativeLayout>
+    
     <RelativeLayout
-        android:id="@+id/EditLayout"
+        android:id="@+id/EditFooterRelativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ProgressBarSubtext" 
-        android:layout_above="@+id/NextButton" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
 
+    <Button
+        	android:id="@+id/NextButton"
+        	android:layout_width="100dp"
+        	android:layout_height="wrap_content"
+        	android:layout_alignParentRight="true"
+        	android:text="Next"
+        	android:fontFamily="sans-serif-light"
+        	android:onClick="NextButtonOnClick" />
+
+    <Button
+        	android:id="@+id/BackButton"
+        	android:layout_width="100dp"
+        	android:layout_height="wrap_content"
+        	android:layout_toLeftOf="@+id/NextButton"
+        	android:text="Back"
+        	android:fontFamily="sans-serif-light"
+        	android:onClick="BackButtonOnClick" />
     </RelativeLayout>
-
+    
 </RelativeLayout>
