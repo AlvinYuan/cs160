@@ -30,7 +30,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -561,13 +560,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 
 			builder.setView(input);
 			builder.setPositiveButton("Ok", this);
-			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					
-				}				
-			});
+			builder.setNegativeButton("Cancel", this);
 			/* http://stackoverflow.com/questions/2403632/android-show-soft-keyboard-automatically-when-focus-is-on-an-edittext */
 			final AlertDialog dialog = builder.create();
 			input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -582,11 +575,12 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		}
 
 		@Override
-		public void onClick(DialogInterface dialog, int id) {
-			// TODO Auto-generated method stub
-			Photo p = activity.editingSale.photos.get(activity.editingSale.photos.size() - 1);
-			p.description = input.getText().toString();
-			activity.photoAdapter.notifyDataSetChanged();
+		public void onClick(DialogInterface dialog, int which) {
+			if (which == Dialog.BUTTON_POSITIVE) {
+				Photo p = activity.editingSale.photos.get(activity.editingSale.photos.size() - 1);
+				p.description = input.getText().toString();
+				activity.photoAdapter.notifyDataSetChanged();
+			}
 		}
 		
 		@Override
