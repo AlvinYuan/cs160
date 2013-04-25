@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
@@ -32,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public int editingSaleId;
 	public GarageSale editingSale;
 	public int step;
+	public TextView progressBarTextViews[];
 	public View editBasicInfoView;
 	public View editDescriptionView;
 	public View editPhotosView;
@@ -69,6 +72,15 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
+		/*
+		 * ProgressBarTextViews
+		 */
+		progressBarTextViews = new TextView[4];
+		progressBarTextViews[0] = (TextView) findViewById(R.id.ProgressBarTextDetails);
+		progressBarTextViews[1] = (TextView) findViewById(R.id.ProgressBarTextDescription);
+		progressBarTextViews[2] = (TextView) findViewById(R.id.ProgressBarTextPhotos);
+		progressBarTextViews[3] = (TextView) findViewById(R.id.ProgressBarTextReview);
+		
 		/*
 		 * EditViews
 		 */
@@ -278,7 +290,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		} else {
 			nextButton.setText("Next");
 		}
-
+		for (int i = 0; i < progressBarTextViews.length; i++) {
+			progressBarTextViews[i].setTypeface(null, Typeface.NORMAL);
+		}
+		progressBarTextViews[step].setTypeface(null, Typeface.BOLD);
 		updateEditView();
 	}
 
