@@ -150,23 +150,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" >
 
-    <Button
-        	android:id="@+id/NextButton"
-        	android:layout_width="100dp"
-        	android:layout_height="wrap_content"
-        	android:layout_alignParentRight="true"
-        	android:text="Next"
-        	android:fontFamily="sans-serif-light"
-        	android:onClick="NextButtonOnClick" />
+    	<Button
+        		android:id="@+id/NextButton"
+        		android:layout_width="100dp"
+        		android:layout_height="wrap_content"
+        		android:layout_alignParentRight="true"
+        		android:text="Next"
+        		android:fontFamily="sans-serif-light"
+        		android:onClick="NextButtonOnClick" />
 
-    <Button
-        	android:id="@+id/BackButton"
-        	android:layout_width="100dp"
-        	android:layout_height="wrap_content"
-        	android:layout_toLeftOf="@+id/NextButton"
-        	android:text="Back"
-        	android:fontFamily="sans-serif-light"
-        	android:onClick="BackButtonOnClick" />
+    	<Button
+        		android:id="@+id/BackButton"
+        		android:layout_width="100dp"
+        		android:layout_height="wrap_content"
+        		android:layout_toLeftOf="@+id/NextButton"
+        		android:text="Back"
+        		android:fontFamily="sans-serif-light"
+        		android:onClick="BackButtonOnClick" />
     </RelativeLayout>
     
 </RelativeLayout>
