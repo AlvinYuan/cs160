@@ -1,22 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -26,15 +10,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -543,8 +524,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	 */
 
 	public static class DescriptionDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
+		public EditSaleActivity activity;
 		public EditText input;
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			activity = (EditSaleActivity) getActivity();
 			//Alert Dialog
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			builder.setTitle("Photo Description");
@@ -576,10 +559,31 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		@Override
 		public void onClick(DialogInterface dialog, int id) {
 			// TODO Auto-generated method stub
-			EditSaleActivity activity = (EditSaleActivity) getActivity();
 			Photo p = activity.editingSale.photos.get(activity.editingSale.photos.size() - 1);
 			p.description = input.getText().toString();
 			activity.photoAdapter.notifyDataSetChanged();
+		}
+		
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+			super.onDismiss(dialog);
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle("Add Another Photo?");
+			builder.setMessage("Would you like to add another photo?");
+			builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					activity.AddNewPhotoButtonOnClick(null);
+				}
+			});
+			builder.setNegativeButton("Not now", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					
+				}				
+			});
+			builder.show();
 		}
 	}
 	
