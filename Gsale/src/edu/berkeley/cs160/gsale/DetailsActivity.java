@@ -88,10 +88,10 @@ public class DetailsActivity extends Activity {
 		String followText;
 		if (User.currentUser.followedSales.contains(sale)) {
 			followText = "Unfollow";
-			followDrawable = getResources().getDrawable(R.drawable.followed);
+			followDrawable = getResources().getDrawable(R.drawable.followedbutton);
 		} else {
 			followText = "Follow";
-			followDrawable = getResources().getDrawable(R.drawable.unfollowed);
+			followDrawable = getResources().getDrawable(R.drawable.unfollowedbutton);
 		}
 		followButton.setText(followText);
 		followButton.setCompoundDrawablesWithIntrinsicBounds(null, followDrawable, null, null);

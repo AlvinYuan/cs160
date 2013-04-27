@@ -67,8 +67,8 @@
     <!-- Rightend Arrow -->
     <ImageView
         android:id="@+id/FollowedImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
         android:src="@drawable/unfollowed"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"

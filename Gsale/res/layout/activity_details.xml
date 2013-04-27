@@ -17,8 +17,9 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/message"
+            android:drawableTop="@drawable/messagebutton"
             android:text="Messages"
+            android:gravity="bottom|center"
             android:fontFamily="sans-serif-light" />
 
         <Button
@@ -29,6 +30,7 @@
             android:drawableTop="@drawable/photo"
             android:text="Photos"
             android:fontFamily="sans-serif-light"
+            android:gravity="bottom|center"
             android:onClick="PhotosButtonOnClick" />
 
         <Button
@@ -36,8 +38,9 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/followed"
+            android:drawableTop="@drawable/followedbutton"
             android:text="Follow"
+            android:gravity="bottom"
             android:fontFamily="sans-serif-light"
             android:onClick="FollowButtonOnClick" />
 
@@ -48,6 +51,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/hide"
             android:text="Hide"
+            android:gravity="bottom"
             android:fontFamily="sans-serif-light" 
             android:onClick="HideButtonOnClick" />
     </LinearLayout>

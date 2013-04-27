@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/DetailsLocationTextView"
-            android:drawableTop="@drawable/map"
+            android:drawableTop="@drawable/mapbutton"
             android:text="View on map"
             android:fontFamily="sans-serif-light"
             android:onClick="ViewOnMapButtonOnClick" />
