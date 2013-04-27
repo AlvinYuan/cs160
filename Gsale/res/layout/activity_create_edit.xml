@@ -21,8 +21,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:drawableLeft="@drawable/plus_sign"
-        android:text="Create New Sale"
         android:fontFamily="sans-serif-light"
-        android:onClick="CreateNewSaleButtonOnClick" />
+        android:onClick="CreateNewSaleButtonOnClick"
+        android:minHeight="70dp" 
+        android:text="Create New Sale" />
 
 </RelativeLayout>

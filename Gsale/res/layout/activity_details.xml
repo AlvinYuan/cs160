@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/followedbutton"
             android:text="Follow"
-            android:gravity="bottom"
+            android:gravity="bottom|center"
             android:fontFamily="sans-serif-light"
             android:onClick="FollowButtonOnClick" />
 
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/hide"
             android:text="Hide"
-            android:gravity="bottom"
+            android:gravity="bottom|center"
             android:fontFamily="sans-serif-light" 
             android:onClick="HideButtonOnClick" />
     </LinearLayout>
