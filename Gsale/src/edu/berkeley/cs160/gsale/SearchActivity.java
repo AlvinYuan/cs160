@@ -20,6 +20,7 @@ import android.support.v4.app.NavUtils;
 
 public class SearchActivity extends Activity implements OnItemClickListener {
 	public GarageSaleAdapter SearchSalesAdapter;
+	public static ArrayList<GarageSale> allSalesList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,8 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.SearchSalesListView);
-		SearchSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, new ArrayList<GarageSale>(GarageSale.allSales.values()), false);
+		allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
+		SearchSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, allSalesList, false);
 		l.setAdapter(SearchSalesAdapter);
 		l.setOnItemClickListener(this);
 	}
