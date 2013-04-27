@@ -7,6 +7,7 @@
         android:id="@+id/DetailsMainPhotoImageView"
         android:layout_width="110dp"
         android:layout_height="110dp"
+        android:padding="6sp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:src="@drawable/gradient_bg" />

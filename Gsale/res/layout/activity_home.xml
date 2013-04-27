@@ -11,9 +11,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="Gsale"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
         android:fontFamily="sans-serif-light"
         android:textStyle="bold"
-        android:textSize="40sp" />
+        android:textSize="43sp" />
 
     <ImageView
         android:id="@+id/imageView1"

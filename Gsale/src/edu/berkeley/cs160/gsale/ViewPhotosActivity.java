@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class ViewPhotosActivity extends Activity {
