@@ -75,7 +75,8 @@
         			android:id="@+id/SearchSalesImageView"
         			android:layout_width="match_parent"
         			android:layout_height="0px"
-        			android:layout_weight="1"
+        			android:layout_weight="0.9"
+        			android:paddingBottom="4sp"
         			android:src="@drawable/search" />
 
     			<TextView
@@ -105,7 +106,8 @@
         			android:id="@+id/FollowedSalesImageView"
         			android:layout_width="match_parent"
         			android:layout_height="0px"
-        			android:layout_weight="1"
+        			android:layout_weight="0.8"
+        			android:paddingBottom="8sp"
         			android:src="@drawable/followed" />
 
     			<TextView
@@ -135,7 +137,8 @@
         			android:id="@+id/CreateEditSalesImageView"
         			android:layout_width="match_parent"
         			android:layout_height="0px"
-        			android:layout_weight="1"
+        			android:layout_weight="0.8"
+        			android:paddingBottom="8sp"
         			android:src="@drawable/mysales" />
 
     			<TextView
@@ -175,6 +178,7 @@
         			android:layout_width="match_parent"
         			android:layout_height="0px"
         			android:layout_weight="1"
+        			android:paddingBottom="4sp"
         			android:src="@drawable/map" />
 
     			<TextView
@@ -204,7 +208,8 @@
         			android:id="@+id/SendViewMessagesImageView"
         			android:layout_width="match_parent"
         			android:layout_height="0px"
-        			android:layout_weight="1"
+        			android:layout_weight="0.8"
+        			android:paddingBottom="8sp"
         			android:src="@drawable/message" />
 
     			<TextView
@@ -234,7 +239,8 @@
         			android:id="@+id/SettingsImageView"
         			android:layout_width="match_parent"
         			android:layout_height="0px"
-        			android:layout_weight="1"
+        			android:layout_weight="0.8"
+        			android:paddingBottom="8sp"
         			android:src="@drawable/settings" />
 
     			<TextView
