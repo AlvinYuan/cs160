@@ -139,6 +139,7 @@
         			android:layout_height="0px"
         			android:layout_weight="0.8"
         			android:paddingBottom="8sp"
+        			android:paddingLeft="23sp"
         			android:src="@drawable/mysales" />
 
     			<TextView
