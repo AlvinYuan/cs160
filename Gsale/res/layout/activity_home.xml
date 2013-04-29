@@ -4,24 +4,22 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <ImageView
+        android:id="@+id/imageView0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Gsale"
+        android:src="@drawable/gsale"
         android:paddingTop="10sp"
         android:paddingBottom="10sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold"
-        android:textSize="43sp" />
+         />
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/imageView0"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_launcher" />
 
