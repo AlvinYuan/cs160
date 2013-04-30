@@ -174,7 +174,8 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void onAppStartup() {
 		System.out.println("Just Started");
 		User.justStartedApp = false;
-		User.currentUser = new User();			
+		User.currentUser = new User();
+		Storage.getLastLogin(this);
 		GarageSale.allSales = new HashMap<Integer, GarageSale>();
 		GarageSale.generateAllSales(this);
 		GetAllSalesAsyncTask getTask = new GetAllSalesAsyncTask(this);

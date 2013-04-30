@@ -68,6 +68,7 @@ public class LogInAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 				int id = result.getInt("id");
 				boolean isNew = result.getBoolean("new");
 				User.currentUser.id = id;
+				User.currentUser.email = email;
 				String toastString;
 				if (isNew) {
 					toastString = "Created new account " + id;
@@ -75,6 +76,7 @@ public class LogInAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 					toastString = "Logged into account " + id;
 					
 				}
+				Storage.storeLogin(context);
 				Toast.makeText(context, toastString, Toast.LENGTH_SHORT).show();
 			} catch (JSONException e) {
 				e.printStackTrace();

@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Base64InputStream;
 import android.util.Base64OutputStream;
+import android.widget.Toast;
 
 
 //Don't call the methods in this class, 
@@ -21,6 +22,7 @@ public class Storage {
 	public static final String PLANNED_SALES = "planned";
 	public static final String HIDDEN_SALES = "hidden";
 	public static final String OTHER_SALES = "other";
+	public static final String LOGIN = "log in";
 	public static final String PREFS_NAME = "MyPrefsFile";
 	
 	/*
@@ -37,6 +39,29 @@ public class Storage {
         ed.putString(key, salesString);
         ed.commit();
         System.out.println("STORAGE: PUT " + key + " : " + salesString);
+	}
+	/*
+	 * Stores User.currentUser
+	 */
+	public static void storeLogin(Context context) {
+		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor ed = prefs.edit();
+        String loginString = User.currentUser.toString();
+        ed.putString(LOGIN, loginString);
+        ed.commit();
+        System.out.println("STORAGE: PUT " + LOGIN + " : " + loginString);
+	}
+	/*
+	 * Modifies User.currentUser
+	 */
+	public static void getLastLogin(Context context) {
+		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+		String loginString = prefs.getString(LOGIN, User.currentUser.toString());
+        System.out.println("STORAGE: GET " + LOGIN + " : " + loginString);
+		ArrayList<String> fields =  new ArrayList<String>(Arrays.asList(loginString.split(",")));
+		User.currentUser.id = Integer.parseInt(fields.get(0));
+		User.currentUser.email = fields.get(1);
+		Toast.makeText(context, "Logged in as " + User.currentUser.email, Toast.LENGTH_SHORT).show();			
 	}
 	//For storing the ID of a sale. Used when following a sale or when creating a new sale 
 	//For example, you should call this when you click a "follow" button and call storeID("12335", FOLLOWED_SALES)
