@@ -1,158 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-    
-    <TextView
-        android:id="@+id/TitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Title"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/TitleField"
+        
+    <RelativeLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TitleTextView"
-        android:ems="10"
-        android:fontFamily="sans-serif-light" >
+        android:layout_height="wrap_content" >
+    	<TextView
+        	android:id="@+id/TitleTextView"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_alignParentLeft="true"
+        	android:layout_alignParentTop="true"
+        	android:text="Title"
+        	android:fontFamily="sans-serif-light"
+        	android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <requestFocus />
+	    <EditText
+    	    android:id="@+id/TitleField"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_alignParentLeft="true"
+        	android:layout_below="@+id/TitleTextView"
+        	android:ems="10"
+        	android:fontFamily="sans-serif-light" >
+        	<requestFocus />
 
-    </EditText>
+    	</EditText>
 
-    <TextView
-        android:id="@+id/LocationTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/TitleField"
-        android:text="Location"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/LocationField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/LocationTextView"
-        android:ems="10"
-        android:fontFamily="sans-serif-light" />
-
-    <TextView
-        android:id="@+id/StartDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/LocationField"
-        android:text="Start Date"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/StartDateField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/StartDateTextView"
-        android:layout_toLeftOf="@+id/Dash1TextView"
-        android:ems="10"
-        android:inputType="none"
-        android:focusable="false"
-        android:onClick="StartDateFieldOnClick"
-        android:fontFamily="sans-serif-light" />
-
-    <TextView
-        android:id="@+id/Dash1TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/StartDateField"
-        android:layout_centerHorizontal="true"
-        android:text="-"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/EndDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/StartDateTextView"
-        android:layout_toRightOf="@+id/Dash1TextView"
-        android:text="End Date"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/EndDateField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/StartDateField"
-        android:layout_alignLeft="@+id/EndDateTextView"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:inputType="textPostalAddress" 
-        android:focusable="false"
-        android:onClick="EndDateFieldOnClick"
-        android:fontFamily="sans-serif-light" />
-
-    <TextView
-        android:id="@+id/StartTimeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/StartDateField"
-        android:text="Start Time"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/Dash2TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/StartTimeField"
-        android:layout_centerHorizontal="true"
-        android:text="-"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/EndTimeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/StartTimeTextView"
-        android:layout_toRightOf="@+id/Dash2TextView"
-        android:text="End Time"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/StartTimeField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/StartDateField"
-        android:layout_below="@+id/StartTimeTextView"
-        android:ems="10"
-        android:inputType="textPostalAddress" 
-        android:focusable="false"
-        android:onClick="StartTimeFieldOnClick"
-        android:fontFamily="sans-serif-light" />
-
-    <EditText
-        android:id="@+id/EndTimeField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EndTimeTextView"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/EndTimeTextView"
-        android:ems="10"
-        android:inputType="textPostalAddress" 
-        android:focusable="false"
-        android:onClick="EndTimeFieldOnClick"
-        android:fontFamily="sans-serif-light" />
-
-</RelativeLayout>
+	    <TextView
+	        android:id="@+id/LocationTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/TitleField"
+	        android:text="Location"
+	        android:fontFamily="sans-serif-light"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <EditText
+	        android:id="@+id/LocationField"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/LocationTextView"
+	        android:ems="10"
+	        android:fontFamily="sans-serif-light" />
+	
+	    <TextView
+	        android:id="@+id/StartDateTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/LocationField"
+	        android:text="Start Date"
+	        android:fontFamily="sans-serif-light"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <EditText
+	        android:id="@+id/StartDateField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/StartDateTextView"
+	        android:layout_toLeftOf="@+id/Dash1TextView"
+	        android:ems="10"
+	        android:inputType="none"
+	        android:focusable="false"
+	        android:onClick="StartDateFieldOnClick"
+	        android:fontFamily="sans-serif-light" />
+	
+	    <TextView
+	        android:id="@+id/Dash1TextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/StartDateField"
+	        android:layout_centerHorizontal="true"
+	        android:text="-"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	    <TextView
+	        android:id="@+id/EndDateTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/StartDateTextView"
+	        android:layout_toRightOf="@+id/Dash1TextView"
+	        android:text="End Date"
+	        android:fontFamily="sans-serif-light"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <EditText
+	        android:id="@+id/EndDateField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/StartDateField"
+	        android:layout_alignLeft="@+id/EndDateTextView"
+	        android:layout_alignParentRight="true"
+	        android:ems="10"
+	        android:inputType="textPostalAddress" 
+	        android:focusable="false"
+	        android:onClick="EndDateFieldOnClick"
+	        android:fontFamily="sans-serif-light" />
+	
+	    <TextView
+	        android:id="@+id/StartTimeTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/StartDateField"
+	        android:text="Start Time"
+	        android:fontFamily="sans-serif-light"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/Dash2TextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/StartTimeField"
+	        android:layout_centerHorizontal="true"
+	        android:text="-"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	    <TextView
+	        android:id="@+id/EndTimeTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/StartTimeTextView"
+	        android:layout_toRightOf="@+id/Dash2TextView"
+	        android:text="End Time"
+	        android:fontFamily="sans-serif-light"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <EditText
+	        android:id="@+id/StartTimeField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignRight="@+id/StartDateField"
+	        android:layout_below="@+id/StartTimeTextView"
+	        android:ems="10"
+	        android:inputType="textPostalAddress" 
+	        android:focusable="false"
+	        android:onClick="StartTimeFieldOnClick"
+	        android:fontFamily="sans-serif-light" />
+	
+	    <EditText
+	        android:id="@+id/EndTimeField"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/EndTimeTextView"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/EndTimeTextView"
+	        android:ems="10"
+	        android:inputType="textPostalAddress" 
+	        android:focusable="false"
+	        android:onClick="EndTimeFieldOnClick"
+	        android:fontFamily="sans-serif-light" />
+	</RelativeLayout>
+</ScrollView>

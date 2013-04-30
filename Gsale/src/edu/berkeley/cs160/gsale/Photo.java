@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class Photo {
+	public int id; // Unique Identifier
+	public GarageSale sale;
 	public Bitmap bitmap = null;
 	public String description = null;
 	

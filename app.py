@@ -16,6 +16,17 @@ description TEXT, plannerId INT, startYear INT, startMonth INT, startDay
 INT, startHour INT, startMinute INT, endYear INT, endMonth INT, endDay 
 INT, endHour INT, endMinute INT, location TEXT, latitude REAL, longitude 
 REAL)')
+    cur.execute('CREATE TABLE IF NOT EXISTS Users (email TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS UserFollowed (userid INT, 
+saleid INT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS UserPlanned (userid INT, 
+saleid INT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS UserHidden (userid INT, 
+saleid INT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS Messages (saleid INT, 
+senderid INT, receiverid INT, subject TEXT, content TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS Photos (saleid INT, bitmap 
+BLOB, description TEXT)')
     connection.commit()
     connection.close()
 
@@ -32,25 +43,35 @@ def clear():
     connection = sqlite3.connect(DATABASE)
     cur = connection.cursor()
     cur.execute('DROP TABLE IF EXISTS GarageSales')
+    cur.execute('DROP TABLE IF EXISTS Users')
+    cur.execute('DROP TABLE IF EXISTS UserFollowed')
+    cur.execute('DROP TABLE IF EXISTS UserPlanned')
+    cur.execute('DROP TABLE IF EXISTS UserHidden')
+    cur.execute('DROP TABLE IF EXISTS Messages')
+    cur.execute('DROP TABLE IF EXISTS Photos')
     connection.commit()
     connection.close()
     return json.dumps({'message': 'deleted tables'})
 
+"""
+SALES
+"""
+
 @app.route('/sales', methods=['GET'])
-def all():
+def allSales():
     #get all sales and return in list
     resources = query_db('SELECT rowid,* FROM GarageSales')
     return json.dumps(resources)
 
 @app.route('/sale/<id>', methods=['GET'])
-def show(id):
+def showSale(id):
     #get the sale with the id <id> from the database
     single_resource = query_db('SELECT * FROM GarageSales WHERE rowid = 
 ?', [id], one=True)
     return json.dumps(single_resource)
 
 @app.route('/sale', methods=['POST'])
-def add():
+def addSale():
     #access message of the POST with request.form
     #then add a new item to the database
     #return the id of the new item
@@ -65,8 +86,87 @@ int(params.get('endMonth')), int(params.get('endDay')),
 int(params.get('endHour')), int(params.get('endMinute')), 
 params.get('location'), float(params.get('latitude')), 
 float(params.get('longitude'))])
-
     return json.dumps({'id' : new_item_id})
+
+"""
+USERS
+"""
+@app.route('/users', methods=['GET'])
+def allUsers():
+    resources = query_db('SELECT rowid,* FROM Users')
+    return json.dumps(resources)
+
+@app.route('/follow/<userid>', methods=['GET'])
+def getFollowed(userid):
+    resources = query_db('SELECT * FROM UserFollowed WHERE userid = ?', 
+[userid])
+    return json.dumps(resources)
+
+@app.route('/plan/<userid>', methods=['GET'])
+def getPlanned(userid):
+    resources = query_db('SELECT * FROM UserPlanned WHERE userid = ?', 
+[userid])
+    return json.dumps(resources)
+
+@app.route('/hide/<userid>', methods=['GET'])
+def getHidden(userid):
+    resources = query_db('SELECT * FROM UserHidden WHERE userid = ?', 
+[userid])
+    return json.dumps(resources)
+
+@app.route('/user', methods=['POST'])
+def addUser():
+    #TODO: should check for unique email
+    #TODO: add password
+    params = request.form
+    new_item_id = add_to_db('INSERT INTO Users values(?)', 
+[params.get('email')])
+    return json.dumps({'id' : new_item_id})
+
+@app.route('/follow', methods=['POST'])
+def addFollow():
+    params = request.form
+    new_item_id = add_to_db('INSERT INTO UserFollowed values(?,?)', 
+[int(params.get('userid')), int(params.get('saleid'))])
+    return json.dumps({'id' : new_item_id})
+
+@app.route('/plan', methods=['POST'])
+def addPlan():
+    params = request.form
+    new_item_id = add_to_db('INSERT INTO UserPlanned values(?,?)', 
+[int(params.get('userid')), int(params.get('saleid'))])
+    return json.dumps({'id' : new_item_id})
+
+@app.route('/hide', methods=['POST'])
+def addHide():
+    params = request.form
+    new_item_id = add_to_db('INSERT INTO UserHidden values(?,?)', 
+[int(params.get('userid')), int(params.get('saleid'))])
+    return json.dumps({'id' : new_item_id})
+
+"""
+Messages
+"""
+@app.route('/messages', methods=['GET'])
+def allMessages():
+    resources = query_db('SELECT rowid,* FROM Messages')
+    return json.dumps(resources)
+
+@app.route('/messages/<saleid>', methods=['GET'])
+def getMessages(saleid):
+    resources = query_db('SELECT * FROM Messages WHERE saleid = ?', 
+[saleid])
+    return json.dumps(resources)
+
+@app.route('/message', methods=['POST'])
+def addMessage():
+    params = request.form
+    new_item_id = add_to_db('INSERT INTO Messages values(?,?,?,?,?)', 
+[int(params.get('saleid')), int(params.get('senderid')), 
+int(params.get('receiverid')), params.get('subject'), 
+params.get('content')])
+    return json.dumps({'id' : new_item_id})
+
 
 """
 @app.route('/search', methods=['GET'])
