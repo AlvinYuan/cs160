@@ -21,7 +21,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -460,7 +459,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	    }
 	    if (requestCode == GALLERY_IMAGE_ACTIVITY_REQUEST_CODE) {
 	    	if (resultCode == RESULT_OK){
-	    		Toast.makeText(this, "Image Selected!", Toast.LENGTH_LONG).show();
+	    		Toast.makeText(this, "Image Selected!", Toast.LENGTH_SHORT).show();
 	    		Uri selectedImage = data.getData();
 	            String[] filePathColumn = { MediaStore.Images.Media.DATA };
 

@@ -26,7 +26,7 @@ public class GetAllSalesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 		try {
 			/* Prepare Request */
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpGet get = new HttpGet(GarageSale.SERVER_URL + GarageSale.GET_ALL_SALES_URL_SUFFIX);
+			HttpGet get = new HttpGet(Server.URL + Server.GET_ALL_SALES_SUFFIX);
 			System.out.println("GetAllSalesAsyncTask: SENDING GET REQUEST");
 			HttpResponse response = httpclient.execute(get);
 			

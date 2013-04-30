@@ -11,12 +11,18 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 
 public class HomeActivity extends Activity implements LocationListener {
 	/*
@@ -47,6 +53,51 @@ public class HomeActivity extends Activity implements LocationListener {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_home, menu);
 		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.menu_login:
+	            handleLoginRequest();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	/*
+	 * handleLoginRequest
+	 */
+	public void handleLoginRequest() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Log in");
+		builder.setMessage("Specify an email");
+		final EditText input = new EditText(this);
+
+		builder.setView(input);
+		builder.setPositiveButton("Log in", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				LogInAsyncTask logInTask = new LogInAsyncTask(input.getContext(), input.getText().toString());
+				logInTask.execute();				
+			}
+		});
+		builder.setNegativeButton("Cancel", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		/* http://stackoverflow.com/questions/2403632/android-show-soft-keyboard-automatically-when-focus-is-on-an-edittext */
+		final AlertDialog dialog = builder.create();
+		input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+		    @Override
+		    public void onFocusChange(View v, boolean hasFocus) {
+		        if (hasFocus) {
+		            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+		        }
+		    }
+		});
+		dialog.show();
 	}
 
 	/*

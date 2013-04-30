@@ -30,10 +30,6 @@ public class GarageSale implements java.io.Serializable{
 	public static String SEARCH_ACTIVITY = "SEARCH_ACTIVITY";
 	public static String FOLLOWED_ACTIVITY = "FOLLOWED_ACTIVITY";
 	
-	public static String SERVER_URL = "http://alvinyuan.pythonanywhere.com";
-	public static String POST_SALE_URL_SUFFIX = "/sale";
-	public static String GET_ALL_SALES_URL_SUFFIX = "/sales";
-	
 	public static int INVALID_INT = -1;
 	public static LatLng INVALID_COORDS = new LatLng(-90, 0);
 	public static String INVALID_STRING = "";
