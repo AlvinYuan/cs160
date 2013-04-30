@@ -332,10 +332,8 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	 */
 	public void NextButtonOnClick(View view) {
 		if (step == editProgressBar.getMax()) {
-			//Storage store = new Storage(this);
 			//store.storeSale(editingSale, 13376);
-			//store.storeId(13376, Storage.PLANNED_SALES);
-			if (User.currentUser.plannedSales.size() == 0 && !currentlyPublishing) {
+			if (!currentlyPublishing) {
 				currentlyPublishing = true;
 				PostSaleAsyncTask postTask = new PostSaleAsyncTask(this, editingSale);
 				postTask.execute();
