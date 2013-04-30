@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	public Context context;
@@ -64,8 +65,11 @@ public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 				id = result.getInt("id");
 				sale.id = id;
 				GarageSale.allSales.put(sale.id, sale);
+				User.currentUser.plannedSales.add(sale);
 				System.out.println("PostSaleAsyncTask: SALE ID - " + sale.id);
-				/* TODO: Display some Toast */
+				Storage.storeList(context, User.currentUser.plannedSales, Storage.PLANNED_SALES);
+				Toast.makeText(context, "Published!", Toast.LENGTH_SHORT).show();
+				((EditSaleActivity) context).finish();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

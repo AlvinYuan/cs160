@@ -233,10 +233,10 @@ public class GarageSale implements java.io.Serializable{
 			User.currentUser.followedSales.remove(this);
 			Toast.makeText(context, "Unfollowed.", Toast.LENGTH_SHORT).show();
 		} else {
-			User.currentUser.followedSales.add(this);			
+			User.currentUser.followedSales.add(this);
 			Toast.makeText(context, "Followed!", Toast.LENGTH_SHORT).show();
 		}
-
+		Storage.storeList(context, User.currentUser.followedSales, Storage.FOLLOWED_SALES);
 	}
 	/*
 	 * Prototyping Purposes Only

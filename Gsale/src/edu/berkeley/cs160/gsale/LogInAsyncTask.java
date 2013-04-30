@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 public class LogInAsyncTask extends AsyncTask<Void, Void, JSONObject> {
@@ -74,6 +73,7 @@ public class LogInAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 					toastString = "Created new account " + id;
 				} else {
 					toastString = "Logged into account " + id;
+					
 				}
 				Toast.makeText(context, toastString, Toast.LENGTH_SHORT).show();
 			} catch (JSONException e) {

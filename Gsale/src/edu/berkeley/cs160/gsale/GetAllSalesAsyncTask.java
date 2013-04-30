@@ -2,6 +2,7 @@ package edu.berkeley.cs160.gsale;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -57,7 +58,20 @@ public class GetAllSalesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 				for (int i = 0; i < result.length(); i++) {
 					GarageSale sale = new GarageSale(result.getJSONArray(i));
 					GarageSale.allSales.put(sale.id, sale);
-					System.out.println("GetAllSalesAsyncTask: GOT SALE " + sale.id);
+				}
+				System.out.println("GetAllSalesAsyncTask: GOT " + GarageSale.allSales.size() + " SALES");
+				
+				ArrayList<Integer> plannedSaleIds = Storage.getIds(context, Storage.PLANNED_SALES);
+				for (int i = 0; i < plannedSaleIds.size(); i++) {
+				    User.currentUser.plannedSales.add(GarageSale.allSales.get(plannedSaleIds.get(i)));					 
+				}
+				ArrayList<Integer> followedSaleIds = Storage.getIds(context, Storage.FOLLOWED_SALES);
+				for (int i = 0; i < followedSaleIds.size(); i++) {
+					User.currentUser.followedSales.add(GarageSale.allSales.get(followedSaleIds.get(i)));					 
+				}
+				ArrayList<Integer> hiddenSaleIds = Storage.getIds(context, Storage.HIDDEN_SALES);
+				for (int i = 0; i < hiddenSaleIds.size(); i++) {
+					User.currentUser.hiddenSales.add(GarageSale.allSales.get(hiddenSaleIds.get(i)));					 
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

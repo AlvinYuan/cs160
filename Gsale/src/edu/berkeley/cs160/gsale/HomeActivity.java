@@ -179,8 +179,6 @@ public class HomeActivity extends Activity implements LocationListener {
 		GarageSale.generateAllSales(this);
 		GetAllSalesAsyncTask getTask = new GetAllSalesAsyncTask(this);
 		getTask.execute();
-		Storage store = new Storage(this);
-		User.currentUser.plannedSales = store.getSales(Storage.PLANNED_SALES);
 	}
 
 	/*

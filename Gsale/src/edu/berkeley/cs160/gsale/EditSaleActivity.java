@@ -59,6 +59,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public PhotoAdapter photoAdapter;
 	public boolean photoAdded = false;
 	
+	public boolean currentlyPublishing = false;
 	/* Camera Stuff */
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	public static final int MEDIA_TYPE_VIDEO = 2;
@@ -334,13 +335,12 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			//Storage store = new Storage(this);
 			//store.storeSale(editingSale, 13376);
 			//store.storeId(13376, Storage.PLANNED_SALES);
-			if (User.currentUser.plannedSales.size() == 0) {
+			if (User.currentUser.plannedSales.size() == 0 && !currentlyPublishing) {
+				currentlyPublishing = true;
 				PostSaleAsyncTask postTask = new PostSaleAsyncTask(this, editingSale);
 				postTask.execute();
-				User.currentUser.plannedSales.add(editingSale);
 			}
-			Toast.makeText(this, "Published!", Toast.LENGTH_SHORT).show();
-			finish();
+			
 		} else {
 			editProgressBar.setProgress(editProgressBar.getProgress() + 1);
 		}

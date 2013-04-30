@@ -96,53 +96,20 @@ def allUsers():
     resources = query_db('SELECT rowid,* FROM Users')
     return json.dumps(resources)
 
-@app.route('/follow/<userid>', methods=['GET'])
-def getFollowed(userid):
-    resources = query_db('SELECT * FROM UserFollowed WHERE userid = ?', 
-[userid])
-    return json.dumps(resources)
-
-@app.route('/plan/<userid>', methods=['GET'])
-def getPlanned(userid):
-    resources = query_db('SELECT * FROM UserPlanned WHERE userid = ?', 
-[userid])
-    return json.dumps(resources)
-
-@app.route('/hide/<userid>', methods=['GET'])
-def getHidden(userid):
-    resources = query_db('SELECT * FROM UserHidden WHERE userid = ?', 
-[userid])
-    return json.dumps(resources)
-
 @app.route('/user', methods=['POST'])
 def addUser():
-    #TODO: should check for unique email
     #TODO: add password
     params = request.form
-    new_item_id = add_to_db('INSERT INTO Users values(?)', 
+    user = query_db('SELECT rowid FROM Users WHERE email = ?', 
+[params.get('email')], one=True)
+    if user == None:
+        id = add_to_db('INSERT INTO Users values(?)', 
 [params.get('email')])
-    return json.dumps({'id' : new_item_id})
-
-@app.route('/follow', methods=['POST'])
-def addFollow():
-    params = request.form
-    new_item_id = add_to_db('INSERT INTO UserFollowed values(?,?)', 
-[int(params.get('userid')), int(params.get('saleid'))])
-    return json.dumps({'id' : new_item_id})
-
-@app.route('/plan', methods=['POST'])
-def addPlan():
-    params = request.form
-    new_item_id = add_to_db('INSERT INTO UserPlanned values(?,?)', 
-[int(params.get('userid')), int(params.get('saleid'))])
-    return json.dumps({'id' : new_item_id})
-
-@app.route('/hide', methods=['POST'])
-def addHide():
-    params = request.form
-    new_item_id = add_to_db('INSERT INTO UserHidden values(?,?)', 
-[int(params.get('userid')), int(params.get('saleid'))])
-    return json.dumps({'id' : new_item_id})
+        new = True
+    else:
+        id = user[0];
+        new = False
+    return json.dumps({'id' : id, 'new' : new})
 
 """
 Messages

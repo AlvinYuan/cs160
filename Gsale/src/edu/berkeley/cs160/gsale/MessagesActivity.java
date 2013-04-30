@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class MessagesActivity extends Activity {
-	public Storage data;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +33,11 @@ public class MessagesActivity extends Activity {
 		testSale2.description = "testSale2 Description";
 		testSale2.id = 98765;
 		
-		data = new Storage(this);
-		data.storeSale(testSale1, testSale1.id);
-		data.storeSale(testSale2, testSale2.id);
+		Storage.storeSale(this, testSale1, testSale1.id);
+		Storage.storeSale(this, testSale2, testSale2.id);
 		
-		data.storeId(testSale1.id, Storage.FOLLOWED_SALES);
-		data.storeId(testSale2.id, Storage.FOLLOWED_SALES);
+		Storage.storeId(this, testSale1.id, Storage.FOLLOWED_SALES);
+		Storage.storeId(this, testSale2.id, Storage.FOLLOWED_SALES);
 	}
 
 	@Override
@@ -67,13 +64,13 @@ public class MessagesActivity extends Activity {
 			return true;
 		case R.id.store_button1:
 			Toast.makeText(this, "You have chosen retrieve.", Toast.LENGTH_SHORT).show();
-			GarageSale temp = data.getSale(123456);
+			GarageSale temp = Storage.getSale(this, 123456);
 			result.append(temp.title + "\n");
 			return true;
 		case R.id.store_button2:
 			Toast.makeText(this, "You have chosen list.", Toast.LENGTH_SHORT).show();
 			result.setText("");
-			ArrayList<GarageSale> tempSales = data.getSales(Storage.FOLLOWED_SALES);
+			ArrayList<GarageSale> tempSales = Storage.getSales(this, Storage.FOLLOWED_SALES);
 			for(GarageSale g : tempSales) {
 				result.append(g.title + "\n");
 			}
@@ -85,9 +82,9 @@ public class MessagesActivity extends Activity {
 	public void testList(View view) {
 		TextView result = (TextView)findViewById(R.id.storage_test);
 		result.setText("");
-		ArrayList<Integer> test = data.getIds(Storage.FOLLOWED_SALES);
+		ArrayList<Integer> test = Storage.getIds(this, Storage.FOLLOWED_SALES);
 		
-		ArrayList<GarageSale> tempSales = data.getSales(Storage.FOLLOWED_SALES);
+		ArrayList<GarageSale> tempSales = Storage.getSales(this, Storage.FOLLOWED_SALES);
 		for(GarageSale g : tempSales) {
 			result.append(g.title + "\n");
 		}
@@ -95,14 +92,14 @@ public class MessagesActivity extends Activity {
 	
 	public void testRetrieve(View view) {
 		TextView result = (TextView)findViewById(R.id.storage_test);
-		GarageSale temp = data.getSale(123456);
+		GarageSale temp = Storage.getSale(this, 123456);
 		result.append(temp.title + "\n");
 	}
 	
 	public void clearData(View view) {
 		TextView result = (TextView)findViewById(R.id.storage_test);
 		User.currentUser.plannedSales.clear();
-		data.clearStorage();
+		Storage.clearStorage(this);
 		result.append("Cleared SharedPreferences" + "\n");
 	}
 }
