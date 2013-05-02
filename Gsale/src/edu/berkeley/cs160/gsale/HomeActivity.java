@@ -110,6 +110,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void SearchSalesButtonOnClick(View view) {
 		Intent intent = new Intent(this, SearchActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
 	/*
@@ -123,6 +124,7 @@ public class HomeActivity extends Activity implements LocationListener {
 		    switch (status) {
 		        case ConnectionResult.SUCCESS:
 		            startActivity(intent);
+		            //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 		            break;
 
 		        default:
@@ -140,6 +142,8 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void FollowedSalesButtonOnClick(View view) {
 		Intent intent = new Intent(this, FollowedActivity.class);
 		startActivity(intent);
+		// adding transition makes app crash for some reason...
+		//overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 	
 	/*
@@ -148,6 +152,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void SendViewMessagesButtonOnClick(View view) {
 		Intent intent = new Intent(this, MessagesActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
 	/*
@@ -156,6 +161,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void CreateEditSalesButtonOnClick(View view) {
 		Intent intent = new Intent(this, CreateEditActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
 	/*
@@ -164,6 +170,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void SettingsButtonOnClick(View view) {
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
 	/*

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +17,7 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -54,6 +56,9 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public SeekBar editProgressBar;
 	public Button backButton;
 	public Button nextButton;
+	public ProgressDialog progressBar;
+	private int progressBarStatus = 0;
+	private Handler progressBarHandler = new Handler();
 
 	public ListView editPhotosListView;
 	public PhotoAdapter photoAdapter;
@@ -230,6 +235,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public void loadBasicInfoView() {
 		editBasicInfoView.setVisibility(View.VISIBLE);
 		visibleEditView = editBasicInfoView;
+		
 	}
 	
 	public void loadDescriptionView() {
