@@ -230,6 +230,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public void loadBasicInfoView() {
 		editBasicInfoView.setVisibility(View.VISIBLE);
 		visibleEditView = editBasicInfoView;
+		
 	}
 	
 	public void loadDescriptionView() {
