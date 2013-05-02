@@ -25,8 +25,8 @@ saleid INT)')
 saleid INT)')
     cur.execute('CREATE TABLE IF NOT EXISTS Messages (saleid INT, 
 senderid INT, receiverid INT, subject TEXT, content TEXT)')
-    cur.execute('CREATE TABLE IF NOT EXISTS Photos (saleid INT, bitmap 
-BLOB, description TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS Photos (bitmap TEXT, 
+description TEXT)')
     connection.commit()
     connection.close()
 
@@ -134,7 +134,35 @@ int(params.get('receiverid')), params.get('subject'),
 params.get('content')])
     return json.dumps({'id' : new_item_id})
 
+"""
+Photos
+"""
+@app.route('/photos', methods=['GET'])
+def allPhotos():
+    resources = query_db('SELECT rowid,* FROM Photos')
+    return json.dumps(resources)
 
+@app.route('/photo', methods=['POST'])
+def addPhoto():
+    params = request.form
+    new_item_id = add_to_db('INSERT INTO Photos values(?,?)', 
+[params.get('bitmap'), params.get('description')])
+    return json.dumps({'id' : new_item_id})
+
+@app.route('/delete/photos', methods=['GET'])
+def deletePhotos():
+    connection = sqlite3.connect(DATABASE)
+    cur = connection.cursor()
+    cur.execute('DROP TABLE IF EXISTS Photos')
+    connection.commit()
+    connection.close()
+    return json.dumps({'message': 'deleted Photos'})
+
+
+"""
+@app.route('/photos', methods=['GET'])
+def allPhotos():
+"""
 """
 @app.route('/search', methods=['GET'])
 def search():

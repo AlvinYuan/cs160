@@ -1,5 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,11 +99,10 @@ public class GarageSale implements java.io.Serializable{
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 
-	public ArrayList<NameValuePair> constructPostParameters() {
+	public UrlEncodedFormEntity HttpPostEntity() {
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		postParameters.add(new BasicNameValuePair("title", title));
 		postParameters.add(new BasicNameValuePair("description", description));
@@ -119,7 +120,12 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("location", location));
 		postParameters.add(new BasicNameValuePair("latitude", ""+coords.latitude));
 		postParameters.add(new BasicNameValuePair("longitude", ""+coords.longitude));
-		return postParameters;
+		try {
+			return new UrlEncodedFormEntity(postParameters);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void loadDetailsIntoView(View detailsView) {

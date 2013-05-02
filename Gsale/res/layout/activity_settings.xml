@@ -14,4 +14,22 @@
         android:fontFamily="sans-serif-light"
         android:onClick="UnhideAllSalesButtonOnClick" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Post Photo"
+        android:onClick="PostPhotoTest" />
+
+    <ImageView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/UnhideAllSalesButton"
+        android:src="@drawable/followed" />
+
 </RelativeLayout>

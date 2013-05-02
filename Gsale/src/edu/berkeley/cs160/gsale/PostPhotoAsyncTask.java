@@ -1,5 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -15,41 +16,40 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
+public class PostPhotoAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	public Context context;
-	public GarageSale sale;
+	public Photo photo;
 
-	public PostSaleAsyncTask(Context context, GarageSale sale) {
+	public PostPhotoAsyncTask(Context context, Photo p) {
 		super();
 		this.context = context;
-		this.sale = sale;
+		photo = p;
 	}
 	@Override
 	protected JSONObject doInBackground(Void... params) {
 		try {
 			/* Prepare Request */
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Server.URL + Server.POST_SALE_SUFFIX);
-			post.setEntity(sale.HttpPostEntity());
-			System.out.println("PostSaleAsyncTask: SENDING POST REQUEST");
+			HttpPost post = new HttpPost(Server.URL + Server.POST_PHOTO_SUFFIX);
+			post.setEntity(photo.HttpPostEntity());
+			System.out.println("PostPhotoAsyncTask: SENDING POST REQUEST");
 			HttpResponse response = httpclient.execute(post);
-			
 			/* Handle Response */
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				System.out.println("PostSaleAsyncTask: RECEIVED OK RESPONSE");
+				System.out.println("PostPhotoAsyncTask: RECEIVED OK RESPONSE");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				response.getEntity().writeTo(out);
 				out.close();
 				String responseString = out.toString();
-				JSONObject JSONsale = new JSONObject(responseString);
-				return JSONsale;
+				JSONObject JSONphoto = new JSONObject(responseString);
+				return JSONphoto;
 			} else {
 				//Closes the connection.
 				response.getEntity().getContent().close();
 				throw new IOException(response.getStatusLine().getReasonPhrase());
 			}
 		} catch (Exception e) {
-			System.out.println("PostSaleAsyncTask: " + e.toString());
+			System.out.println("PostPhotoAsyncTask: " + e.toString());
 		}
 
 		return null;
@@ -57,18 +57,13 @@ public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 
 	@Override
 	protected void onPostExecute(JSONObject result) {
-			try {
-				sale.id = result.getInt("id");
-				GarageSale.allSales.put(sale.id, sale);
-				User.currentUser.plannedSales.add(sale);
-				System.out.println("PostSaleAsyncTask: SALE ID - " + sale.id);
-				Storage.storeList(context, User.currentUser.plannedSales, Storage.PLANNED_SALES);
-				Toast.makeText(context, "Published!", Toast.LENGTH_SHORT).show();
-				((EditSaleActivity) context).finish();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
+		try {
+			photo.id = result.getInt("id");
+			System.out.println("PostPhotoAsyncTask: PHOTO ID - " + photo.id);
+			Toast.makeText(context, "Photo Uploaded!", Toast.LENGTH_SHORT).show();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class SettingsActivity extends Activity {
@@ -15,6 +17,10 @@ public class SettingsActivity extends Activity {
 		setContentView(R.layout.activity_settings);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		ImageView test = (ImageView) findViewById(R.id.test);
+		if (Photo.allPhotos.size() > 0) {
+			test.setImageBitmap(Photo.allPhotos.get(1).bitmap);
+		}
 	}
 
 	@Override
@@ -47,5 +53,12 @@ public class SettingsActivity extends Activity {
 	public void UnhideAllSalesButtonOnClick(View view) {
 		User.currentUser.hiddenSales.clear();
 		Storage.storeList(this, User.currentUser.hiddenSales, Storage.HIDDEN_SALES);
+	}
+	
+	public void PostPhotoTest(View view) {
+		Toast.makeText(this, "Testing post", Toast.LENGTH_SHORT).show();
+		Photo p = Photo.generatePhotos(this).get(0);
+		PostPhotoAsyncTask post = new PostPhotoAsyncTask(this,p);
+		post.execute();
 	}
 }

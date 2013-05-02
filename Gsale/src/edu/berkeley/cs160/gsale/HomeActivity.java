@@ -177,9 +177,12 @@ public class HomeActivity extends Activity implements LocationListener {
 		User.currentUser = new User();
 		Storage.getLastLogin(this);
 		GarageSale.allSales = new HashMap<Integer, GarageSale>();
+		Photo.allPhotos = new HashMap<Integer, Photo>();
 		GarageSale.generateAllSales(this);
-		GetAllSalesAsyncTask getTask = new GetAllSalesAsyncTask(this);
-		getTask.execute();
+		GetAllSalesAsyncTask getSalesTask = new GetAllSalesAsyncTask(this);
+		getSalesTask.execute();
+		GetAllPhotosAsyncTask getPhotosTask = new GetAllPhotosAsyncTask(this);
+		getPhotosTask.execute();
 	}
 
 	/*
