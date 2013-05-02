@@ -69,6 +69,13 @@ public class GarageSale implements java.io.Serializable{
 	/* Photos */
 	public ArrayList<Photo> photos = null;
 	public Photo mainPhoto = null;
+	/* 
+	 * Only to be used when starting up the app.
+	 * Photo.allPhotos might not be populated yet,
+	 * so keep track of mainPhotoId and set mainPhoto later.
+	 * A means of delaying assignment to mainPhoto
+	 */
+	public int mainPhotoId = INVALID_INT;
 	
 	public GarageSale() {
 		photos = new ArrayList<Photo>();
@@ -96,6 +103,7 @@ public class GarageSale implements java.io.Serializable{
 			double latitude = JSONsale.getDouble(i++);
 			double longitude = JSONsale.getDouble(i++);
 			coords = new LatLng(latitude, longitude);
+			mainPhotoId = JSONsale.getInt(i++); // mainPhoto set in onAppStartupTwo
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -120,6 +128,7 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("location", location));
 		postParameters.add(new BasicNameValuePair("latitude", ""+coords.latitude));
 		postParameters.add(new BasicNameValuePair("longitude", ""+coords.longitude));
+		postParameters.add(new BasicNameValuePair("mainPhotoId", ""+mainPhoto.id));
 		try {
 			return new UrlEncodedFormEntity(postParameters);
 		} catch (UnsupportedEncodingException e) {

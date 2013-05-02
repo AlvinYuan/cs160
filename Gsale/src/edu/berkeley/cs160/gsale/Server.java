@@ -7,4 +7,6 @@ public class Server {
 	public static final String LOG_IN_SUFFIX = "/user";
 	public static final String POST_PHOTO_SUFFIX = "/photo";
 	public static final String GET_ALL_PHOTOS_SUFFIX = "/photos";
+	public static final String POST_SALE_PHOTO_SUFFIX = "/salephoto";
+	public static final String GET_SALE_PHOTOS_SUFFIX = "/salephotos";
 }

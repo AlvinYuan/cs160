@@ -14,10 +14,10 @@ import org.json.JSONException;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
+public class GetSalePhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 	public Context context;
 
-	public GetAllPhotosAsyncTask(Context context) {
+	public GetSalePhotosAsyncTask(Context context) {
 		super();
 		this.context = context;
 	}
@@ -26,13 +26,13 @@ public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 		try {
 			/* Prepare Request */
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpGet get = new HttpGet(Server.URL + Server.GET_ALL_PHOTOS_SUFFIX);
-			System.out.println("GetAllPhotosAsyncTask: SENDING GET REQUEST");
+			HttpGet get = new HttpGet(Server.URL + Server.GET_SALE_PHOTOS_SUFFIX);
+			System.out.println("GetSalePhotosAsyncTask: SENDING GET REQUEST");
 			HttpResponse response = httpclient.execute(get);
 			
 			/* Handle Response */
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				System.out.println("GetAllPhotosAsyncTask: RECEIVED OK RESPONSE");
+				System.out.println("GetSalePhotosAsyncTask: RECEIVED OK RESPONSE");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				response.getEntity().writeTo(out);
 				out.close();
@@ -45,7 +45,7 @@ public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 				throw new IOException(response.getStatusLine().getReasonPhrase());
 			}
 		} catch (Exception e) {
-			System.out.println("GetAllPhotosAsyncTask: " + e.toString());
+			System.out.println("GetSalePhotosAsyncTask: " + e.toString());
 		}
 
 		return null;
@@ -55,11 +55,11 @@ public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 	protected void onPostExecute(JSONArray result) {
 			try {
 				for (int i = 0; i < result.length(); i++) {
-					Photo photo = new Photo(result.getJSONArray(i));
-					Photo.allPhotos.put(photo.id, photo);
+					JSONArray salePhoto = result.getJSONArray(i);
+					GarageSale sale = GarageSale.allSales.get(salePhoto.getInt(0));
+					sale.photos.add(Photo.allPhotos.get(salePhoto.getInt(1)));
 				}
-				System.out.println("GetAllPhotosAsyncTask: GOT " + Photo.allPhotos.size() + " PHOTOS");
-				((HomeActivity) context).onAppStartupTwo();
+				System.out.println("GetSalePhotosAsyncTask: GOT " + result.length() + " SALEPHOTOS");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

@@ -1,5 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -183,6 +184,20 @@ public class HomeActivity extends Activity implements LocationListener {
 		getSalesTask.execute();
 		GetAllPhotosAsyncTask getPhotosTask = new GetAllPhotosAsyncTask(this);
 		getPhotosTask.execute();
+	}
+	/* Called after GetAllSales and GetAllPhotos complete */
+	public void onAppStartupTwo() {		
+		if (   GarageSale.allSales.size() > 0
+			&& Photo.allPhotos.size() > 0) {
+			// allSales and allPhotos retrieved
+			GetSalePhotosAsyncTask getSalePhotosTask = new GetSalePhotosAsyncTask(this);
+			getSalePhotosTask.execute();
+			ArrayList<GarageSale> allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
+			for (int i = 0; i < allSalesList.size(); i++) {
+				GarageSale sale = allSalesList.get(i);
+				sale.mainPhoto = Photo.allPhotos.get(sale.mainPhotoId);
+			}
+		}
 	}
 
 	/*

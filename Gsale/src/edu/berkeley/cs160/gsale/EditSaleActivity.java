@@ -634,11 +634,17 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
+			Photo p = activity.editingSale.photos.get(activity.editingSale.photos.size() - 1);
 			if (which == Dialog.BUTTON_POSITIVE) {
-				Photo p = activity.editingSale.photos.get(activity.editingSale.photos.size() - 1);
 				p.description = input.getText().toString();
 				activity.photoAdapter.notifyDataSetChanged();
 			}
+			/* 
+    	     * For now just publish photo to server here. 
+    	     * Probably should be done elsewhere though (like on publish)
+    	     */
+    	    PostPhotoAsyncTask postPhotoTask = new PostPhotoAsyncTask(getActivity(), p);
+    	    postPhotoTask.execute();
 		}
 		
 		@Override

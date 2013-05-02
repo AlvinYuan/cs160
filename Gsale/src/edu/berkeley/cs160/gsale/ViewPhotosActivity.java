@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class ViewPhotosActivity extends Activity {
@@ -22,7 +21,7 @@ public class ViewPhotosActivity extends Activity {
 		
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt(GarageSale.SALE_ID_KEY);
-		sale = GarageSale.allSales.get(id);
+		sale = GarageSale.allSales.get(id);		
 
 		viewPhotosListView = (ListView) findViewById(R.id.ViewPhotosListView);
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos);
