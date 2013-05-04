@@ -1,5 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -11,12 +12,18 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 
 public class HomeActivity extends Activity implements LocationListener {
 	/*
@@ -48,6 +55,51 @@ public class HomeActivity extends Activity implements LocationListener {
 		getMenuInflater().inflate(R.menu.activity_home, menu);
 		return true;
 	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.menu_login:
+	            handleLoginRequest();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	/*
+	 * handleLoginRequest
+	 */
+	public void handleLoginRequest() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Log in");
+		builder.setMessage("Specify an email");
+		final EditText input = new EditText(this);
+
+		builder.setView(input);
+		builder.setPositiveButton("Log in", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				LogInAsyncTask logInTask = new LogInAsyncTask(input.getContext(), input.getText().toString());
+				logInTask.execute();				
+			}
+		});
+		builder.setNegativeButton("Cancel", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		/* http://stackoverflow.com/questions/2403632/android-show-soft-keyboard-automatically-when-focus-is-on-an-edittext */
+		final AlertDialog dialog = builder.create();
+		input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+		    @Override
+		    public void onFocusChange(View v, boolean hasFocus) {
+		        if (hasFocus) {
+		            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+		        }
+		    }
+		});
+		dialog.show();
+	}
 
 	/*
 	 * Button onClick methods
@@ -59,6 +111,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void SearchSalesButtonOnClick(View view) {
 		Intent intent = new Intent(this, SearchActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
 	/*
@@ -72,6 +125,7 @@ public class HomeActivity extends Activity implements LocationListener {
 		    switch (status) {
 		        case ConnectionResult.SUCCESS:
 		            startActivity(intent);
+		            //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 		            break;
 
 		        default:
@@ -89,6 +143,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void FollowedSalesButtonOnClick(View view) {
 		Intent intent = new Intent(this, FollowedActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 	
 	/*
@@ -97,6 +152,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void SendViewMessagesButtonOnClick(View view) {
 		Intent intent = new Intent(this, MessagesActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
 	/*
@@ -105,6 +161,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void CreateEditSalesButtonOnClick(View view) {
 		Intent intent = new Intent(this, CreateEditActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
 	/*
@@ -113,6 +170,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void SettingsButtonOnClick(View view) {
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
 	/*
@@ -123,13 +181,32 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void onAppStartup() {
 		System.out.println("Just Started");
 		User.justStartedApp = false;
-		User.currentUser = new User();			
+		User.currentUser = new User();
+		Storage.getLastLogin(this);
 		GarageSale.allSales = new HashMap<Integer, GarageSale>();
+		Photo.allPhotos = new HashMap<Integer, Photo>();
 		GarageSale.generateAllSales(this);
-		GetAllSalesAsyncTask getTask = new GetAllSalesAsyncTask(this);
-		getTask.execute();
-		Storage store = new Storage(this);
-		User.currentUser.plannedSales = store.getSales(Storage.PLANNED_SALES);
+		GetAllSalesAsyncTask getSalesTask = new GetAllSalesAsyncTask(this);
+		getSalesTask.execute();
+		GetAllPhotosAsyncTask getPhotosTask = new GetAllPhotosAsyncTask(this);
+		getPhotosTask.execute();
+	}
+	/* Called after GetAllSales and GetAllPhotos complete */
+	public void onAppStartupTwo() {		
+		if (   GarageSale.allSales.size() > 0
+			&& Photo.allPhotos.size() > 0) {
+			// allSales and allPhotos retrieved
+			GetSalePhotosAsyncTask getSalePhotosTask = new GetSalePhotosAsyncTask(this);
+			getSalePhotosTask.execute();
+			ArrayList<GarageSale> allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
+			for (int i = 0; i < allSalesList.size(); i++) {
+				GarageSale sale = allSalesList.get(i);
+				if (sale.mainPhoto == null) {
+					// Check only useful for generated sales (maybe stored sales if we had any)
+					sale.mainPhoto = Photo.allPhotos.get(sale.mainPhotoId);					
+				}
+			}
+		}
 	}
 
 	/*

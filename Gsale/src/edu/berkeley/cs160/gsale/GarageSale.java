@@ -1,5 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +32,6 @@ public class GarageSale implements java.io.Serializable{
 	public static String SEARCH_ACTIVITY = "SEARCH_ACTIVITY";
 	public static String FOLLOWED_ACTIVITY = "FOLLOWED_ACTIVITY";
 	
-	public static String SERVER_URL = "http://alvinyuan.pythonanywhere.com";
-	public static String POST_SALE_URL_SUFFIX = "/sale";
-	public static String GET_ALL_SALES_URL_SUFFIX = "/sales";
-	
 	public static int INVALID_INT = -1;
 	public static LatLng INVALID_COORDS = new LatLng(-90, 0);
 	public static String INVALID_STRING = "";
@@ -46,7 +44,7 @@ public class GarageSale implements java.io.Serializable{
 	public int id; //Unique identifier
 	public String title = INVALID_STRING;
 	public String description = INVALID_STRING;
-	public int plannerId = INVALID_INT;
+	public int plannerId = User.NOT_LOGGED_IN;
 
 	/* Date and Time */
 	/*
@@ -71,6 +69,13 @@ public class GarageSale implements java.io.Serializable{
 	/* Photos */
 	public ArrayList<Photo> photos = null;
 	public Photo mainPhoto = null;
+	/* 
+	 * Only to be used when starting up the app.
+	 * Photo.allPhotos might not be populated yet,
+	 * so keep track of mainPhotoId and set mainPhoto later.
+	 * A means of delaying assignment to mainPhoto
+	 */
+	public int mainPhotoId = INVALID_INT;
 	
 	public GarageSale() {
 		photos = new ArrayList<Photo>();
@@ -98,14 +103,14 @@ public class GarageSale implements java.io.Serializable{
 			double latitude = JSONsale.getDouble(i++);
 			double longitude = JSONsale.getDouble(i++);
 			coords = new LatLng(latitude, longitude);
+			mainPhotoId = JSONsale.getInt(i++); // mainPhoto set in onAppStartupTwo
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 
-	public ArrayList<NameValuePair> constructPostParameters() {
+	public UrlEncodedFormEntity HttpPostEntity() {
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
 		postParameters.add(new BasicNameValuePair("title", title));
 		postParameters.add(new BasicNameValuePair("description", description));
@@ -123,7 +128,17 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("location", location));
 		postParameters.add(new BasicNameValuePair("latitude", ""+coords.latitude));
 		postParameters.add(new BasicNameValuePair("longitude", ""+coords.longitude));
-		return postParameters;
+		if (mainPhoto != null) {
+			postParameters.add(new BasicNameValuePair("mainPhotoId", ""+mainPhoto.id));			
+		} else {
+			postParameters.add(new BasicNameValuePair("mainPhotoId", ""+INVALID_INT));
+		}
+		try {
+			return new UrlEncodedFormEntity(postParameters);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public void loadDetailsIntoView(View detailsView) {
@@ -237,10 +252,10 @@ public class GarageSale implements java.io.Serializable{
 			User.currentUser.followedSales.remove(this);
 			Toast.makeText(context, "Unfollowed.", Toast.LENGTH_SHORT).show();
 		} else {
-			User.currentUser.followedSales.add(this);			
+			User.currentUser.followedSales.add(this);
 			Toast.makeText(context, "Followed!", Toast.LENGTH_SHORT).show();
 		}
-
+		Storage.storeList(context, User.currentUser.followedSales, Storage.FOLLOWED_SALES);
 	}
 	/*
 	 * Prototyping Purposes Only

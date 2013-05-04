@@ -4,34 +4,24 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <ImageView
+        android:id="@+id/imageView0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Gsale"
-        android:paddingTop="10sp"
-        android:paddingBottom="10sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="bold"
-        android:textSize="43sp" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/gsale"
+        android:paddingLeft="10sp"
+        android:paddingTop="18sp"
+        android:paddingBottom="24sp"
+         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/imageView1" 
-   		android:weightSum="2" >
-
+        android:layout_below="@+id/imageView0"
+        android:weightSum="2" >
 
         <LinearLayout
             android:layout_width="0px"
@@ -219,7 +209,7 @@
     			    android:layout_height="0px"
     			    android:layout_weight="1"
     			    android:gravity="center_horizontal"
-    			    android:text="Send/View Messages"
+    			    android:text="Messages"
     			    android:fontFamily="sans-serif-light"
     			    android:textAppearance="?android:attr/textAppearanceLarge" />
 

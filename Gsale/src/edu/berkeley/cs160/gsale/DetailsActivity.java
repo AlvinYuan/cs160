@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -104,23 +105,25 @@ public class DetailsActivity extends Activity {
 	 * TODO: Ask for confirmation via pop-up (possibly inform user can be undone in Settings)
 	 */
 	public void HideButtonOnClick(View view) {
+		final Context self = this;
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Confirm Hide");
 		builder.setMessage("Are you sure you want to hide this sale?\nIt will not show up in searches or on the map.\nYou can unhide all sales in Settings.");
 		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				if (GarageSale.allSales.remove(sale.id) != null) {
-					User.currentUser.hiddenSales.add(sale);
-					User.currentUser.followedSales.remove(sale);
-					if (parentActivity.equals(GarageSale.MAP_ACTIVITY)) {
-						MapActivity.sourceMarker.remove();
-					}
-					if (parentActivity.equals(GarageSale.SEARCH_ACTIVITY)) {
-						SearchActivity.allSalesList.remove(sale);
-					}
-					finish();
+				User.currentUser.hiddenSales.add(sale);
+				Storage.storeList(self, User.currentUser.hiddenSales, Storage.HIDDEN_SALES);
+				if (User.currentUser.followedSales.remove(sale)) {
+					Storage.storeList(self, User.currentUser.followedSales, Storage.FOLLOWED_SALES);
 				}
+				if (parentActivity.equals(GarageSale.MAP_ACTIVITY)) {
+					MapActivity.sourceMarker.remove();
+				}
+				if (parentActivity.equals(GarageSale.SEARCH_ACTIVITY)) {
+					SearchActivity.allSalesList.remove(sale);
+				}
+				finish();
 			}
 		});
 		builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

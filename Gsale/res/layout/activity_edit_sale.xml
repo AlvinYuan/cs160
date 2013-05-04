@@ -129,18 +129,15 @@
 	        	android:onClick="ProgressBarTextReviewOnClick"
 	        	android:paddingBottom="25dp" />
 		</LinearLayout>
-    
-    	<ScrollView 
-        	android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:layout_below="@+id/ProgressBarSubtext" >
-    		<RelativeLayout
+		
+        <RelativeLayout
         		android:id="@+id/EditLayout"
         		android:layout_width="match_parent"
-        		android:layout_height="wrap_content" >
+        		android:layout_height="wrap_content"
+        		android:layout_below="@+id/ProgressBarSubtext" >
 
-    		</RelativeLayout>
-    	</ScrollView>
+    	</RelativeLayout>
+
 	    	
 	</RelativeLayout>
     

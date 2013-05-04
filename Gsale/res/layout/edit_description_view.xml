@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-    
-    <TextView
-        android:id="@+id/DescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Description"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/DescriptionField"
+    <RelativeLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/DescriptionTextView"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:fontFamily="sans-serif-light" >
+        android:layout_height="wrap_content" >
+        
+	    <TextView
+	        android:id="@+id/DescriptionTextView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:text="Description"
+	        android:fontFamily="sans-serif-light"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <EditText
+	        android:id="@+id/DescriptionField"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/DescriptionTextView"
+	        android:ems="10"
+	        android:fontFamily="sans-serif-light"
+	        android:inputType="textCapSentences|textMultiLine" >
+	        <requestFocus />
+	    </EditText>
 
-        <requestFocus />
-    </EditText>
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

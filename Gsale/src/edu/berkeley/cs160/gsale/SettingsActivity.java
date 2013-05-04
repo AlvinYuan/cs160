@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class SettingsActivity extends Activity {
@@ -15,6 +16,7 @@ public class SettingsActivity extends Activity {
 		setContentView(R.layout.activity_settings);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 	}
 
 	@Override
@@ -45,10 +47,15 @@ public class SettingsActivity extends Activity {
 	 * Method: UnhideAllSalesButtonOnClick
 	 */
 	public void UnhideAllSalesButtonOnClick(View view) {
-		for (int i = 0; i < User.currentUser.hiddenSales.size(); i++) {
-			GarageSale sale = User.currentUser.hiddenSales.get(i);
-			GarageSale.allSales.put(sale.id, sale);
-		}
 		User.currentUser.hiddenSales.clear();
+		Storage.storeList(this, User.currentUser.hiddenSales, Storage.HIDDEN_SALES);
+	}
+	
+	public void clearData(View view) {
+		User.currentUser.plannedSales.clear();
+		User.currentUser.followedSales.clear();
+		User.currentUser.hiddenSales.clear();
+		Storage.clearStorage(this);
+		Toast.makeText(this,"Cleared SharedPreferences",Toast.LENGTH_SHORT).show();
 	}
 }

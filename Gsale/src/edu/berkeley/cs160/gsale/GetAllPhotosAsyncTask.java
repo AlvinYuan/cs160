@@ -2,7 +2,6 @@ package edu.berkeley.cs160.gsale;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -15,10 +14,10 @@ import org.json.JSONException;
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class GetAllSalesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
+public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 	public Context context;
 
-	public GetAllSalesAsyncTask(Context context) {
+	public GetAllPhotosAsyncTask(Context context) {
 		super();
 		this.context = context;
 	}
@@ -27,13 +26,13 @@ public class GetAllSalesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 		try {
 			/* Prepare Request */
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpGet get = new HttpGet(Server.URL + Server.GET_ALL_SALES_SUFFIX);
-			System.out.println("GetAllSalesAsyncTask: SENDING GET REQUEST");
+			HttpGet get = new HttpGet(Server.URL + Server.GET_ALL_PHOTOS_SUFFIX);
+			System.out.println("GetAllPhotosAsyncTask: SENDING GET REQUEST");
 			HttpResponse response = httpclient.execute(get);
 			
 			/* Handle Response */
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				System.out.println("GetAllSalesAsyncTask: RECEIVED OK RESPONSE");
+				System.out.println("GetAllPhotosAsyncTask: RECEIVED OK RESPONSE");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				response.getEntity().writeTo(out);
 				out.close();
@@ -46,7 +45,7 @@ public class GetAllSalesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 				throw new IOException(response.getStatusLine().getReasonPhrase());
 			}
 		} catch (Exception e) {
-			System.out.println("GetAllSalesAsyncTask: " + e.toString());
+			System.out.println("GetAllPhotosAsyncTask: " + e.toString());
 		}
 
 		return null;
@@ -56,24 +55,10 @@ public class GetAllSalesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 	protected void onPostExecute(JSONArray result) {
 			try {
 				for (int i = 0; i < result.length(); i++) {
-					GarageSale sale = new GarageSale(result.getJSONArray(i));
-					GarageSale.allSales.put(sale.id, sale);
+					Photo photo = new Photo(result.getJSONArray(i));
+					Photo.allPhotos.put(photo.id, photo);
 				}
-				System.out.println("GetAllSalesAsyncTask: GOT " + GarageSale.allSales.size() + " SALES");
-				
-				ArrayList<Integer> plannedSaleIds = Storage.getIds(context, Storage.PLANNED_SALES);
-				for (int i = 0; i < plannedSaleIds.size(); i++) {
-				    User.currentUser.plannedSales.add(GarageSale.allSales.get(plannedSaleIds.get(i)));					 
-				}
-				ArrayList<Integer> followedSaleIds = Storage.getIds(context, Storage.FOLLOWED_SALES);
-				for (int i = 0; i < followedSaleIds.size(); i++) {
-					User.currentUser.followedSales.add(GarageSale.allSales.get(followedSaleIds.get(i)));					 
-				}
-				ArrayList<Integer> hiddenSaleIds = Storage.getIds(context, Storage.HIDDEN_SALES);
-				for (int i = 0; i < hiddenSaleIds.size(); i++) {
-					User.currentUser.hiddenSales.add(GarageSale.allSales.get(hiddenSaleIds.get(i)));					 
-				}
-				
+				System.out.println("GetAllPhotosAsyncTask: GOT " + Photo.allPhotos.size() + " PHOTOS");
 				((HomeActivity) context).onAppStartupTwo();
 			} catch (JSONException e) {
 				e.printStackTrace();

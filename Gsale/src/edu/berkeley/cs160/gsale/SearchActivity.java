@@ -32,6 +32,9 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.SearchSalesListView);
 		allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
+		for (int i = 0; i < User.currentUser.hiddenSales.size(); i++) {
+			allSalesList.remove(User.currentUser.hiddenSales.get(i));
+		}
 		SearchSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, allSalesList, false);
 		l.setAdapter(SearchSalesAdapter);
 		l.setOnItemClickListener(this);

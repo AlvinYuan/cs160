@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+<<<<<<< HEAD
+=======
+import android.support.v4.app.NavUtils;
+>>>>>>> 1966e107e16ebbcde30bc37db1ae28bd7190638a
 
 public class ViewPhotosActivity extends Activity implements OnItemClickListener  {
 	public GarageSale sale;
@@ -26,7 +30,7 @@ public class ViewPhotosActivity extends Activity implements OnItemClickListener 
 		
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt(GarageSale.SALE_ID_KEY);
-		sale = GarageSale.allSales.get(id);
+		sale = GarageSale.allSales.get(id);		
 
 		viewPhotosListView = (ListView) findViewById(R.id.ViewPhotosListView);
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos);
