@@ -24,9 +24,9 @@
 	        android:layout_below="@+id/DescriptionTextView"
 	        android:ems="10"
 	        android:fontFamily="sans-serif-light"
-	        android:inputType="textCapSentences|textMultiLine"
-        	android:imeOptions="actionDone" >
+	        android:inputType="textCapSentences|textMultiLine" >
 	        <requestFocus />
 	    </EditText>
+
     </RelativeLayout>
 </ScrollView>
