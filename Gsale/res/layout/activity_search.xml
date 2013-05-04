@@ -10,11 +10,11 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/button2"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/button2"
         android:layout_toLeftOf="@+id/button1"
+        android:layout_toRightOf="@+id/button2"
         android:ems="10"
-        android:imeOptions="actionDone" 
-        android:singleLine="true">
+        android:imeOptions="actionDone"
+        android:singleLine="true" >
 
         <requestFocus />
     </SearchView>
@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Adv.\nSearch"
-        android:fontFamily="sans-serif-light" />
+        android:fontFamily="sans-serif-light"
+        android:text="Adv.\nSearch" />
 
     <Button
         android:id="@+id/button1"
@@ -35,17 +35,24 @@
         android:layout_alignBottom="@+id/editText1"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:fontFamily="sans-serif-light"
         android:onClick="MapButtonOnClick"
-        android:text="Map"
-        android:fontFamily="sans-serif-light" />
-    
+        android:text="Map" />
+
     <ListView
         android:id="@+id/SearchSalesListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText1"
         android:listSelector="@drawable/list_selector" >
-
     </ListView>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:visibility="gone" />
 
 </RelativeLayout>
