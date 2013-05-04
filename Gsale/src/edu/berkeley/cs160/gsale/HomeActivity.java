@@ -143,8 +143,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void FollowedSalesButtonOnClick(View view) {
 		Intent intent = new Intent(this, FollowedActivity.class);
 		startActivity(intent);
-		// adding transition makes app crash for some reason...
-		//overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 	
 	/*

@@ -17,10 +17,7 @@ public class SettingsActivity extends Activity {
 		setContentView(R.layout.activity_settings);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		ImageView test = (ImageView) findViewById(R.id.test);
-		if (Photo.allPhotos.size() > 0) {
-			test.setImageBitmap(Photo.allPhotos.get(1).bitmap);
-		}
+
 	}
 
 	@Override
