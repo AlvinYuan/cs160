@@ -1,20 +1,24 @@
 package edu.berkeley.cs160.gsale;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
-import android.support.v4.app.NavUtils;
 
-public class ViewPhotosActivity extends Activity {
+public class ViewPhotosActivity extends Activity implements OnItemClickListener  {
 	public GarageSale sale;
 	public ListView viewPhotosListView;
 	public PhotoAdapter photoAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		System.out.println("Got to ViewPhotosActivity");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_photos);
 		// Show the Up button in the action bar.
@@ -27,6 +31,8 @@ public class ViewPhotosActivity extends Activity {
 		viewPhotosListView = (ListView) findViewById(R.id.ViewPhotosListView);
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos);
 		viewPhotosListView.setAdapter(photoAdapter);
+		
+		viewPhotosListView.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -52,5 +58,20 @@ public class ViewPhotosActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
+	/*
+	 * AdapterView.OnItemClickListener Interface
+	 * Specifically for @+id/MySalesListView
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		//Photo selectedPhoto = (Photo) photoAdapter.getItem(position);
+		//CreateEditSale(true, editingSale);
+		System.out.println("Got here");
+		Intent i = new Intent(this, PhotoPreviewActivity.class);
+        i.putExtra("image", photoAdapter.getItem(position).bitmap);
+        startActivity(i);
+		
+	}
 }

@@ -25,18 +25,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener  {
+public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener, OnItemClickListener, OnMenuItemClickListener  {
 	public boolean isEditing;
 	public int editingSaleId;
 	public GarageSale editingSale;
@@ -55,6 +59,8 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public ListView editPhotosListView;
 	public PhotoAdapter photoAdapter;
 	public boolean photoAdded = false;
+	public PopupMenu popupMenu;
+	public int selectedPhoto;
 	
 	/* Camera Stuff */
 	public static final int MEDIA_TYPE_IMAGE = 1;
@@ -161,6 +167,13 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		}
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos);
 		editPhotosListView.setAdapter(photoAdapter);
+		popupMenu = new PopupMenu(this, findViewById(R.id.AddNewPhotoButton));
+        popupMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, "Preview");
+        popupMenu.getMenu().add(Menu.NONE, 2, Menu.NONE, "Set as main photo");
+        popupMenu.getMenu().add(Menu.NONE, 3, Menu.NONE, "Edit description");
+        popupMenu.getMenu().add(Menu.NONE, 4, Menu.NONE, "Delete");
+        popupMenu.setOnMenuItemClickListener(this);
+		editPhotosListView.setOnItemClickListener(this);
 
 
 		backButton = (Button) findViewById(R.id.BackButton);
@@ -410,6 +423,8 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	    	    Photo p = new Photo();
 	    	    p.bitmap = mImageBitmap;
 	    	    p.description = "";
+	    	    System.out.println("bitmap height: " + p.bitmap.getHeight());
+	    	    System.out.println("bitmap width: " + p.bitmap.getWidth());
 	    	    
 	    	    editingSale.mainPhoto = p;
 	    	    editingSale.photos.add(p);
@@ -604,6 +619,85 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			});
 			builder.show();
 		}
+	}
+
+	@Override
+	public boolean onMenuItemClick(MenuItem item) {
+		// TODO Auto-generated method stub
+		Photo pic = (Photo) photoAdapter.getItem(selectedPhoto);
+		switch (item.getItemId()) {
+	       case 1:
+	           System.out.println("Preview");
+	           Intent i = new Intent(this, PhotoPreviewActivity.class);
+	           i.putExtra("image", pic.bitmap);
+	           startActivity(i);
+	           break;
+	       case 2:
+	    	   System.out.println("Set as main photo");
+	    	   editingSale.mainPhoto = pic;
+	    	   Toast.makeText(this, "Set as main photo", Toast.LENGTH_SHORT).show();
+	           break;
+	       case 3:
+	    	   System.out.println("Edit description");
+	    	   EditDescriptionDialogFragment newFragment = new EditDescriptionDialogFragment();
+	    	   newFragment.show(getSupportFragmentManager(), "photoDescription");
+	           break;
+	       case 4:
+	    	   System.out.println("Delete");
+	    	   photoAdapter.remove(pic);
+	    	   break;
+	       }
+		return false;
+	}
+	
+	public static class EditDescriptionDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
+		public EditSaleActivity activity;
+		public EditText input;
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			activity = (EditSaleActivity) getActivity();
+			//Alert Dialog
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle("Photo Description");
+			builder.setMessage("Edit description or leave blank");
+			input = new EditText(getActivity());
+
+			builder.setView(input);
+			builder.setPositiveButton("Ok", this);
+			builder.setNegativeButton("Cancel", this);
+			/* http://stackoverflow.com/questions/2403632/android-show-soft-keyboard-automatically-when-focus-is-on-an-edittext */
+			final AlertDialog dialog = builder.create();
+			input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			    @Override
+			    public void onFocusChange(View v, boolean hasFocus) {
+			        if (hasFocus) {
+			            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+			        }
+			    }
+			});
+			return dialog;
+		}
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			if (which == Dialog.BUTTON_POSITIVE) {
+				Photo p = activity.photoAdapter.getItem(activity.selectedPhoto);
+				p.description = input.getText().toString();
+				activity.photoAdapter.notifyDataSetChanged();
+			}
+		}
+		
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+			super.onDismiss(dialog);
+		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		System.out.println("Got here!");
+		selectedPhoto = position;
+		popupMenu.show();
 	}
 	
 }

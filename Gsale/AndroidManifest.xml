@@ -105,8 +105,8 @@
         <activity
             android:name="edu.berkeley.cs160.gsale.EditSaleActivity"
             android:label="@string/title_activity_edit_sale"
-            android:windowSoftInputMode="adjustResize"
-            android:parentActivityName="HomeActivity" >
+            android:parentActivityName="HomeActivity"
+            android:windowSoftInputMode="adjustResize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="HomeActivity" />
@@ -132,6 +132,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="HomeActivity" />
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.PhotoPreviewActivity"
+            android:label="@string/title_activity_photo_preview" >
         </activity>
     </application>
 
