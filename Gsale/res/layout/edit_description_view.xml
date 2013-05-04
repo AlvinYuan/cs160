@@ -23,8 +23,9 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/DescriptionTextView"
 	        android:ems="10"
-	        android:inputType="textMultiLine"
-	        android:fontFamily="sans-serif-light" >	
+	        android:fontFamily="sans-serif-light"
+	        android:inputType="textCapSentences|textMultiLine"
+        	android:imeOptions="actionDone" >
 	        <requestFocus />
 	    </EditText>
     </RelativeLayout>
