@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity" >
 
-    <SearchView
+    <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,11 +13,13 @@
         android:layout_toLeftOf="@+id/button1"
         android:layout_toRightOf="@+id/button2"
         android:ems="10"
-        android:imeOptions="actionDone"
+        android:hint="@string/search_hint"
+        android:imeOptions="actionSearch"
+        android:inputType="textAutoCorrect"
         android:singleLine="true" >
 
         <requestFocus />
-    </SearchView>
+    </EditText>
 
     <Button
         android:id="@+id/button2"
