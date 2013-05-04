@@ -201,7 +201,10 @@ public class HomeActivity extends Activity implements LocationListener {
 			ArrayList<GarageSale> allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
 			for (int i = 0; i < allSalesList.size(); i++) {
 				GarageSale sale = allSalesList.get(i);
-				sale.mainPhoto = Photo.allPhotos.get(sale.mainPhotoId);
+				if (sale.mainPhoto == null) {
+					// Check only useful for generated sales (maybe stored sales if we had any)
+					sale.mainPhoto = Photo.allPhotos.get(sale.mainPhotoId);					
+				}
 			}
 		}
 	}

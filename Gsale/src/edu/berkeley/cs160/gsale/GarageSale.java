@@ -128,7 +128,11 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("location", location));
 		postParameters.add(new BasicNameValuePair("latitude", ""+coords.latitude));
 		postParameters.add(new BasicNameValuePair("longitude", ""+coords.longitude));
-		postParameters.add(new BasicNameValuePair("mainPhotoId", ""+mainPhoto.id));
+		if (mainPhoto != null) {
+			postParameters.add(new BasicNameValuePair("mainPhotoId", ""+mainPhoto.id));			
+		} else {
+			postParameters.add(new BasicNameValuePair("mainPhotoId", ""+INVALID_INT));
+		}
 		try {
 			return new UrlEncodedFormEntity(postParameters);
 		} catch (UnsupportedEncodingException e) {

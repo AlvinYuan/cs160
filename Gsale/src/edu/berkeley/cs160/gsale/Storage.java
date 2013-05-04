@@ -66,6 +66,7 @@ public class Storage {
 	//For storing the ID of a sale. Used when following a sale or when creating a new sale 
 	//For example, you should call this when you click a "follow" button and call storeID("12335", FOLLOWED_SALES)
 	//toAdd is the ID that you want to store, and key is the list that it is part of (followed sales or planned sales)
+	/*
 	public static void storeId(Context context, int id, String key){ 
 		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
         String followedSales = prefs.getString(key, "");
@@ -80,7 +81,7 @@ public class Storage {
         ed.commit();
         System.out.println("The sale id was stored");
 	}
-	
+	*/
 	//For getting the IDs (multiple!) for displaying followed sales or sales that you've created.
 	//For example, getting your list of followed sales would be getIDs(FOLLOWED_SALES)
 	//key is the list of sales (followed sales or planned sales)
@@ -101,6 +102,7 @@ public class Storage {
 	
 	//Save objects so that the "key" for getString/putString is the ID of the garage sale 
 	//toAdd is the GarageSale object you want to store and id is the ID of the sale
+	/*
 	public static void storeSale(Context context, GarageSale toAdd, int id) {
 		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
 	    SharedPreferences.Editor ed = prefs.edit();
@@ -158,9 +160,10 @@ public class Storage {
 	    System.out.println("Exiting getSale()");
 	    return mySale;
 	}
-	
+	*/
 	//Returns an ArrayList of GarageSales
 	//key is the list that you want to get (followed sales or planned sales)
+	/*
 	public static ArrayList<GarageSale> getSales(Context context, String key) {
 		ArrayList<Integer> saleIds = getIds(context, key);
 		System.out.println("Got ids");
@@ -175,7 +178,7 @@ public class Storage {
 		System.out.println("The size of mySales is: " + mySales.size());
 		return mySales;
 	}
-	
+	*/
 	public static void clearStorage(Context context){
 		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
 		SharedPreferences.Editor ed = prefs.edit();

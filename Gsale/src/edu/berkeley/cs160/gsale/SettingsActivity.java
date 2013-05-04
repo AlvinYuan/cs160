@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
@@ -52,10 +51,11 @@ public class SettingsActivity extends Activity {
 		Storage.storeList(this, User.currentUser.hiddenSales, Storage.HIDDEN_SALES);
 	}
 	
-	public void PostPhotoTest(View view) {
-		Toast.makeText(this, "Testing post", Toast.LENGTH_SHORT).show();
-		Photo p = Photo.generatePhotos(this).get(0);
-		PostPhotoAsyncTask post = new PostPhotoAsyncTask(this,p);
-		post.execute();
+	public void clearData(View view) {
+		User.currentUser.plannedSales.clear();
+		User.currentUser.followedSales.clear();
+		User.currentUser.hiddenSales.clear();
+		Storage.clearStorage(this);
+		Toast.makeText(this,"Cleared SharedPreferences",Toast.LENGTH_SHORT).show();
 	}
 }
