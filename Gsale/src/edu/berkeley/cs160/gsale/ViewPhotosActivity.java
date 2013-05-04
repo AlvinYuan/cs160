@@ -10,10 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-<<<<<<< HEAD
-=======
-import android.support.v4.app.NavUtils;
->>>>>>> 1966e107e16ebbcde30bc37db1ae28bd7190638a
 
 public class ViewPhotosActivity extends Activity implements OnItemClickListener  {
 	public GarageSale sale;
