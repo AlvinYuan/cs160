@@ -9,12 +9,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
-public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
+public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, Void> {
 	public Context context;
 
 	public GetAllPhotosAsyncTask(Context context) {
@@ -22,7 +21,7 @@ public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 		this.context = context;
 	}
 	@Override
-	protected JSONArray doInBackground(Void... params) {
+	protected Void doInBackground(Void... params) {
 		try {
 			/* Prepare Request */
 			HttpClient httpclient = new DefaultHttpClient();
@@ -37,8 +36,13 @@ public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 				response.getEntity().writeTo(out);
 				out.close();
 				String responseString = out.toString();
-				JSONArray JSONsales = new JSONArray(responseString);
-				return JSONsales;
+				JSONArray result = new JSONArray(responseString);
+
+				for (int i = 0; i < result.length(); i++) {
+					Photo photo = new Photo(result.getJSONArray(i));
+					Photo.allPhotos.put(photo.id, photo);
+				}
+				System.out.println("GetAllPhotosAsyncTask: GOT " + Photo.allPhotos.size() + " PHOTOS");
 			} else {
 				//Closes the connection.
 				response.getEntity().getContent().close();
@@ -47,22 +51,6 @@ public class GetAllPhotosAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 		} catch (Exception e) {
 			System.out.println("GetAllPhotosAsyncTask: " + e.toString());
 		}
-
 		return null;
-	}
-
-	@Override
-	protected void onPostExecute(JSONArray result) {
-			try {
-				for (int i = 0; i < result.length(); i++) {
-					Photo photo = new Photo(result.getJSONArray(i));
-					Photo.allPhotos.put(photo.id, photo);
-				}
-				System.out.println("GetAllPhotosAsyncTask: GOT " + Photo.allPhotos.size() + " PHOTOS");
-				((HomeActivity) context).onAppStartupTwo();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
 	}
 }

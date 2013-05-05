@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
@@ -67,18 +68,11 @@ public class GarageSale implements java.io.Serializable{
 	public LatLng coords = INVALID_COORDS;
 	
 	/* Photos */
-	public ArrayList<Photo> photos = null;
-	public Photo mainPhoto = null;
-	/* 
-	 * Only to be used when starting up the app.
-	 * Photo.allPhotos might not be populated yet,
-	 * so keep track of mainPhotoId and set mainPhoto later.
-	 * A means of delaying assignment to mainPhoto
-	 */
+	public ArrayList<Integer> photoIds = null;
 	public int mainPhotoId = INVALID_INT;
 	
 	public GarageSale() {
-		photos = new ArrayList<Photo>();
+		photoIds = new ArrayList<Integer>();
 	}
 	
 	public GarageSale(JSONArray JSONsale) {
@@ -103,7 +97,7 @@ public class GarageSale implements java.io.Serializable{
 			double latitude = JSONsale.getDouble(i++);
 			double longitude = JSONsale.getDouble(i++);
 			coords = new LatLng(latitude, longitude);
-			mainPhotoId = JSONsale.getInt(i++); // mainPhoto set in onAppStartupTwo
+			mainPhotoId = JSONsale.getInt(i++);
 			
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -128,11 +122,7 @@ public class GarageSale implements java.io.Serializable{
 		postParameters.add(new BasicNameValuePair("location", location));
 		postParameters.add(new BasicNameValuePair("latitude", ""+coords.latitude));
 		postParameters.add(new BasicNameValuePair("longitude", ""+coords.longitude));
-		if (mainPhoto != null) {
-			postParameters.add(new BasicNameValuePair("mainPhotoId", ""+mainPhoto.id));			
-		} else {
-			postParameters.add(new BasicNameValuePair("mainPhotoId", ""+INVALID_INT));
-		}
+		postParameters.add(new BasicNameValuePair("mainPhotoId", ""+mainPhotoId));
 		try {
 			return new UrlEncodedFormEntity(postParameters);
 		} catch (UnsupportedEncodingException e) {
@@ -141,7 +131,7 @@ public class GarageSale implements java.io.Serializable{
 		return null;
 	}
 	
-	public void loadDetailsIntoView(View detailsView) {
+	public void loadDetailsIntoView(View detailsView, Context context) {
 		Calendar startDate = dateTime(true, true);
 		Calendar endDate = dateTime(false, true);
 		Calendar startTime = dateTime(true, false);
@@ -172,11 +162,7 @@ public class GarageSale implements java.io.Serializable{
 		}
 		/* Main Photo */
 		ImageView detailsMainPhotoImageView = (ImageView) detailsView.findViewById(R.id.DetailsMainPhotoImageView);
-		if (mainPhoto != null) {
-			detailsMainPhotoImageView.setImageBitmap(mainPhoto.bitmap);
-		} else {
-			detailsMainPhotoImageView.setImageResource(R.drawable.ic_launcher);
-		}
+		detailsMainPhotoImageView.setImageBitmap(mainPhotoBitmap(context));
 	}
 	
 	public String dateString(boolean isStartDate) {
@@ -282,11 +268,11 @@ public class GarageSale implements java.io.Serializable{
 		SALE1.id = 1010;
 		SALE1.title = "Bob's Moving Sale!!";
 		SALE1.location = "1780 Spruce St. Berkeley, CA";
-		p = new Photo();
-		p.bitmap = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.saleiconone);
-		SALE1.photos.add(p);
-		SALE1.mainPhoto = p;
+		//p = new Photo();
+		//p.bitmap = BitmapFactory.decodeResource(context.getResources(),
+        //        R.drawable.saleiconone);
+		//SALE1.photos.add(p);
+		//SALE1.mainPhoto = p;
 		SALE1.description = "I'm moving to SF and I need to get rid of some stuff! I'm selling lots of furniture and awesome stuff!";
 
 		/* GarageSale 2 */
@@ -296,16 +282,33 @@ public class GarageSale implements java.io.Serializable{
 		SALE2.id = 2020;
 		SALE2.title = "Alice's Garage Sale TODAY";
 		SALE2.location = "1500 LeRoy St. Berkeley, CA";
-		p = new Photo();
-		p.bitmap = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.saleicontwo);
-		SALE2.photos.add(p);
-		SALE2.mainPhoto = p;
+		//p = new Photo();
+		//p.bitmap = BitmapFactory.decodeResource(context.getResources(),
+        //        R.drawable.saleicontwo);
+		//SALE2.photos.add(p);
+		//SALE2.mainPhoto = p;
 		SALE2.description = "Stop by my garage sale! I have antiques and rare items for sale.";
 
 		/* Add to allSales */
 		allSales.put(SALE1.id, SALE1);
 		allSales.put(SALE2.id, SALE2);
 	}
+	
+	public Bitmap mainPhotoBitmap(Context context) {
+		Photo mainPhoto = Photo.allPhotos.get(mainPhotoId);
+		if (mainPhoto != null) {
+			return mainPhoto.bitmap;
+		}
+		return BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
+	}
+	
+	public ArrayList<Photo> photos() {
+		ArrayList<Photo> photos = new ArrayList<Photo>();
+		for (int photoId : photoIds) {
+			photos.add(Photo.allPhotos.get(photoId));
+		}
+		return photos;		
+	}
+
 	
 }

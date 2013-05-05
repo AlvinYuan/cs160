@@ -174,14 +174,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		}
 
 		// Setting the image
-		if (MarkerIdMap.get(marker.getId()).mainPhoto != null ){
-			tvImage.setImageBitmap(MarkerIdMap.get(marker.getId()).mainPhoto.bitmap);
-		} else {
-			Bitmap defaultIcon = BitmapFactory.decodeResource(this.getResources(),
-                    R.drawable.photo);
-			tvImage.setImageBitmap(defaultIcon);
-		}
-
+		tvImage.setImageBitmap(MarkerIdMap.get(marker.getId()).mainPhotoBitmap(this));
 		// Returning the view containing InfoWindow contents
 		return v;
 
