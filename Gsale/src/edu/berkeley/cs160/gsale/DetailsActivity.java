@@ -175,4 +175,11 @@ public class DetailsActivity extends Activity {
 		intent.putExtra(GarageSale.SALE_ID_KEY, sale.id);
 		startActivity(intent);
 	}
+	
+	/*
+	 * Method: MessagesButtonOnClick
+	 */
+	public void MessagesButtonOnClick(View view) {
+		Message.startMessagesActivity(this);
+	}
 }

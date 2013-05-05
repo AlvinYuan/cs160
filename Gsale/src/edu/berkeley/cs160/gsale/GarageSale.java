@@ -241,7 +241,6 @@ public class GarageSale implements java.io.Serializable{
 		} else if (context instanceof FollowedActivity) {
 			parentActivity = FOLLOWED_ACTIVITY;
 		}
-		System.out.println(parentActivity);
 		intent.putExtra(DETAILS_ACTIVITY_PARENT_KEY, parentActivity);
 
 		context.startActivity(intent);

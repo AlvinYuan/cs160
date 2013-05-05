@@ -150,8 +150,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	 * Method: SendViewMessagesButtonOnClick
 	 */
 	public void SendViewMessagesButtonOnClick(View view) {
-		Intent intent = new Intent(this, MessagesActivity.class);
-		startActivity(intent);
+		Message.startMessagesActivity(this);
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
@@ -185,6 +184,7 @@ public class HomeActivity extends Activity implements LocationListener {
 		Storage.getLastLogin(this);
 		GarageSale.allSales = new HashMap<Integer, GarageSale>();
 		Photo.allPhotos = new HashMap<Integer, Photo>();
+		Message.allMessages = new HashMap<Integer, Message>();
 		GarageSale.generateAllSales(this);
 		GetAllSalesAsyncTask getSalesTask = new GetAllSalesAsyncTask(this);
 		getSalesTask.execute();

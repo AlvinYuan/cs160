@@ -1,20 +1,69 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 
-public class MessagesActivity extends Activity {
-	
+public class MessagesActivity extends Activity implements OnItemClickListener {
+	public boolean forSpecificSale;
+	public GarageSale sale;
+	public MessageAdapter messageAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_messages);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+
+		Bundle extras = this.getIntent().getExtras();
+		forSpecificSale = extras.getBoolean(GarageSale.HAS_SALE_ID_KEY);
+		if (forSpecificSale) {
+			int saleid = extras.getInt(GarageSale.SALE_ID_KEY);
+			sale = GarageSale.allSales.get(saleid);
+		}
+
+		ListView l = (ListView) findViewById(R.id.MessagesListView);
+		ArrayList<Message> messages = new ArrayList<Message>(Message.allMessages.values());
+		messageAdapter = new MessageAdapter(this, android.R.layout.simple_list_item_1, messages, true);
+		l.setAdapter(messageAdapter);
+		l.setOnItemClickListener(this);
 	}
+
+	/*
+	 * Method: SendNewMessageButtonOnClick
+	 */
+	public void SendNewMessageButtonOnClick(View view) {
+		SendMessage(false,null);
+	}
+	
+	public void SendMessage(boolean isResponse, Message respondedMessage) {
+		Intent intent = new Intent(this, SendMessageActivity.class);
+		intent.putExtra(Message.HAS_MESSAGE_ID_KEY, isResponse);
+		if (isResponse) {
+			intent.putExtra(Message.MESSAGE_ID_KEY, respondedMessage.id);
+		}
+		startActivity(intent);
+	}
+	/*
+	 * AdapterView.OnItemClickListener Interface
+	 * Specifically for @+id/MySalesListView
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		Message message = (Message) messageAdapter.getItem(position);
+	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,4 +90,11 @@ public class MessagesActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/*
+	 * Activity Override
+	 */
+	public void onResume() {
+		super.onResume();
+		messageAdapter.notifyDataSetChanged();
+	}
 }

@@ -21,6 +21,7 @@
             android:text="Messages"
             android:gravity="bottom|center"
             android:fontFamily="sans-serif-light"
+            android:onClick="MessagesButtonOnClick"
             android:textSize="12sp" />
 
         <Button

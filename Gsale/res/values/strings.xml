@@ -18,5 +18,6 @@
     <string name="search_hint">Search Sales or Items</string>
     <string name="app_label">Gsale</string>
     <string name="title_activity_searchable">SearchableActivity</string>
+    <string name="title_activity_send_message">SendMessageActivity</string>
 
 </resources>

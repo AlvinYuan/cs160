@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".SendMessageActivity" >
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/button1" >
+	    <RelativeLayout
+	        android:id="@+id/relativeLayout1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" >
+	
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentTop="true"
+	            android:layout_alignParentLeft="true"
+	            android:text="To" />
+	        
+	        <TextView
+	            android:id="@+id/textView3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView2"
+	            android:layout_alignParentLeft="true"
+	            android:text="Subject" />
+	        
+	        <EditText
+	            android:id="@+id/editText2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView3"
+	            android:layout_alignParentLeft="true"
+	            android:ems="10"
+	           	android:fontFamily="sans-serif-light"
+        		android:inputType="textCapWords|text"
+        		android:imeOptions="actionNext"
+        	    android:singleLine="true"
+        		android:nextFocusDown="@+id/editText1" >
+	            
+	            <requestFocus />
+	        </EditText>    
+	        
+	        <TextView
+	            android:id="@+id/textView4"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/editText2"
+	            android:layout_alignParentLeft="true"
+	            android:text="Content" />
+	
+	        <EditText
+	            android:id="@+id/editText1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView4"
+	            android:layout_alignParentLeft="true"
+	            android:ems="10"
+	            android:fontFamily="sans-serif-light"
+	        	android:inputType="textCapSentences|textMultiLine" />
+	
+	
+	    </RelativeLayout>
+	</ScrollView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Send" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/button1"
+        android:text="Cancel" />
+
+</RelativeLayout>
