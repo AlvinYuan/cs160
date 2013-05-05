@@ -29,7 +29,7 @@ public class ViewPhotosActivity extends Activity implements OnItemClickListener 
 		sale = GarageSale.allSales.get(id);		
 
 		viewPhotosListView = (ListView) findViewById(R.id.ViewPhotosListView);
-		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos);
+		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos());
 		viewPhotosListView.setAdapter(photoAdapter);
 		
 		viewPhotosListView.setOnItemClickListener(this);

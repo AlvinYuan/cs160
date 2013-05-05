@@ -2,106 +2,94 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
     <ImageView
         android:id="@+id/DetailsMainPhotoImageView"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:padding="6sp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:padding="10sp"
         android:src="@drawable/gradient_bg" />
 
-        <TextView
-            android:id="@+id/DetailsTitleTextView"
-            android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/DetailsTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/DetailsMainPhotoImageView"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/DetailsMainPhotoImageView"
+        android:fontFamily="sans-serif-light"
+        android:paddingTop="10dp"
+        android:text="SALE TITLE"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/DetailsTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/DetailsDateTextView"
+        android:layout_below="@+id/DetailsDateTextView"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/NoTime"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/DetailsDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/DetailsTitleTextView"
+        android:layout_below="@+id/DetailsTitleTextView"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/NoDate"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/DetailsLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/DetailsTimeTextView"
+        android:layout_below="@+id/DetailsTimeTextView"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/NoLocation"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/DetailsDescriptionHeaderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/DetailsMainPhotoImageView"
+        android:fontFamily="sans-serif-light"
+        android:paddingLeft="10sp"
+        android:text="Description"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/DetailsDescriptionHeaderTextView"
+        android:paddingBottom="10sp"
+        android:paddingTop="10sp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/DetailsMainPhotoImageView"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/DetailsMainPhotoImageView"
-            android:text="SALE TITLE"
-            android:fontFamily="sans-serif-light"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/DetailsTimeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/DetailsDateTextView"
-            android:layout_below="@+id/DetailsDateTextView"
-            android:text="@string/NoTime"
-            android:fontFamily="sans-serif-light"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/DetailsDateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/DetailsTitleTextView"
-            android:layout_below="@+id/DetailsTitleTextView"
-            android:text="@string/NoDate"
-            android:fontFamily="sans-serif-light"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/DetailsLocationTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/DetailsTimeTextView"
-            android:layout_below="@+id/DetailsTimeTextView"
-            android:layout_toLeftOf="@+id/ViewOnMapButton"
-            android:text="@string/NoLocation"
-            android:fontFamily="sans-serif-light"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ScrollView
-            android:id="@+id/scrollView1"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_alignLeft="@+id/DetailsMainPhotoImageView"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/DetailsDescriptionHeaderTextView" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/DetailsDescriptionTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:fontFamily="sans-serif-light"
+                android:paddingLeft="10sp"
+                android:paddingTop="4sp"
+                android:text="SALE DESCRIPTION"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </ScrollView>
 
-                <TextView
-                    android:id="@+id/DetailsDescriptionTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SALE DESCRIPTION"
-                    android:paddingLeft="6sp"
-                    android:paddingTop="4sp"
-                    android:fontFamily="sans-serif-light"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            </LinearLayout>
-
-        </ScrollView>
-
-        <TextView
-            android:id="@+id/DetailsDescriptionHeaderTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ViewOnMapButton"
-            android:layout_alignLeft="@+id/DetailsMainPhotoImageView"
-            android:text="Description"
-            android:paddingLeft="6sp"
-            android:fontFamily="sans-serif-light"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <Button
-            android:id="@+id/ViewOnMapButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/DetailsLocationTextView"
-            android:drawableTop="@drawable/mapbutton"
-            android:text="View on map"
-            android:fontFamily="sans-serif-light"
-            android:onClick="ViewOnMapButtonOnClick" />
-    
 </RelativeLayout>

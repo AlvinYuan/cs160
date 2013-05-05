@@ -93,16 +93,16 @@ public class Message {
 			followedSalesIds.add(followedSale.id);
 		}
 		for (Message message : Message.allMessages.values()) {
-			boolean forCurrentUser =    message.receiverId == User.currentUser.id 
-					                 || message.receiverId == Message.BROADCAST;
 			if (   forSpecificSale
 				&& message.saleId == sale.id
-				&& forCurrentUser) {
+				&& (   message.receiverId == User.currentUser.id 
+		            || message.receiverId == Message.BROADCAST)) {
 				messages.add(message);
 			}
 			if (   !forSpecificSale
-				&& followedSalesIds.contains(message.saleId)
-				&& forCurrentUser) {
+				&& (   message.receiverId == User.currentUser.id
+					|| (   followedSalesIds.contains(message.saleId)
+				        && message.receiverId == Message.BROADCAST))) {
 				messages.add(message);
 			}
 		}
