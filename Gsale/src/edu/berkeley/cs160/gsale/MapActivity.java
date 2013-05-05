@@ -173,11 +173,11 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		}
 
 		// Setting the image
-		if (MarkerIdMap.get(marker.getId()).mainPhoto != null ){
-			tvImage.setImageBitmap(MarkerIdMap.get(marker.getId()).mainPhoto.bitmap);
+		if (MarkerIdMap.get(marker.getId()).mainPhotoId != GarageSale.INVALID_INT){
+			tvImage.setImageBitmap(Photo.allPhotos.get(MarkerIdMap.get(marker.getId()).mainPhotoId).bitmap);
 		} else {
 			Bitmap defaultIcon = BitmapFactory.decodeResource(this.getResources(),
-                    R.drawable.photo);
+                    R.drawable.ic_launcher);
 			tvImage.setImageBitmap(defaultIcon);
 		}
 

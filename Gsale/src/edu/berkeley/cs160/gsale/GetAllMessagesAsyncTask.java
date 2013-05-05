@@ -13,13 +13,16 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 public class GetAllMessagesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 	public Context context;
+	public boolean firstRun;
 
-	public GetAllMessagesAsyncTask(Context context) {
+	public GetAllMessagesAsyncTask(Context context, boolean firstRun) {
 		super();
 		this.context = context;
+		this.firstRun = firstRun;
 	}
 	@Override
 	protected JSONArray doInBackground(Void... params) {
@@ -54,14 +57,20 @@ public class GetAllMessagesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 	@Override
 	protected void onPostExecute(JSONArray result) {
 			try {
+				boolean gotNewMessage = false;
 				for (int i = 0; i < result.length(); i++) {
 					Message message = new Message(result.getJSONArray(i));
-					Message.allMessages.put(message.id, message);
+					if (Message.allMessages.get(message.id) == null) {
+						gotNewMessage = true;
+						Message.allMessages.put(message.id, message);
+					}
+				}
+				if (!firstRun && gotNewMessage) {
+					Toast.makeText(context, "Got new Messages!", Toast.LENGTH_SHORT).show();
 				}
 				System.out.println("GetAllMessagesAsyncTask: GOT " + GarageSale.allSales.size() + " MESSAGES");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-
 	}
 }
