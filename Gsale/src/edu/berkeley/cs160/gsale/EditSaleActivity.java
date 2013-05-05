@@ -735,7 +735,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	     	           break;
 	     	       case 1:
 	     	    	   System.out.println("Set as main photo");
-	     	    	   editingSale.mainPhoto = pic;
+	     	    	   editingSale.mainPhotoId = pic.id;
 	     	    	   Toast.makeText(getActivity(), "Set as main photo", Toast.LENGTH_SHORT).show();
 	     	           break;
 	     	       case 2:
