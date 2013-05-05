@@ -141,6 +141,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="HomeActivity" />
         </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.PhotoPreviewActivity"
+            android:label="@string/title_activity_photo_preview" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
