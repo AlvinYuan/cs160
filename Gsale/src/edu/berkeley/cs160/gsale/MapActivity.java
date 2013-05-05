@@ -173,14 +173,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		}
 
 		// Setting the image
-		if (MarkerIdMap.get(marker.getId()).mainPhotoId != GarageSale.INVALID_INT){
-			tvImage.setImageBitmap(Photo.allPhotos.get(MarkerIdMap.get(marker.getId()).mainPhotoId).bitmap);
-		} else {
-			Bitmap defaultIcon = BitmapFactory.decodeResource(this.getResources(),
-                    R.drawable.ic_launcher);
-			tvImage.setImageBitmap(defaultIcon);
-		}
-
+		tvImage.setImageBitmap(MarkerIdMap.get(marker.getId()).mainPhotoBitmap(this));
 		// Returning the view containing InfoWindow contents
 		return v;
 

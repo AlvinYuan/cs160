@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
@@ -130,7 +131,7 @@ public class GarageSale implements java.io.Serializable{
 		return null;
 	}
 	
-	public void loadDetailsIntoView(View detailsView) {
+	public void loadDetailsIntoView(View detailsView, Context context) {
 		Calendar startDate = dateTime(true, true);
 		Calendar endDate = dateTime(false, true);
 		Calendar startTime = dateTime(true, false);
@@ -161,11 +162,7 @@ public class GarageSale implements java.io.Serializable{
 		}
 		/* Main Photo */
 		ImageView detailsMainPhotoImageView = (ImageView) detailsView.findViewById(R.id.DetailsMainPhotoImageView);
-		if (mainPhotoId != INVALID_INT) {
-			detailsMainPhotoImageView.setImageBitmap(Photo.allPhotos.get(mainPhotoId).bitmap);
-		} else {
-			detailsMainPhotoImageView.setImageResource(R.drawable.ic_launcher);
-		}
+		detailsMainPhotoImageView.setImageBitmap(mainPhotoBitmap(context));
 	}
 	
 	public String dateString(boolean isStartDate) {
@@ -295,6 +292,14 @@ public class GarageSale implements java.io.Serializable{
 		/* Add to allSales */
 		allSales.put(SALE1.id, SALE1);
 		allSales.put(SALE2.id, SALE2);
+	}
+	
+	public Bitmap mainPhotoBitmap(Context context) {
+		Photo mainPhoto = Photo.allPhotos.get(mainPhotoId);
+		if (mainPhoto != null) {
+			return mainPhoto.bitmap;
+		}
+		return BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
 	}
 	
 	public ArrayList<Photo> photos() {
