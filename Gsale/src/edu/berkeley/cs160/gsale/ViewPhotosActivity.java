@@ -30,6 +30,13 @@ public class ViewPhotosActivity extends Activity implements OnItemClickListener 
 
 		viewPhotosListView = (ListView) findViewById(R.id.ViewPhotosListView);
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos);
+		
+		// What I am attempting to add
+		View header = (View)getLayoutInflater().inflate(R.layout.listview_header_photos, null);
+        viewPhotosListView.addHeaderView(header);
+     
+        //End of what I am attempting to add for header
+        
 		viewPhotosListView.setAdapter(photoAdapter);
 		
 		viewPhotosListView.setOnItemClickListener(this);

@@ -1,31 +1,15 @@
 package edu.berkeley.cs160.gsale;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.google.android.gms.maps.model.LatLng;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.support.v4.app.NavUtils;
 
 public class CreateEditActivity extends Activity implements OnItemClickListener {
 
@@ -41,7 +25,15 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.MySalesListView);
 		mySalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.plannedSales, true);
+		
+		// What I am attempting to add
+		View header = (View)getLayoutInflater().inflate(R.layout.listview_header_row, null);
+        l.addHeaderView(header);
+        
+        //End of what I am attempting to add for header
+        
 		l.setAdapter(mySalesAdapter);
+		
 		l.setOnItemClickListener(this);
 	}
 
