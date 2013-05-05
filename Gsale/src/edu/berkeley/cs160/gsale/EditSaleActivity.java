@@ -174,7 +174,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			editingSale.plannerId = User.currentUser.id;
 		}
 
-		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos);
+		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos());
 		
 		// What I am attempting to add
 		View header = (View)getLayoutInflater().inflate(R.layout.listview_header_createphotos, null);
