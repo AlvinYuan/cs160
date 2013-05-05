@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/DetailsDateTextView"
             android:layout_below="@+id/DetailsDateTextView"
-            android:text="0:00 AM - 0:00 AM"
+            android:text="@string/NoTime"
             android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/DetailsTitleTextView"
             android:layout_below="@+id/DetailsTitleTextView"
-            android:text="DAY, MON 00, YEAR - DAY, MON 00, YEAR"
+            android:text="@string/NoDate"
             android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -50,7 +50,7 @@
             android:layout_alignLeft="@+id/DetailsTimeTextView"
             android:layout_below="@+id/DetailsTimeTextView"
             android:layout_toLeftOf="@+id/ViewOnMapButton"
-            android:text="LOCATION"
+            android:text="@string/NoLocation"
             android:fontFamily="sans-serif-light"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

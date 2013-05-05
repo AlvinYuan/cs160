@@ -20,5 +20,8 @@
     <string name="app_label">Gsale</string>
     <string name="title_activity_searchable">SearchableActivity</string>
     <string name="title_activity_send_message">SendMessageActivity</string>
+    <string name="NoLocation">No Location Specified</string>
+    <string name="NoDate">No Dates Specified</string>
+    <string name="NoTime">No Times Specified</string>
 
 </resources>

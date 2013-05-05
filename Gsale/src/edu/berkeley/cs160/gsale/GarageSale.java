@@ -158,10 +158,8 @@ public class GarageSale implements java.io.Serializable{
 			detailsTimeTextView.setText(timeString(true) + " - " + timeString(false));
 		}
 		/* Date */
-		if (startDate != null && endDate != null) {
-			TextView detailsDateTextView = (TextView) detailsView.findViewById(R.id.DetailsDateTextView);
-			detailsDateTextView.setText(dateString(true) + " - " + dateString(false));
-		}
+		TextView detailsDateTextView = (TextView) detailsView.findViewById(R.id.DetailsDateTextView);
+		setDateString(detailsDateTextView);
 		/* Location */
 		if (!location.equals(INVALID_STRING)) {	
 			TextView detailsLocationTextView = (TextView) detailsView.findViewById(R.id.DetailsLocationTextView);
@@ -177,7 +175,7 @@ public class GarageSale implements java.io.Serializable{
 		if (mainPhoto != null) {
 			detailsMainPhotoImageView.setImageBitmap(mainPhoto.bitmap);
 		} else {
-			detailsMainPhotoImageView.setImageResource(R.drawable.photo);
+			detailsMainPhotoImageView.setImageResource(R.drawable.ic_launcher);
 		}
 	}
 	
@@ -188,8 +186,22 @@ public class GarageSale implements java.io.Serializable{
 		String weekdayString = date.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US);
 		int dayOfMonth = date.get(Calendar.DAY_OF_MONTH);
 		int year = date.get(Calendar.YEAR);
-		String dateString = weekdayString + ", " + monthString + " " + dayOfMonth + ", " + year;
+		String dateString = weekdayString + ", " + monthString + " " + dayOfMonth;
 		return dateString;
+	}
+	
+	public void setDateString(TextView dateTextView) {
+		Calendar startDate = dateTime(true, true);
+		Calendar endDate = dateTime(false, true);
+		if (startDate != null && endDate != null) {
+			if  (startDate.equals(endDate)) {
+				dateTextView.setText(dateString(true));
+			} else {
+				dateTextView.setText(dateString(true) + " - " + dateString(false));
+			}
+		} else {
+			dateTextView.setText(R.string.NoDate);
+		}
 	}
 	
 	public String timeString(boolean isStartTime) {
