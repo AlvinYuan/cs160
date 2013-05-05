@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class PhotoPreviewActivity extends Activity {
 
@@ -16,6 +17,8 @@ public class PhotoPreviewActivity extends Activity {
 		Bitmap preview = (Bitmap) extras.getParcelable("image");
 		ImageView iv = (ImageView) findViewById(R.id.PhotoPreview);
 		iv.setImageBitmap(preview);
+		TextView tv = (TextView) findViewById(R.id.PhotoPreviewDescription);
+		tv.setText(extras.getString("description"));
 	}
 
 	@Override
