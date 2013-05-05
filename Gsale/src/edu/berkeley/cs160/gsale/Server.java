@@ -9,4 +9,6 @@ public class Server {
 	public static final String GET_ALL_PHOTOS_SUFFIX = "/photos";
 	public static final String POST_SALE_PHOTO_SUFFIX = "/salephoto";
 	public static final String GET_SALE_PHOTOS_SUFFIX = "/salephotos";
+	public static final String POST_MESSAGE_SUFFIX = "/message";
+	public static final String GET_ALL_MESSAGES_SUFFIX = "/messages";
 }

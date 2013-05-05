@@ -190,6 +190,8 @@ public class HomeActivity extends Activity implements LocationListener {
 		getSalesTask.execute();
 		GetAllPhotosAsyncTask getPhotosTask = new GetAllPhotosAsyncTask(this);
 		getPhotosTask.execute();
+		GetAllMessagesAsyncTask getMessagesTask = new GetAllMessagesAsyncTask(this);
+		getMessagesTask.execute();
 	}
 	/* Called after GetAllSales and GetAllPhotos complete */
 	public void onAppStartupTwo() {		

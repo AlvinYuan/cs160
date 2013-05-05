@@ -9,15 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/button1" >
+        android:layout_above="@+id/SendButton" >
 	    <RelativeLayout
 	        android:id="@+id/relativeLayout1"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-            android:layout_alignParentTop="true" >
+	        android:layout_height="wrap_content" >
 	
 	        <TextView
-	            android:id="@+id/textView2"
+	            android:id="@+id/ToTextView"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentTop="true"
@@ -28,12 +27,12 @@
 	            android:id="@+id/textView3"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/textView2"
+	            android:layout_below="@+id/ToTextView"
 	            android:layout_alignParentLeft="true"
 	            android:text="Subject" />
 	        
 	        <EditText
-	            android:id="@+id/editText2"
+	            android:id="@+id/SubjectEditText"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/textView3"
@@ -43,7 +42,7 @@
         		android:inputType="textCapWords|text"
         		android:imeOptions="actionNext"
         	    android:singleLine="true"
-        		android:nextFocusDown="@+id/editText1" >
+        		android:nextFocusDown="@+id/ContentEditText" >
 	            
 	            <requestFocus />
 	        </EditText>    
@@ -52,12 +51,12 @@
 	            android:id="@+id/textView4"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/editText2"
+	            android:layout_below="@+id/SubjectEditText"
 	            android:layout_alignParentLeft="true"
 	            android:text="Content" />
 	
 	        <EditText
-	            android:id="@+id/editText1"
+	            android:id="@+id/ContentEditText"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/textView4"
@@ -71,19 +70,21 @@
 	</ScrollView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/SendButton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="Send" />
+        android:text="Send"
+        android:onClick="SendButtonOnClick" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/CancelButton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/button1"
-        android:text="Cancel" />
+        android:layout_toLeftOf="@+id/SendButton"
+        android:text="Cancel"
+        android:onClick="CancelButtonOnClick" />
 
 </RelativeLayout>

@@ -1,8 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -10,8 +8,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ListActivity;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;

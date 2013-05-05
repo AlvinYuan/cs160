@@ -17,6 +17,7 @@ public class MessagesActivity extends Activity implements OnItemClickListener {
 	public boolean forSpecificSale;
 	public GarageSale sale;
 	public MessageAdapter messageAdapter;
+	public ArrayList<Message> messages;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,8 @@ public class MessagesActivity extends Activity implements OnItemClickListener {
 		}
 
 		ListView l = (ListView) findViewById(R.id.MessagesListView);
-		ArrayList<Message> messages = new ArrayList<Message>(Message.allMessages.values());
+
+		messages = Message.getMessages(forSpecificSale, sale);
 		messageAdapter = new MessageAdapter(this, android.R.layout.simple_list_item_1, messages, true);
 		l.setAdapter(messageAdapter);
 		l.setOnItemClickListener(this);
@@ -49,8 +51,12 @@ public class MessagesActivity extends Activity implements OnItemClickListener {
 	public void SendMessage(boolean isResponse, Message respondedMessage) {
 		Intent intent = new Intent(this, SendMessageActivity.class);
 		intent.putExtra(Message.HAS_MESSAGE_ID_KEY, isResponse);
+		intent.putExtra(GarageSale.HAS_SALE_ID_KEY, forSpecificSale);
 		if (isResponse) {
 			intent.putExtra(Message.MESSAGE_ID_KEY, respondedMessage.id);
+		}
+		if (forSpecificSale) {
+			intent.putExtra(GarageSale.SALE_ID_KEY, sale.id);
 		}
 		startActivity(intent);
 	}
@@ -62,6 +68,7 @@ public class MessagesActivity extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		Message message = (Message) messageAdapter.getItem(position);
+		
 	}
 
 
