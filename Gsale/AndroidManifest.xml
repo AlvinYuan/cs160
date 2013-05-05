@@ -61,7 +61,15 @@
         <activity
             android:name="edu.berkeley.cs160.gsale.SearchActivity"
             android:label="@string/title_activity_search"
+            android:launchMode="singleTop"
             android:parentActivityName="HomeActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="HomeActivity" />
@@ -134,19 +142,16 @@
                 android:value="HomeActivity" />
         </activity>
         <activity
-            android:name="edu.berkeley.cs160.gsale.SearchableActivity"
-            android:label="@string/title_activity_searchable" >
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
-        <activity
             android:name="edu.berkeley.cs160.gsale.SendMessageActivity"
             android:label="@string/title_activity_send_message"
+            android:parentActivityName="HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.gsale.PhotoPreviewActivity"
+            android:label="@string/title_activity_photo_preview"
             android:parentActivityName="HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
