@@ -29,6 +29,7 @@ public class ViewPhotosActivity extends Activity implements OnItemClickListener 
 		sale = GarageSale.allSales.get(id);		
 
 		viewPhotosListView = (ListView) findViewById(R.id.ViewPhotosListView);
+
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos);
 		
 		// What I am attempting to add
@@ -37,6 +38,7 @@ public class ViewPhotosActivity extends Activity implements OnItemClickListener 
      
         //End of what I am attempting to add for header
         
+
 		viewPhotosListView.setAdapter(photoAdapter);
 		
 		viewPhotosListView.setOnItemClickListener(this);
@@ -78,6 +80,7 @@ public class ViewPhotosActivity extends Activity implements OnItemClickListener 
 		System.out.println("Got here");
 		Intent i = new Intent(this, PhotoPreviewActivity.class);
         i.putExtra("image", photoAdapter.getItem(position).bitmap);
+        i.putExtra("description", photoAdapter.getItem(position).description);
         startActivity(i);
 		
 	}

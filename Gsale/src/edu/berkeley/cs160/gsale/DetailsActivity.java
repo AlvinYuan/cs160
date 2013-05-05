@@ -42,7 +42,7 @@ public class DetailsActivity extends Activity {
 		RelativeLayout detailsLayout = (RelativeLayout) findViewById(R.id.DetailsLayout);
 		LayoutInflater inflater = getLayoutInflater();
 		detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
-		sale.loadDetailsIntoView(detailsView);
+		sale.loadDetailsIntoView(detailsView, this);
 		detailsLayout.addView(detailsView);
 		
 		followButton = (Button) findViewById(R.id.FollowButton);
@@ -174,5 +174,12 @@ public class DetailsActivity extends Activity {
 		Intent intent = new Intent(this, ViewPhotosActivity.class);
 		intent.putExtra(GarageSale.SALE_ID_KEY, sale.id);
 		startActivity(intent);
+	}
+	
+	/*
+	 * Method: MessagesButtonOnClick
+	 */
+	public void MessagesButtonOnClick(View view) {
+		Message.startMessagesActivity(this);
 	}
 }

@@ -2,6 +2,8 @@ package edu.berkeley.cs160.gsale;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -26,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 public class HomeActivity extends Activity implements LocationListener {
+	public HomeActivity self;
 	/*
 	 * Do not encode state in this activity.
 	 * Pressing the Up button recreates this activity.
@@ -42,6 +45,7 @@ public class HomeActivity extends Activity implements LocationListener {
 		if (User.justStartedApp) {
 			onAppStartup();
 		}
+		self = this;
 		/* Outside onAppStartup() so currentLocation can be updated even after pressing Up button. */
 		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		String provider = manager.getBestProvider(new Criteria(), true);
@@ -150,8 +154,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	 * Method: SendViewMessagesButtonOnClick
 	 */
 	public void SendViewMessagesButtonOnClick(View view) {
-		Intent intent = new Intent(this, MessagesActivity.class);
-		startActivity(intent);
+		Message.startMessagesActivity(this);
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 
@@ -185,28 +188,26 @@ public class HomeActivity extends Activity implements LocationListener {
 		Storage.getLastLogin(this);
 		GarageSale.allSales = new HashMap<Integer, GarageSale>();
 		Photo.allPhotos = new HashMap<Integer, Photo>();
+		Message.allMessages = new HashMap<Integer, Message>();
 		GarageSale.generateAllSales(this);
 		GetAllSalesAsyncTask getSalesTask = new GetAllSalesAsyncTask(this);
 		getSalesTask.execute();
 		GetAllPhotosAsyncTask getPhotosTask = new GetAllPhotosAsyncTask(this);
 		getPhotosTask.execute();
-	}
-	/* Called after GetAllSales and GetAllPhotos complete */
-	public void onAppStartupTwo() {		
-		if (   GarageSale.allSales.size() > 0
-			&& Photo.allPhotos.size() > 0) {
-			// allSales and allPhotos retrieved
-			GetSalePhotosAsyncTask getSalePhotosTask = new GetSalePhotosAsyncTask(this);
-			getSalePhotosTask.execute();
-			ArrayList<GarageSale> allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
-			for (int i = 0; i < allSalesList.size(); i++) {
-				GarageSale sale = allSalesList.get(i);
-				if (sale.mainPhoto == null) {
-					// Check only useful for generated sales (maybe stored sales if we had any)
-					sale.mainPhoto = Photo.allPhotos.get(sale.mainPhotoId);					
-				}
+		GetAllMessagesAsyncTask getMessagesTask = new GetAllMessagesAsyncTask(this, true);
+		getMessagesTask.execute();
+		/*
+		Timer repeat = new Timer("Repeating Get Messages Task");
+		repeat.schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				GetAllMessagesAsyncTask getMessagesTask = new GetAllMessagesAsyncTask(self, false);
+				getMessagesTask.execute();
 			}
-		}
+			
+		}, 0, 60000); // 1 minute repeating
+		*/
 	}
 
 	/*

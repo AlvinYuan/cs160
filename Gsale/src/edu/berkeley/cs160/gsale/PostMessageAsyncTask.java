@@ -15,28 +15,28 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
+public class PostMessageAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	public Context context;
-	public GarageSale sale;
+	public Message message;
 
-	public PostSaleAsyncTask(Context context, GarageSale sale) {
+	public PostMessageAsyncTask(Context context, Message message) {
 		super();
 		this.context = context;
-		this.sale = sale;
+		this.message = message;
 	}
 	@Override
 	protected JSONObject doInBackground(Void... params) {
 		try {
 			/* Prepare Request */
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Server.URL + Server.POST_SALE_SUFFIX);
-			post.setEntity(sale.HttpPostEntity());
-			System.out.println("PostSaleAsyncTask: SENDING POST REQUEST");
+			HttpPost post = new HttpPost(Server.URL + Server.POST_MESSAGE_SUFFIX);
+			post.setEntity(message.HttpPostEntity());
+			System.out.println("PostMessageAsyncTask: SENDING POST REQUEST");
 			HttpResponse response = httpclient.execute(post);
 			
 			/* Handle Response */
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				System.out.println("PostSaleAsyncTask: RECEIVED OK RESPONSE");
+				System.out.println("PostMessageAsyncTask: RECEIVED OK RESPONSE");
 				ByteArrayOutputStream out = new ByteArrayOutputStream();
 				response.getEntity().writeTo(out);
 				out.close();
@@ -49,7 +49,7 @@ public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 				throw new IOException(response.getStatusLine().getReasonPhrase());
 			}
 		} catch (Exception e) {
-			System.out.println("PostSaleAsyncTask: " + e.toString());
+			System.out.println("PostMessageAsyncTask: " + e.toString());
 		}
 
 		return null;
@@ -58,18 +58,11 @@ public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	@Override
 	protected void onPostExecute(JSONObject result) {
 			try {
-				sale.id = result.getInt("id");
-				GarageSale.allSales.put(sale.id, sale);
-				User.currentUser.plannedSales.add(sale);
-				System.out.println("PostSaleAsyncTask: SALE ID - " + sale.id);
-				Storage.storeList(context, User.currentUser.plannedSales, Storage.PLANNED_SALES);
-				for (int i = 0; i < sale.photoIds.size(); i++) {
-					Photo p = Photo.allPhotos.get(sale.photoIds.get(i));
-					PostSalePhotoAsyncTask postSalePhotoTask = new PostSalePhotoAsyncTask(sale.id, p.id);
-					postSalePhotoTask.execute();
-				}
-				Toast.makeText(context, "Published!", Toast.LENGTH_SHORT).show();
-				((EditSaleActivity) context).finish();
+				message.id = result.getInt("id");
+				Message.allMessages.put(message.id, message);
+				System.out.println("PostMessageAsyncTask: ID - " + message.id);
+				Toast.makeText(context, "Sent!", Toast.LENGTH_SHORT).show();
+				((SendMessageActivity) context).finish();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

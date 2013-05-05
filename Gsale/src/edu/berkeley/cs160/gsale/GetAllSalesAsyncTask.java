@@ -74,7 +74,10 @@ public class GetAllSalesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 					User.currentUser.hiddenSales.add(GarageSale.allSales.get(hiddenSaleIds.get(i)));					 
 				}
 				
-				((HomeActivity) context).onAppStartupTwo();
+				// Populates sale.photoIds
+				GetSalePhotosAsyncTask getSalePhotosTask = new GetSalePhotosAsyncTask(context);
+				getSalePhotosTask.execute();
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

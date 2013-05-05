@@ -38,16 +38,11 @@ public class GarageSaleAdapter extends ArrayAdapter<GarageSale> implements OnCli
 		
 		GarageSale sale = (GarageSale) super.getItem(position);
 		((TextView) v.findViewById(R.id.title)).setText(sale.title);
-		if (sale.dateTime(true, true) != null) {
-			((TextView) v.findViewById(R.id.date)).setText(sale.dateString(true));
-		}
+		sale.setDateString((TextView) v.findViewById(R.id.date));
 		
 		ImageView listImageView = (ImageView) v.findViewById(R.id.list_image);
-		if (sale.mainPhoto != null) {
-			listImageView.setImageBitmap(sale.mainPhoto.bitmap);
-		} else {
-			listImageView.setImageResource(R.drawable.photo);			
-		}
+		listImageView.setImageBitmap(sale.mainPhotoBitmap(getContext()));
+
 		if (!isEditing) {
 			Drawable followedDrawable;
 			if (User.currentUser.followedSales.contains(sale)) {
@@ -66,7 +61,7 @@ public class GarageSaleAdapter extends ArrayAdapter<GarageSale> implements OnCli
 			if (!sale.location.equals(GarageSale.INVALID_STRING)) {
 				locationTextView.setText(sale.location);
 			} else {
-				locationTextView.setText("Garage Sale Location");
+				locationTextView.setText(R.string.NoLocation);
 			}
 		}
 		return v;

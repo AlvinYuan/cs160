@@ -4,5 +4,36 @@
     android:layout_height="match_parent"
     tools:context=".MessagesActivity" >
 
+    <TextView
+        android:id="@+id/MessagesTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="All Messages"
+        android:fontFamily="sans-serif-light"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ListView
+        android:id="@+id/MessagesListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/SendNewMessageButton" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/SendNewMessageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/MessagesTitleTextView"
+        android:drawableLeft="@drawable/plus_sign"
+        android:fontFamily="sans-serif-light"
+        android:minHeight="70dp"
+        android:onClick="SendNewMessageButtonOnClick"
+        android:text="Send New Message" />
 
 </RelativeLayout>

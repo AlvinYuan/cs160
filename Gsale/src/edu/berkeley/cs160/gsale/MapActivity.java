@@ -56,6 +56,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		map.setInfoWindowAdapter(this);
 		map.setOnInfoWindowClickListener(this);
 		map.setOnMapClickListener(this);
+		
 
 		ArrayList<GarageSale> allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
 		for (int i = 0; i < allSalesList.size(); i++) {
@@ -173,14 +174,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		}
 
 		// Setting the image
-		if (MarkerIdMap.get(marker.getId()).mainPhoto != null ){
-			tvImage.setImageBitmap(MarkerIdMap.get(marker.getId()).mainPhoto.bitmap);
-		} else {
-			Bitmap defaultIcon = BitmapFactory.decodeResource(this.getResources(),
-                    R.drawable.photo);
-			tvImage.setImageBitmap(defaultIcon);
-		}
-
+		tvImage.setImageBitmap(MarkerIdMap.get(marker.getId()).mainPhotoBitmap(this));
 		// Returning the view containing InfoWindow contents
 		return v;
 

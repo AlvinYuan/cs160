@@ -142,8 +142,17 @@
                 android:value="HomeActivity" />
         </activity>
         <activity
+            android:name="edu.berkeley.cs160.gsale.SendMessageActivity"
+            android:label="@string/title_activity_send_message"
+            android:parentActivityName="HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="HomeActivity" />
+        </activity>
+        <activity
             android:name="edu.berkeley.cs160.gsale.PhotoPreviewActivity"
-            android:label="@string/title_activity_photo_preview" >
+            android:label="@string/title_activity_photo_preview"
+            android:parentActivityName="HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="HomeActivity" />

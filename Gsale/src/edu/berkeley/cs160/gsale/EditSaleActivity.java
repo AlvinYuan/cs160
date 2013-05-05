@@ -1,6 +1,8 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -43,7 +45,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener, OnItemClickListener, OnMenuItemClickListener  {
+public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener, OnItemClickListener {
 	public boolean isEditing;
 	public int editingSaleId;
 	public GarageSale editingSale;
@@ -62,10 +64,12 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public ListView editPhotosListView;
 	public PhotoAdapter photoAdapter;
 	public boolean photoAdded = false;
-	public PopupMenu popupMenu;
 	public int selectedPhoto;
 	
 	public boolean currentlyPublishing = false;
+	
+	public Photo newlyAddedPhoto;
+
 	/* Camera Stuff */
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	public static final int MEDIA_TYPE_VIDEO = 2;
@@ -169,6 +173,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			editingSale = new GarageSale();
 			editingSale.plannerId = User.currentUser.id;
 		}
+
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos);
 		
 		// What I am attempting to add
@@ -176,15 +181,9 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
         editPhotosListView.addHeaderView(header);
      
         //End of what I am attempting to add for header
-        
-		
+
 		editPhotosListView.setAdapter(photoAdapter);
-		popupMenu = new PopupMenu(this, findViewById(R.id.AddNewPhotoButton));
-        popupMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, "Preview");
-        popupMenu.getMenu().add(Menu.NONE, 2, Menu.NONE, "Set as main photo");
-        popupMenu.getMenu().add(Menu.NONE, 3, Menu.NONE, "Edit description");
-        popupMenu.getMenu().add(Menu.NONE, 4, Menu.NONE, "Delete");
-        popupMenu.setOnMenuItemClickListener(this);
+		
 		editPhotosListView.setOnItemClickListener(this);
 
 
@@ -267,7 +266,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	public void loadReviewPublishView() {
-		editingSale.loadDetailsIntoView(detailsView);
+		editingSale.loadDetailsIntoView(detailsView, this);
 		editReviewPublishView.setVisibility(View.VISIBLE);
 		visibleEditView = editReviewPublishView;
 		
@@ -450,29 +449,13 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Bitmap newBitmap = null;
 	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 	        if (resultCode == RESULT_OK) {
 	            // Image captured and saved to fileUri specified in the Intent
 	            Toast.makeText(this, "Image Captured!", Toast.LENGTH_LONG).show();
 	    	    Bundle extras = data.getExtras();
-	    	    Bitmap mImageBitmap = (Bitmap) extras.get("data");
-	    	    Photo p = new Photo();
-	    	    p.bitmap = mImageBitmap;
-	    	    p.description = "";
-	    	    System.out.println("bitmap height: " + p.bitmap.getHeight());
-	    	    System.out.println("bitmap width: " + p.bitmap.getWidth());
-	    	    
-	    	    editingSale.mainPhoto = p;
-	    	    editingSale.photos.add(p);
-	    	    
-	    	    /*
-	    	     * Can't start Fragment in this method. Known bug. Start in onResume
-	    	     * http://stackoverflow.com/questions/10114324/show-dialogfragment-from-onactivityresult
-	    	     */
-	    	    photoAdded = true;
-
-	    	    photoAdapter.notifyDataSetChanged();
-
+	    	    newBitmap = (Bitmap) extras.get("data");
 	        } else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture
 	        } else {
@@ -493,22 +476,26 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	            String picturePath = cursor.getString(columnIndex);
 
 	            cursor.close();
-	            Bitmap imageBitmap = BitmapFactory.decodeFile(picturePath);
-	            Photo p = new Photo();
-	            p.bitmap = imageBitmap;
-	            p.description = "";
-	            
-	            editingSale.mainPhoto = p;
-	    	    editingSale.photos.add(p);
-	    	    
-	    	    photoAdded = true;
-	    	    photoAdapter.notifyDataSetChanged();
-	            
+	            newBitmap = BitmapFactory.decodeFile(picturePath);
 	    	} else if (resultCode == RESULT_CANCELED) {
 	            // User cancelled the image capture
 	        } else {
 	            // Image capture failed, advise user
 	        }
+	    }
+	    if (newBitmap != null) {
+		    newlyAddedPhoto = new Photo();
+		    newlyAddedPhoto.bitmap = newBitmap;
+		    newlyAddedPhoto.description = "";
+
+		    /*
+		     * Can't start Fragment in this method. Known bug. Start in onResume
+		     * http://stackoverflow.com/questions/10114324/show-dialogfragment-from-onactivityresult
+		     */
+		    photoAdded = true;
+		    
+		    photoAdapter.add(newlyAddedPhoto);
+		    photoAdapter.notifyDataSetChanged();	    	
 	    }
 	}
 	
@@ -540,8 +527,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public void createDescriptionDialog() {
 		DescriptionDialogFragment newFragment = new DescriptionDialogFragment();
 		newFragment.show(getSupportFragmentManager(), "photoDescription");
-        //InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        //imm.showSoftInput(newFragment.input, InputMethodManager.SHOW_IMPLICIT);
 	}
 
 	/*
@@ -658,16 +643,16 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
-			Photo p = activity.editingSale.photos.get(activity.editingSale.photos.size() - 1);
 			if (which == Dialog.BUTTON_POSITIVE) {
-				p.description = input.getText().toString();
+				activity.newlyAddedPhoto.description = input.getText().toString();
 				activity.photoAdapter.notifyDataSetChanged();
 			}
 			/* 
     	     * For now just publish photo to server here. 
     	     * Probably should be done elsewhere though (like on publish)
+    	     * This task also updates editingSale.mainPhotoId and photoIds
     	     */
-    	    PostPhotoAsyncTask postPhotoTask = new PostPhotoAsyncTask(getActivity(), p);
+    	    PostPhotoAsyncTask postPhotoTask = new PostPhotoAsyncTask(getActivity(), activity.newlyAddedPhoto);
     	    postPhotoTask.execute();
 		}
 		
@@ -692,35 +677,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			});
 			builder.show();
 		}
-	}
-
-	@Override
-	public boolean onMenuItemClick(MenuItem item) {
-		// TODO Auto-generated method stub
-		Photo pic = (Photo) photoAdapter.getItem(selectedPhoto);
-		switch (item.getItemId()) {
-	       case 1:
-	           System.out.println("Preview");
-	           Intent i = new Intent(this, PhotoPreviewActivity.class);
-	           i.putExtra("image", pic.bitmap);
-	           startActivity(i);
-	           break;
-	       case 2:
-	    	   System.out.println("Set as main photo");
-	    	   editingSale.mainPhoto = pic;
-	    	   Toast.makeText(this, "Set as main photo", Toast.LENGTH_SHORT).show();
-	           break;
-	       case 3:
-	    	   System.out.println("Edit description");
-	    	   EditDescriptionDialogFragment newFragment = new EditDescriptionDialogFragment();
-	    	   newFragment.show(getSupportFragmentManager(), "photoDescription");
-	           break;
-	       case 4:
-	    	   System.out.println("Delete");
-	    	   photoAdapter.remove(pic);
-	    	   break;
-	       }
-		return false;
 	}
 	
 	public static class EditDescriptionDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
@@ -764,13 +720,55 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			super.onDismiss(dialog);
 		}
 	}
+	
+	public class PhotoOptionsDialogFragment extends DialogFragment {
+	    @Override
+	    public Dialog onCreateDialog(Bundle savedInstanceState) {
+	        // Use the Builder class for convenient dialog construction	        
+	        CharSequence options[] = new CharSequence[] {"Preview", "Set as main photo", "Edit description", "Delete"};
+	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        builder.setTitle("Photo options");
+	        builder.setItems(options, new DialogInterface.OnClickListener() {
+	            @Override
+	            public void onClick(DialogInterface dialog, int which) {
+	                // the user clicked on options[which]
+	            	Photo pic = (Photo) photoAdapter.getItem(selectedPhoto);
+	            	switch (which) {
+	     	       case 0:
+	     	           System.out.println("Preview");
+	     	           Intent i = new Intent(getActivity(), PhotoPreviewActivity.class);
+	     	           i.putExtra("image", pic.bitmap);
+	     	           i.putExtra("description", pic.description);
+	     	           startActivity(i);
+	     	           break;
+	     	       case 1:
+	     	    	   System.out.println("Set as main photo");
+	     	    	   editingSale.mainPhotoId = pic.id;
+	     	    	   Toast.makeText(getActivity(), "Set as main photo", Toast.LENGTH_SHORT).show();
+	     	           break;
+	     	       case 2:
+	     	    	   System.out.println("Edit description");
+	     	    	   EditDescriptionDialogFragment newFragment = new EditDescriptionDialogFragment();
+	     	    	   newFragment.show(getSupportFragmentManager(), "photoDescription");
+	     	           break;
+	     	       case 3:
+	     	    	   System.out.println("Delete");
+	     	    	   photoAdapter.remove(pic);
+	     	    	   break;
+	     	       }
+	            }
+	        });
+	        return builder.create();
+	    }
+	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		System.out.println("Got here!");
 		selectedPhoto = position;
-		popupMenu.show();
+		PhotoOptionsDialogFragment newFragment = new PhotoOptionsDialogFragment();
+		newFragment.show(getSupportFragmentManager(), "photoOptions");
+		//popupMenu.show();
 	}
-	
 }

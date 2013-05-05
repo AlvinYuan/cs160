@@ -8,8 +8,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ListActivity;
-import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,17 +16,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
+
 
 public class SearchActivity extends Activity implements OnItemClickListener {
 	public GarageSaleAdapter SearchSalesAdapter;
 	public static ArrayList<GarageSale> allSalesList;
+	public ArrayList<GarageSale> initialListOfSales;
+	public ArrayList<GarageSale> filtered;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,14 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 				if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
 						|| (actionId == EditorInfo.IME_ACTION_DONE)) {
 					Log.i("done", "Enter pressed");
-					doSearch(searchText.getText().toString());
+					
+					// Hides Keyboard after click search
+					InputMethodManager inputman = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		            inputman.hideSoftInputFromWindow(getWindow().getCurrentFocus().getWindowToken(), 0);
+		            
+		            doSearch(searchText.getText().toString());
+				} else if (event == null) {
+					return false;
 				}
 				return false;
 			}
@@ -132,10 +143,42 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 
 	// Use text string to search in allGarageSales
 	private void doSearch(String query) {
-		// text works
-		Log.i("doSomething", "hihihi");
-		Log.i("Squery", query+"");
+		initialListOfSales = new ArrayList<GarageSale>();
+		filtered = new ArrayList<GarageSale>();
 		
+		// Populates initial list of sales for later use
+		for (GarageSale sale : GarageSale.allSales.values()) {
+			initialListOfSales.add(sale);
+		}
+		
+		// Searches in title and description for search term
+		for (GarageSale sale : GarageSale.allSales.values()) {
+			String saleText = "";
+			saleText = saleText + sale.title + sale.description;
+			//Pattern p = Pattern.compile(query);
+			//Matcher m = p.matcher(saleText);
+			//Log.i("findboolean", m.find()+"");
+			
+			
+			if (saleText.toLowerCase().contains(query.toLowerCase())) {
+				filtered.add(sale);
+			}	
+		}
+		
+		
+		allSalesList.clear();
+		for (GarageSale sale : filtered) {
+			allSalesList.add(sale);
+		}
+		
+		// If no sales match search term, display all sales
+		if (allSalesList.isEmpty()) {
+			Toast.makeText(this, "No sales matched your search!", Toast.LENGTH_LONG).show(); 	
+			for (GarageSale sale : initialListOfSales) {
+				allSalesList.add(sale);
+			}
+		}
+	
 	}
 
 }

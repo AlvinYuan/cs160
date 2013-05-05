@@ -1,9 +1,11 @@
 package edu.berkeley.cs160.gsale;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,7 +74,6 @@ public class CreateEditActivity extends Activity implements OnItemClickListener 
 		Intent intent = new Intent(this, EditSaleActivity.class);
 		intent.putExtra(GarageSale.HAS_SALE_ID_KEY, isEditing);
 		if (isEditing) {
-			GarageSale.allSales.put(editingSale.id, editingSale);
 			intent.putExtra(GarageSale.SALE_ID_KEY, editingSale.id);
 		}
 		startActivity(intent);
