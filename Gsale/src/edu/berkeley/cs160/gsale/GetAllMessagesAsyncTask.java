@@ -69,6 +69,11 @@ public class GetAllMessagesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 					Toast.makeText(context, "Got new Messages!", Toast.LENGTH_SHORT).show();
 				}
 				System.out.println("GetAllMessagesAsyncTask: GOT " + GarageSale.allSales.size() + " MESSAGES");
+
+				Message.messagesLoaded = true;
+				if (context instanceof HomeActivity) {
+					((HomeActivity) context).checkReady();
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

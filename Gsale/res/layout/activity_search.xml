@@ -6,19 +6,16 @@
 
     <EditText
         android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_alignBottom="@+id/button2"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/button1"
-        android:layout_toRightOf="@+id/button2"
         android:ems="10"
         android:hint="@string/search_hint"
         android:imeOptions="actionSearch"
         android:inputType="textAutoCorrect"
         android:singleLine="true" >
 
-        <requestFocus />
     </EditText>
 
     <Button
@@ -28,6 +25,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:fontFamily="sans-serif-light"
+        android:visibility="gone"
         android:text="Adv.\nSearch" />
 
     <Button
@@ -39,6 +37,7 @@
         android:layout_alignParentTop="true"
         android:fontFamily="sans-serif-light"
         android:onClick="MapButtonOnClick"
+        android:visibility="gone"
         android:text="Map" />
 
     <ListView

@@ -3,6 +3,7 @@ package edu.berkeley.cs160.gsale;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import org.apache.http.NameValuePair;
@@ -20,6 +21,7 @@ import android.util.Base64;
 public class Photo {
 	/* allPhotos maps id to object */
 	public static HashMap<Integer, Photo> allPhotos = null;
+	public static boolean mainPhotosLoaded = false;
 	
 	public int id; // Unique Identifier
 	public Bitmap bitmap = null;
@@ -78,5 +80,16 @@ public class Photo {
 		}
 		return null;
 	}
+	
+	public static void getPhotosFromServer(Context context, Collection<Integer> photoIds) {
+		for (int photoId : photoIds) {
+			if (Photo.allPhotos.get(photoId) == null) {
+				GetPhotoAsyncTask getPhotoTask = new GetPhotoAsyncTask(context);
+				getPhotoTask.execute(photoId);				
+			}
+		}
+	}
+	
+	
 	
 }

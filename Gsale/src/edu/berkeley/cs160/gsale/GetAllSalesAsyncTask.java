@@ -78,6 +78,14 @@ public class GetAllSalesAsyncTask extends AsyncTask<Void, Void, JSONArray> {
 				GetSalePhotosAsyncTask getSalePhotosTask = new GetSalePhotosAsyncTask(context);
 				getSalePhotosTask.execute();
 
+
+				// Get mainPhotos				
+				Photo.getPhotosFromServer(context, GarageSale.mainPhotoIds());
+
+				GarageSale.salesLoaded = true;
+				if (context instanceof HomeActivity) {
+					((HomeActivity) context).checkReady();
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

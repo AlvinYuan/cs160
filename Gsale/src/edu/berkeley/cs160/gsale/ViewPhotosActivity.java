@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class ViewPhotosActivity extends Activity implements OnItemClickListener  {
 	public GarageSale sale;
@@ -26,12 +28,25 @@ public class ViewPhotosActivity extends Activity implements OnItemClickListener 
 		
 		Bundle extras = this.getIntent().getExtras();
 		int id = extras.getInt(GarageSale.SALE_ID_KEY);
-		sale = GarageSale.allSales.get(id);		
-
+		sale = GarageSale.allSales.get(id);
+		
+		Photo.getPhotosFromServer(this, sale.photoIds);
+		/* Further set up happens in photoLoaded called by GetPhotoAsyncTask */
+		// Also call photoLoaded here in case all photos are already loaded
+		photoLoaded();
+	}
+	
+	/* Called when a photo has been pulled from the server */
+	public void photoLoaded() {
+		if (sale.photos() == null) {
+			return;
+		}
+		/* All photos are loaded into running program */
+		((ProgressBar) findViewById(R.id.LoadingPhotosProgressBar)).setVisibility(View.INVISIBLE);
+		((TextView) findViewById(R.id.LoadingPhotosTextView)).setVisibility(View.INVISIBLE);
 		viewPhotosListView = (ListView) findViewById(R.id.ViewPhotosListView);
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, sale.photos());
 		viewPhotosListView.setAdapter(photoAdapter);
-		
 		viewPhotosListView.setOnItemClickListener(this);
 	}
 

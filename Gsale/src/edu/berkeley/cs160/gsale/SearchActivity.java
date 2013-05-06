@@ -116,6 +116,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		sale.startDetailsActivity(this);
 	}
 
+
 	public void MapButtonOnClick(View view) {
 		Intent intent = new Intent(this, MapActivity.class);
 		intent.putExtra(GarageSale.HAS_SALE_ID_KEY, false);
@@ -136,6 +137,7 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 			break;
 		}
 	}
+
 
 	public void onNewIntent(Intent i) {
 		setIntent(i);

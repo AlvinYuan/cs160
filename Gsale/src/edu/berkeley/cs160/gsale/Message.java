@@ -22,6 +22,7 @@ public class Message {
 	public static final int BROADCAST = -2;
 	
 	public static HashMap<Integer, Message> allMessages;
+	public static boolean messagesLoaded = false;
 	
 	/* Fields */
 	public int id = INVALID_INT; //Unique Identifier

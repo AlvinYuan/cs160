@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 
 import org.apache.http.NameValuePair;
@@ -39,6 +40,7 @@ public class GarageSale implements java.io.Serializable{
 
 	/* allSales maps GarageSale id to object */
 	public static HashMap<Integer, GarageSale> allSales = null;
+	public static boolean salesLoaded = false;
 	
 	/* Instance Variables */
 	/* General */
@@ -302,13 +304,26 @@ public class GarageSale implements java.io.Serializable{
 		return BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
 	}
 	
+	/* Returns null if any of the photoIds are not yet in allPhotos */
 	public ArrayList<Photo> photos() {
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		for (int photoId : photoIds) {
-			photos.add(Photo.allPhotos.get(photoId));
+			Photo p  = Photo.allPhotos.get(photoId);
+			if (p == null) {
+				return null;
+			}
+			photos.add(p);
 		}
 		return photos;		
 	}
-
+	
+	public static HashSet<Integer> mainPhotoIds() {
+		HashSet<Integer> mainPhotoIds = new HashSet<Integer>();
+		for (GarageSale sale : GarageSale.allSales.values()) {
+			mainPhotoIds.add(sale.mainPhotoId);
+		}
+		mainPhotoIds.remove(GarageSale.INVALID_INT);
+		return mainPhotoIds;
+	}
 	
 }

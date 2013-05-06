@@ -1,6 +1,5 @@
 package edu.berkeley.cs160.gsale;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,6 +11,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,6 +26,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class HomeActivity extends Activity implements LocationListener {
 	public HomeActivity self;
@@ -192,8 +195,6 @@ public class HomeActivity extends Activity implements LocationListener {
 		GarageSale.generateAllSales(this);
 		GetAllSalesAsyncTask getSalesTask = new GetAllSalesAsyncTask(this);
 		getSalesTask.execute();
-		GetAllPhotosAsyncTask getPhotosTask = new GetAllPhotosAsyncTask(this);
-		getPhotosTask.execute();
 		GetAllMessagesAsyncTask getMessagesTask = new GetAllMessagesAsyncTask(this, true);
 		getMessagesTask.execute();
 		/*
@@ -208,6 +209,27 @@ public class HomeActivity extends Activity implements LocationListener {
 			
 		}, 0, 60000); // 1 minute repeating
 		*/
+	}
+	
+	/* Checks if sales, mainPhotos, and messages have been retrieved */
+	public void checkReady() {
+		TextView initialLoadingTextView = (TextView) findViewById(R.id.InitialLoadingTextView);
+		if (GarageSale.salesLoaded) {
+			if (Photo.mainPhotosLoaded) {
+				if (Message.messagesLoaded) {
+					/* all ready */
+					((ProgressBar) findViewById(R.id.InitialLoadingProgressBar)).setVisibility(View.INVISIBLE);
+					((LinearLayout) findViewById(R.id.MainHomeLayout)).setVisibility(View.VISIBLE);
+					initialLoadingTextView.setVisibility(View.INVISIBLE);					
+				} else {
+					initialLoadingTextView.setText("Loading messages...");
+				}
+			} else {
+				initialLoadingTextView.setText("Loading main photos...");				
+			}
+		} else {
+			initialLoadingTextView.setText("Loading sales...");
+		}			
 	}
 
 	/*

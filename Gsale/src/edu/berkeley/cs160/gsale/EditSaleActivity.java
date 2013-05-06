@@ -34,6 +34,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.AdapterView.OnItemClickListener;
@@ -181,7 +182,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
         popupMenu.getMenu().add(Menu.NONE, 4, Menu.NONE, "Delete");
         popupMenu.setOnMenuItemClickListener(this);
 		editPhotosListView.setOnItemClickListener(this);
-
 
 		backButton = (Button) findViewById(R.id.BackButton);
 		nextButton = (Button) findViewById(R.id.NextButton);
@@ -352,6 +352,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			//store.storeSale(editingSale, 13376);
 			if (!currentlyPublishing) {
 				currentlyPublishing = true;
+				((ProgressBar) findViewById(R.id.PublishingProgressBar)).setVisibility(View.VISIBLE);
 				PostSaleAsyncTask postTask = new PostSaleAsyncTask(this, editingSale);
 				postTask.execute();
 			}
