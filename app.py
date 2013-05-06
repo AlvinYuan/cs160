@@ -23,8 +23,9 @@ saleid INT)')
 saleid INT)')
     cur.execute('CREATE TABLE IF NOT EXISTS UserHidden (userid INT, 
 saleid INT)')
-    cur.execute('CREATE TABLE IF NOT EXISTS Messages (saleid INT, 
-senderid INT, receiverid INT, subject TEXT, content TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS Messages (saleId INT, 
+senderId INT, receiverId INT, subject TEXT, content TEXT, 
+respondedToMessageId INT)')
     cur.execute('CREATE TABLE IF NOT EXISTS Photos (bitmap TEXT, 
 description TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS SalePhotos (saleid INT, 
@@ -122,20 +123,23 @@ def allMessages():
     resources = query_db('SELECT rowid,* FROM Messages')
     return json.dumps(resources)
 
-@app.route('/messages/<saleid>', methods=['GET'])
-def getMessages(saleid):
-    resources = query_db('SELECT * FROM Messages WHERE saleid = ?', 
-[saleid])
-    return json.dumps(resources)
-
 @app.route('/message', methods=['POST'])
 def addMessage():
     params = request.form
-    new_item_id = add_to_db('INSERT INTO Messages values(?,?,?,?,?)', 
-[int(params.get('saleid')), int(params.get('senderid')), 
-int(params.get('receiverid')), params.get('subject'), 
-params.get('content')])
+    new_item_id = add_to_db('INSERT INTO Messages values(?,?,?,?,?,?)', 
+[int(params.get('saleId')), int(params.get('senderId')), 
+int(params.get('receiverId')), params.get('subject'), 
+params.get('content'), int(params.get('respondedToMessageId'))])
     return json.dumps({'id' : new_item_id})
+
+@app.route('/delete/messages', methods=['GET'])
+def deleteMessages():
+    connection = sqlite3.connect(DATABASE)
+    cur = connection.cursor()
+    cur.execute('DROP TABLE IF EXISTS Messages')
+    connection.commit()
+    connection.close()
+    return json.dumps({'message': 'deleted messages'})
 
 """
 Photos
@@ -144,6 +148,13 @@ Photos
 def allPhotos():
     resources = query_db('SELECT rowid,* FROM Photos')
     return json.dumps(resources)
+
+@app.route('/photo/<id>', methods=['GET'])
+def showPhoto(id):
+    #get the photo with the id <id> from the database
+    single_resource = query_db('SELECT rowid,* FROM Photos WHERE rowid = 
+?', [id], one=True)
+    return json.dumps(single_resource)
 
 @app.route('/photo', methods=['POST'])
 def addPhoto():
