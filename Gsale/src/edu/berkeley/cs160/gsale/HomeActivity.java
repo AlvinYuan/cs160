@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class HomeActivity extends Activity implements LocationListener {
 		String provider = manager.getBestProvider(new Criteria(), true);
 		manager.requestLocationUpdates(provider, 0, 0, this);
 		onLocationChanged(manager.getLastKnownLocation(provider));
+		checkReady();
 	}
 
 	@Override
@@ -218,8 +220,11 @@ public class HomeActivity extends Activity implements LocationListener {
 				if (Message.messagesLoaded) {
 					/* all ready */
 					((ProgressBar) findViewById(R.id.InitialLoadingProgressBar)).setVisibility(View.INVISIBLE);
+					((ImageView) findViewById(R.id.InitialLoadingImageView)).setVisibility(View.INVISIBLE);
+					initialLoadingTextView.setVisibility(View.INVISIBLE);
+
 					((LinearLayout) findViewById(R.id.MainHomeLayout)).setVisibility(View.VISIBLE);
-					initialLoadingTextView.setVisibility(View.INVISIBLE);					
+					((ImageView) findViewById(R.id.MainHomeImageView)).setVisibility(View.VISIBLE);
 				} else {
 					initialLoadingTextView.setText("Loading messages...");
 				}

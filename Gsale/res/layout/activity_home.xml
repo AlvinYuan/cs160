@@ -5,7 +5,7 @@
     tools:context=".HomeActivity" >
 
     <ImageView
-        android:id="@+id/imageView0"
+        android:id="@+id/MainHomeImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -14,8 +14,18 @@
         android:paddingLeft="10sp"
         android:paddingTop="18sp"
         android:paddingBottom="24sp"
-         />
+        android:visibility="invisible" />
 
+    <ImageView
+        android:id="@+id/InitialLoadingImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/InitialLoadingProgressBar"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/gsale_large" />
+    
     <ProgressBar
         android:id="@+id/InitialLoadingProgressBar"
         style="?android:attr/progressBarStyleLarge"
@@ -38,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/imageView0"
+        android:layout_below="@+id/MainHomeImageView"
         android:visibility="invisible"
         android:weightSum="2" >
 
