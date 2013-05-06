@@ -23,13 +23,6 @@ public class FollowedActivity extends Activity implements OnItemClickListener {
 		/* ListView */
 		ListView l = (ListView) findViewById(R.id.FollowedSalesListView);
 		followedSalesAdapter = new GarageSaleAdapter(this, android.R.layout.simple_list_item_1, User.currentUser.followedSales, false);
-		
-		// What I am attempting to add
-		View header = (View)getLayoutInflater().inflate(R.layout.listview_header_followed, null);
-        l.addHeaderView(header);
-        
-        //End of what I am attempting to add for header
-        
 		l.setAdapter(followedSalesAdapter);
 		l.setOnItemClickListener(this);
 	}

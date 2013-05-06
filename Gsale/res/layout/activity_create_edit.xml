@@ -8,14 +8,14 @@
         android:id="@+id/MySalesListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/CreateNewSaleButton"
+        android:layout_below="@+id/txtHeader"
         android:listSelector="@drawable/list_selector" >
 
     </ListView>
-
+       	
     <Button
         android:id="@+id/CreateNewSaleButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -25,5 +25,21 @@
         android:onClick="CreateNewSaleButtonOnClick"
         android:minHeight="70dp" 
         android:text="Create New Sale" />
+
+    <TextView
+        android:id="@+id/txtHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/CreateNewSaleButton"
+        android:background="#CEE3F6"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="My Sales"
+        android:textColor="#585858"
+        android:textSize="22dp"
+        android:textStyle="italic" />
 
 </RelativeLayout>
