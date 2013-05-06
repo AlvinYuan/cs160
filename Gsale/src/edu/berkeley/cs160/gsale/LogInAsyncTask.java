@@ -71,9 +71,9 @@ public class LogInAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 				User.currentUser.email = email;
 				String toastString;
 				if (isNew) {
-					toastString = "Created new account " + id;
+					toastString = "Created new account: " + User.currentUser.email;
 				} else {
-					toastString = "Logged into account " + id;
+					toastString = "Logged into account: " + User.currentUser.email;
 					
 				}
 				Storage.storeLogin(context);
