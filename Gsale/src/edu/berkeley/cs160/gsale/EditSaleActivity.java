@@ -714,9 +714,10 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		}
 	}
 	
-	public class PhotoOptionsDialogFragment extends DialogFragment {
-	    @Override
+	public static class PhotoOptionsDialogFragment extends DialogFragment {
+	    EditSaleActivity activity;
 	    public Dialog onCreateDialog(Bundle savedInstanceState) {
+	    	activity = (EditSaleActivity) getActivity();
 	        // Use the Builder class for convenient dialog construction	        
 	        CharSequence options[] = new CharSequence[] {"Preview", "Set as main photo", "Edit description", "Delete"};
 	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -725,7 +726,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	            @Override
 	            public void onClick(DialogInterface dialog, int which) {
 	                // the user clicked on options[which]
-	            	Photo pic = (Photo) photoAdapter.getItem(selectedPhoto);
+	            	Photo pic = (Photo) activity.photoAdapter.getItem(activity.selectedPhoto);
 	            	switch (which) {
 	     	       case 0:
 	     	           System.out.println("Preview");
@@ -736,17 +737,18 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	     	           break;
 	     	       case 1:
 	     	    	   System.out.println("Set as main photo");
-	     	    	   editingSale.mainPhotoId = pic.id;
+	     	    	   activity.editingSale.mainPhotoId = pic.id;
 	     	    	   Toast.makeText(getActivity(), "Set as main photo", Toast.LENGTH_SHORT).show();
 	     	           break;
 	     	       case 2:
 	     	    	   System.out.println("Edit description");
 	     	    	   EditDescriptionDialogFragment newFragment = new EditDescriptionDialogFragment();
-	     	    	   newFragment.show(getSupportFragmentManager(), "photoDescription");
+	     	    	   newFragment.show(activity.getSupportFragmentManager(), "photoDescription");
 	     	           break;
 	     	       case 3:
 	     	    	   System.out.println("Delete");
-	     	    	   photoAdapter.remove(pic);
+	     	    	   activity.photoAdapter.remove(pic);
+	     	    	   activity.editingSale.photoIds.remove(pic);
 	     	    	   break;
 	     	       }
 	            }

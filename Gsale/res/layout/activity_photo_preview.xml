@@ -10,14 +10,15 @@
 
     <ImageView
         android:id="@+id/PhotoPreview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+   		android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
         android:contentDescription="PhotoPreview"/>
     
     <TextView
         android:id="@+id/PhotoPreviewDescription"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_centerHorizontal="true"
         android:layout_below="@+id/PhotoPreview"
         android:fontFamily="sans-serif-light"
         android:textSize="25dp"

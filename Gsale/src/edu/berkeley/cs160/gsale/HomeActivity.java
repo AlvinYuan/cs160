@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -55,6 +56,9 @@ public class HomeActivity extends Activity implements LocationListener {
 		manager.requestLocationUpdates(provider, 0, 0, this);
 		onLocationChanged(manager.getLastKnownLocation(provider));
 		checkReady();
+		
+		//Loads default settings options on application startup
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 	}
 
 	@Override

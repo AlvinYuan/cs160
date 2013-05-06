@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="notify_messages"
+        android:title="Message notifications"
+        android:summary="Receive notifications for new messages"
+        android:defaultValue="true" 
+        android:fontFamily="sans-serif-light"/>
+    
+    <CheckBoxPreference
+        android:key="notify_followed"
+        android:title="Followed sale notifications"
+        android:summary="Receive reminders for followed sales a day in advance"
+        android:defaultValue="true" 
+        android:fontFamily="sans-serif-light"/>
+    
+    <Preference 
+        android:key="account_details"
+        android:title="Account Details"
+        android:summary=""
+        android:fontFamily="sans-serif-light"/>
+    
+    <Preference 
+        android:key="reset_password"
+        android:title="Reset Password"
+        android:summary=""
+        android:fontFamily="sans-serif-light"/>
+    
+    <Preference 
+        android:key="unhide_sales"
+        android:title="Unhide sales"
+        android:summary="Brings back all sales that have been hidden"
+        android:fontFamily="sans-serif-light"/>
+        
+   	<Preference 
+        android:key="clear_preferences"
+        android:title="Clear shared preferences"
+        android:summary="For testing only!"
+        android:fontFamily="sans-serif-light"/>
+</PreferenceScreen>
