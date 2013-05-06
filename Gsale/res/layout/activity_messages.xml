@@ -4,32 +4,37 @@
     android:layout_height="match_parent"
     tools:context=".MessagesActivity" >
 
-    <TextView
-        android:id="@+id/MessagesTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="All Messages"
-        android:fontFamily="sans-serif-light"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <ListView
         android:id="@+id/MessagesListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/SendNewMessageButton" >
+        android:layout_below="@+id/txtHeader" >
 
     </ListView>
-
+    
+    <TextView
+        android:id="@+id/txtHeader"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/SendNewMessageButton"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#E0F8E0"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="My Messages"
+        android:textColor="#585858"
+        android:textSize="22dp"
+        android:textStyle="italic" />
+    
     <Button
         android:id="@+id/SendNewMessageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/MessagesTitleTextView"
         android:drawableLeft="@drawable/plus_sign"
         android:fontFamily="sans-serif-light"
         android:minHeight="70dp"

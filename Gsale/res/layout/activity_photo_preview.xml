@@ -13,5 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="PhotoPreview"/>
+    
+    <TextView
+        android:id="@+id/PhotoPreviewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/PhotoPreview"
+        android:fontFamily="sans-serif-light"
+        android:textSize="25dp"
+        android:text=""/>
 
 </RelativeLayout>

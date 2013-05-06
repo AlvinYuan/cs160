@@ -16,11 +16,27 @@
         android:fontFamily="sans-serif-light"
         android:onClick="AddNewPhotoButtonOnClick" />
     
+     <TextView
+        android:id="@+id/txtHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_below="@+id/AddNewPhotoButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#F8E0E0"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="My Photos"
+        android:textColor="#585858"
+        android:textSize="22dp"
+        android:textStyle="italic" />
+     
     <ListView
         android:id="@+id/EditPhotosListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/AddNewPhotoButton"
+        android:layout_below="@+id/txtHeader"
         android:listSelector="@drawable/list_selector" >
 
     </ListView>

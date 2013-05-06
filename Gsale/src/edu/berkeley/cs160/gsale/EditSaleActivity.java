@@ -1,6 +1,8 @@
 package edu.berkeley.cs160.gsale;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -44,7 +46,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener, OnItemClickListener, OnMenuItemClickListener  {
+public class EditSaleActivity extends FragmentActivity implements OnSeekBarChangeListener, OnItemClickListener {
 	public boolean isEditing;
 	public int editingSaleId;
 	public GarageSale editingSale;
@@ -63,7 +65,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 	public ListView editPhotosListView;
 	public PhotoAdapter photoAdapter;
 	public boolean photoAdded = false;
-	public PopupMenu popupMenu;
 	public int selectedPhoto;
 	
 	public boolean currentlyPublishing = false;
@@ -175,12 +176,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		}
 		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos());
 		editPhotosListView.setAdapter(photoAdapter);
-		popupMenu = new PopupMenu(this, findViewById(R.id.AddNewPhotoButton));
-        popupMenu.getMenu().add(Menu.NONE, 1, Menu.NONE, "Preview");
-        popupMenu.getMenu().add(Menu.NONE, 2, Menu.NONE, "Set as main photo");
-        popupMenu.getMenu().add(Menu.NONE, 3, Menu.NONE, "Edit description");
-        popupMenu.getMenu().add(Menu.NONE, 4, Menu.NONE, "Delete");
-        popupMenu.setOnMenuItemClickListener(this);
+		
 		editPhotosListView.setOnItemClickListener(this);
 
 		backButton = (Button) findViewById(R.id.BackButton);
@@ -675,35 +671,6 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			builder.show();
 		}
 	}
-
-	@Override
-	public boolean onMenuItemClick(MenuItem item) {
-		// TODO Auto-generated method stub
-		Photo pic = (Photo) photoAdapter.getItem(selectedPhoto);
-		switch (item.getItemId()) {
-	       case 1:
-	           System.out.println("Preview");
-	           Intent i = new Intent(this, PhotoPreviewActivity.class);
-	           i.putExtra("image", pic.bitmap);
-	           startActivity(i);
-	           break;
-	       case 2:
-	    	   System.out.println("Set as main photo");
-	    	   editingSale.mainPhotoId = pic.id;
-	    	   Toast.makeText(this, "Set as main photo", Toast.LENGTH_SHORT).show();
-	           break;
-	       case 3:
-	    	   System.out.println("Edit description");
-	    	   EditDescriptionDialogFragment newFragment = new EditDescriptionDialogFragment();
-	    	   newFragment.show(getSupportFragmentManager(), "photoDescription");
-	           break;
-	       case 4:
-	    	   System.out.println("Delete");
-	    	   photoAdapter.remove(pic);
-	    	   break;
-	       }
-		return false;
-	}
 	
 	public static class EditDescriptionDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
 		public EditSaleActivity activity;
@@ -746,13 +713,55 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			super.onDismiss(dialog);
 		}
 	}
+	
+	public class PhotoOptionsDialogFragment extends DialogFragment {
+	    @Override
+	    public Dialog onCreateDialog(Bundle savedInstanceState) {
+	        // Use the Builder class for convenient dialog construction	        
+	        CharSequence options[] = new CharSequence[] {"Preview", "Set as main photo", "Edit description", "Delete"};
+	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        builder.setTitle("Photo options");
+	        builder.setItems(options, new DialogInterface.OnClickListener() {
+	            @Override
+	            public void onClick(DialogInterface dialog, int which) {
+	                // the user clicked on options[which]
+	            	Photo pic = (Photo) photoAdapter.getItem(selectedPhoto);
+	            	switch (which) {
+	     	       case 0:
+	     	           System.out.println("Preview");
+	     	           Intent i = new Intent(getActivity(), PhotoPreviewActivity.class);
+	     	           i.putExtra("image", pic.bitmap);
+	     	           i.putExtra("description", pic.description);
+	     	           startActivity(i);
+	     	           break;
+	     	       case 1:
+	     	    	   System.out.println("Set as main photo");
+	     	    	   editingSale.mainPhotoId = pic.id;
+	     	    	   Toast.makeText(getActivity(), "Set as main photo", Toast.LENGTH_SHORT).show();
+	     	           break;
+	     	       case 2:
+	     	    	   System.out.println("Edit description");
+	     	    	   EditDescriptionDialogFragment newFragment = new EditDescriptionDialogFragment();
+	     	    	   newFragment.show(getSupportFragmentManager(), "photoDescription");
+	     	           break;
+	     	       case 3:
+	     	    	   System.out.println("Delete");
+	     	    	   photoAdapter.remove(pic);
+	     	    	   break;
+	     	       }
+	            }
+	        });
+	        return builder.create();
+	    }
+	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		System.out.println("Got here!");
 		selectedPhoto = position;
-		popupMenu.show();
+		PhotoOptionsDialogFragment newFragment = new PhotoOptionsDialogFragment();
+		newFragment.show(getSupportFragmentManager(), "photoOptions");
+		//popupMenu.show();
 	}
-	
 }

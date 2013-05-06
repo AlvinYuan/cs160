@@ -86,6 +86,7 @@ public class ViewPhotosActivity extends Activity implements OnItemClickListener 
 		System.out.println("Got here");
 		Intent i = new Intent(this, PhotoPreviewActivity.class);
         i.putExtra("image", photoAdapter.getItem(position).bitmap);
+        i.putExtra("description", photoAdapter.getItem(position).description);
         startActivity(i);
 		
 	}

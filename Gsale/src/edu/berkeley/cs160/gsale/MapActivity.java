@@ -56,6 +56,7 @@ public class MapActivity extends Activity implements OnMarkerClickListener,
 		map.setInfoWindowAdapter(this);
 		map.setOnInfoWindowClickListener(this);
 		map.setOnMapClickListener(this);
+		
 
 		ArrayList<GarageSale> allSalesList = new ArrayList<GarageSale>(GarageSale.allSales.values());
 		for (int i = 0; i < allSalesList.size(); i++) {
