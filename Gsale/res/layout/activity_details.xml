@@ -8,8 +8,8 @@
         android:id="@+id/ButtonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:weightSum="4" >
 
         <Button
@@ -18,10 +18,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/messagebutton"
-            android:text="Messages"
-            android:gravity="bottom|center"
             android:fontFamily="sans-serif-light"
+            android:gravity="bottom|center"
             android:onClick="MessagesButtonOnClick"
+            android:text="Messages"
             android:textSize="12sp" />
 
         <Button
@@ -30,10 +30,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/photo"
-            android:text="Photos"
             android:fontFamily="sans-serif-light"
             android:gravity="bottom|center"
             android:onClick="PhotosButtonOnClick"
+            android:text="Photos"
             android:textSize="12sp" />
 
         <Button
@@ -42,10 +42,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/followedbutton"
-            android:text="Follow"
-            android:gravity="bottom|center"
             android:fontFamily="sans-serif-light"
+            android:gravity="bottom|center"
             android:onClick="FollowButtonOnClick"
+            android:text="Follow"
             android:textSize="12sp" />
 
         <Button
@@ -54,10 +54,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableTop="@drawable/hide"
-            android:text="Hide"
+            android:fontFamily="sans-serif-light"
             android:gravity="bottom|center"
-            android:fontFamily="sans-serif-light" 
             android:onClick="HideButtonOnClick"
+            android:text="Hide"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -70,5 +70,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" >
     </RelativeLayout>
+
+    <fragment
+        android:id="@+id/mapDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        class="com.google.android.gms.maps.MapFragment" />
 
 </RelativeLayout>
