@@ -157,6 +157,9 @@ public class SearchActivity extends Activity implements OnItemClickListener {
 		for (GarageSale sale : GarageSale.allSales.values()) {
 			String saleText = "";
 			saleText = saleText + sale.title + sale.description;
+			for (Photo each : sale.photos()) {
+				saleText = saleText + each.description;
+			}
 			//Pattern p = Pattern.compile(query);
 			//Matcher m = p.matcher(saleText);
 			//Log.i("findboolean", m.find()+"");
