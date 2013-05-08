@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/DetailsMainPhotoImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:padding="10sp"
@@ -91,5 +91,6 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
     </ScrollView>
+
 
 </RelativeLayout>
