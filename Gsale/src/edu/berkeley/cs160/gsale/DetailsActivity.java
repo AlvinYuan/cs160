@@ -66,11 +66,10 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 		parentActivity = extras
 				.getString(GarageSale.DETAILS_ACTIVITY_PARENT_KEY);
 
-		RelativeLayout detailsLayout = (RelativeLayout) findViewById(R.id.DetailsLayout);
-		LayoutInflater inflater = getLayoutInflater();
-		detailsView = inflater.inflate(R.layout.garage_sale_details_view, null);
+		View detailsView = findViewById(R.id.DetailsInformationView);
+
 		sale.loadDetailsIntoView(detailsView, this);
-		detailsLayout.addView(detailsView);
+		
 
 		followButton = (Button) findViewById(R.id.FollowButton);
 		hideButton = (Button) findViewById(R.id.HideButton);
@@ -78,6 +77,7 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 
 		
 		hasFocusedSaleDetails = extras.getBoolean(GarageSale.HAS_SALE_ID_KEY);
+		Log.i("booleansale", hasFocusedSaleDetails+"");
 		if (hasFocusedSaleDetails) {
 			focusedSaleDetails = sale;
 		}
@@ -94,6 +94,7 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 		if (!User.currentUser.hiddenSales.contains(sale)
 				&& !sale.coords.equals(GarageSale.INVALID_COORDS)) {
 			addSaleToMap(sale);
+			//Log.i("addmarker", "hi!!!!!");
 		}
 		
 		if (hasFocusedSaleDetails && focusedSaleDetails.coords != null) {
@@ -301,8 +302,9 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		return;
-
+		GarageSale sale = MarkerIdMapDetails.get(marker.getId());
+		sourceMarkerDetails = marker;
+		sale.startDetailsActivity(this);
 	}
 
 	@Override

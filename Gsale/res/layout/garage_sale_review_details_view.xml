@@ -1,71 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/DetailsInformationView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".DetailsActivity" >
-
-    <LinearLayout
-        android:id="@+id/ButtonsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:weightSum="4" >
-
-        <Button
-            android:id="@+id/MessagesButton"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/messagebutton"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom|center"
-            android:onClick="MessagesButtonOnClick"
-            android:text="Messages"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/PhotosButton"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/photo"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom|center"
-            android:onClick="PhotosButtonOnClick"
-            android:text="Photos"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/FollowButton"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/followedbutton"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom|center"
-            android:onClick="FollowButtonOnClick"
-            android:text="Follow"
-            android:textSize="12sp" />
-
-        <Button
-            android:id="@+id/HideButton"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/hide"
-            android:fontFamily="sans-serif-light"
-            android:gravity="bottom|center"
-            android:onClick="HideButtonOnClick"
-            android:text="Hide"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/DetailsInformationLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+    android:layout_height="match_parent" >
 
     <ImageView
         android:id="@+id/DetailsMainPhotoImageView"
@@ -126,7 +62,7 @@
         android:layout_below="@+id/DetailsMainPhotoImageView"
         android:fontFamily="sans-serif-light"
         android:paddingLeft="10sp"
-        android:layout_marginTop="276dp"
+        android:layout_marginTop="200dp"
         android:text="Description"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -157,16 +93,5 @@
         </LinearLayout>
     </ScrollView>
 
-
-</RelativeLayout>
-
-    <fragment
-        android:id="@+id/mapDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        class="com.google.android.gms.maps.MapFragment" />
 
 </RelativeLayout>
