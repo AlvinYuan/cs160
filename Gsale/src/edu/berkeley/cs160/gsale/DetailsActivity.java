@@ -27,13 +27,11 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class DetailsActivity extends Activity implements OnMarkerClickListener,
@@ -48,8 +46,6 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 	public GoogleMap mapD;
 	public HashMap<String, GarageSale> MarkerIdMapDetails = new HashMap<String, GarageSale>();
 	public static Marker sourceMarkerDetails = null;
-	public boolean hasFocusedSaleDetails;
-	public GarageSale focusedSaleDetails = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +62,7 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 		parentActivity = extras
 				.getString(GarageSale.DETAILS_ACTIVITY_PARENT_KEY);
 
-		View detailsView = findViewById(R.id.DetailsInformationView);
+		View detailsView = findViewById(R.id.DetailsInformationLayout);
 
 		sale.loadDetailsIntoView(detailsView, this);
 		
@@ -74,13 +70,6 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 		followButton = (Button) findViewById(R.id.FollowButton);
 		hideButton = (Button) findViewById(R.id.HideButton);
 		updateFollowButton();
-
-		
-		hasFocusedSaleDetails = extras.getBoolean(GarageSale.HAS_SALE_ID_KEY);
-		Log.i("booleansale", hasFocusedSaleDetails+"");
-		if (hasFocusedSaleDetails) {
-			focusedSaleDetails = sale;
-		}
 		
 		mapD = ((MapFragment) getFragmentManager().findFragmentById(
 				R.id.mapDetails)).getMap();
@@ -91,14 +80,9 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 		mapD.setOnInfoWindowClickListener(this);
 		mapD.setOnMapClickListener(this);
 
-		if (!User.currentUser.hiddenSales.contains(sale)
-				&& !sale.coords.equals(GarageSale.INVALID_COORDS)) {
+		if (!sale.coords.equals(GarageSale.INVALID_COORDS)) {
 			addSaleToMap(sale);
-			//Log.i("addmarker", "hi!!!!!");
-		}
-		
-		if (hasFocusedSaleDetails && focusedSaleDetails.coords != null) {
-			mapD.moveCamera(CameraUpdateFactory.newLatLngZoom(focusedSaleDetails.coords, 15));	
+			mapD.moveCamera(CameraUpdateFactory.newLatLngZoom(sale.coords, 15));	
 		} else {
 			/* Not perfectly centered for some reason, but very close. Good enough I guess. */
 			LatLng location = new LatLng(HomeActivity.currentLocation.getLatitude(), HomeActivity.currentLocation.getLongitude());
@@ -317,8 +301,6 @@ public class DetailsActivity extends Activity implements OnMarkerClickListener,
 		Marker saleMarker = mapD.addMarker(new MarkerOptions().position(sale.coords)
 				.title(sale.title).snippet(sale.location));
 		MarkerIdMapDetails.put(saleMarker.getId(), sale);
-		if (hasFocusedSaleDetails && sale.equals(focusedSaleDetails)) {
-			saleMarker.showInfoWindow();
-		}
+		saleMarker.showInfoWindow();
 	}
 }
