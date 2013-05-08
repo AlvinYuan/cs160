@@ -108,6 +108,7 @@ public class GarageSale implements java.io.Serializable{
 
 	public UrlEncodedFormEntity HttpPostEntity() {
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		postParameters.add(new BasicNameValuePair("id",""+id));
 		postParameters.add(new BasicNameValuePair("title", title));
 		postParameters.add(new BasicNameValuePair("description", description));
 		postParameters.add(new BasicNameValuePair("plannerId", ""+plannerId));
