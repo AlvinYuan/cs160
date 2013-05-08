@@ -68,7 +68,7 @@ public class MessagesActivity extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		Message message = (Message) messageAdapter.getItem(position);
-		
+		SendMessage(true, message);
 	}
 
 

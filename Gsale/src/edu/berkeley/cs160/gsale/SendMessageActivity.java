@@ -40,8 +40,13 @@ public class SendMessageActivity extends Activity {
 				message.receiverId = plannerId;
 				toTextView.setText("To planner of \"" + GarageSale.allSales.get(message.saleId).title + "\"");
 			}
-		}
-		
+		} else if (User.currentUser.plannedSales.size() > 0) {
+			// For now, planner can send Message for first plannedSale in MessagesActivity
+			message.respondedToMessageId = Message.INVALID_INT;
+			message.saleId = User.currentUser.plannedSales.get(0).id;
+			message.receiverId = Message.BROADCAST;
+			toTextView.setText("To all potential attendees of \"" + GarageSale.allSales.get(message.saleId).title + "\"");
+		}		
 	}
 
 	@Override
