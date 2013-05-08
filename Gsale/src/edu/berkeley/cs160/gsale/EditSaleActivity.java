@@ -645,6 +645,7 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
     	     * Probably should be done elsewhere though (like on publish)
     	     * This task also updates editingSale.mainPhotoId and photoIds
     	     */
+			Toast.makeText(activity, "Uploading Photo.", Toast.LENGTH_SHORT).show();
     	    PostPhotoAsyncTask postPhotoTask = new PostPhotoAsyncTask(getActivity(), activity.newlyAddedPhoto);
     	    postPhotoTask.execute();
 		}
