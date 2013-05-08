@@ -80,7 +80,8 @@ def addSale():
     #then add a new item to the database
     #return the id of the new item
     params = request.form
-    new_item_id = add_to_db('INSERT INTO GarageSales 
+    if (int(params['id']) == -1):
+        new_item_id = add_to_db('INSERT INTO GarageSales 
 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [params.get('title'), 
 params.get('description'), int(params.get('plannerId')), 
 int(params.get('startYear')), int(params.get('startMonth')), 
@@ -90,7 +91,22 @@ int(params.get('endMonth')), int(params.get('endDay')),
 int(params.get('endHour')), int(params.get('endMinute')), 
 params.get('location'), float(params.get('latitude')), 
 float(params.get('longitude')), int(params.get('mainPhotoId'))])
-    return json.dumps({'id' : new_item_id})
+        return json.dumps({'id' : new_item_id})
+    else:
+        update_db('UPDATE GarageSales SET title = ?, description = ?, 
+plannerId = ?, startYear = ?, startMonth = ?, startDay = ?, startHour = 
+?, startMinute = ?, endYear = ?, endMonth = ?, endDay = ?, endHour = ?, 
+endMinute = ?, location = ?, latitude = ?, longitude = ?, mainPhotoId = 
+? WHERE rowid = ?', [params.get('title'), params.get('description'), 
+int(params.get('plannerId')), int(params.get('startYear')), 
+int(params.get('startMonth')), int(params.get('startDay')), 
+int(params.get('startHour')), int(params.get('startMinute')), 
+int(params.get('endYear')), int(params.get('endMonth')), 
+int(params.get('endDay')), int(params.get('endHour')), 
+int(params.get('endMinute')), params.get('location'), 
+float(params.get('latitude')), float(params.get('longitude')), 
+int(params.get('mainPhotoId')), int(params['id'])])
+        return json.dumps({'success': True})
 
 """
 USERS
