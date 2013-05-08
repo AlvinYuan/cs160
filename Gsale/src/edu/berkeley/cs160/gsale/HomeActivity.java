@@ -218,7 +218,7 @@ public class HomeActivity extends Activity implements LocationListener {
 	public void checkReady() {
 		TextView initialLoadingTextView = (TextView) findViewById(R.id.InitialLoadingTextView);
 		if (GarageSale.salesLoaded) {
-			if (Photo.mainPhotosLoaded || GarageSale.mainPhotoIds().size() == 0) {
+			//if (Photo.mainPhotosLoaded || GarageSale.mainPhotoIds().size() == 0) {
 				if (Message.messagesLoaded) {
 					/* all ready */
 					((ProgressBar) findViewById(R.id.InitialLoadingProgressBar)).setVisibility(View.INVISIBLE);
@@ -230,9 +230,9 @@ public class HomeActivity extends Activity implements LocationListener {
 				} else {
 					initialLoadingTextView.setText("Loading messages...");
 				}
-			} else {
-				initialLoadingTextView.setText("Loading main photos...");				
-			}
+			//} else {
+			//	initialLoadingTextView.setText("Loading main photos...");				
+			//}
 		} else {
 			initialLoadingTextView.setText("Loading sales...");
 		}			

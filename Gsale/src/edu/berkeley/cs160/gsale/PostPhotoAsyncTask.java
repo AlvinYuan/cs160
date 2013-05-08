@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 public class PostPhotoAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 	public Context context;
@@ -68,7 +69,7 @@ public class PostPhotoAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 			activity.editingSale.photoIds.add(photo.id);
 
 			System.out.println("PostPhotoAsyncTask: PHOTO ID - " + photo.id);
-			// Toast.makeText(context, "Photo Uploaded!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, "Photo Uploaded!", Toast.LENGTH_SHORT).show();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
