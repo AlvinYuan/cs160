@@ -44,7 +44,7 @@ public class GarageSale implements java.io.Serializable{
 	
 	/* Instance Variables */
 	/* General */
-	public int id; //Unique identifier
+	public int id = INVALID_INT; //Unique identifier
 	public String title = INVALID_STRING;
 	public String description = INVALID_STRING;
 	public int plannerId = User.NOT_LOGGED_IN;
