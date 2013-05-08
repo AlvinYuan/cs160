@@ -57,6 +57,9 @@ public class GetPhotoAsyncTask extends AsyncTask<Integer, Void, Void> {
 		if (context instanceof ViewPhotosActivity) {
 			((ViewPhotosActivity) context).photoLoaded();
 		}
+		if (context instanceof EditSaleActivity) {
+			((EditSaleActivity) context).photoLoaded();
+		}
 		if (context instanceof HomeActivity) {
 			if (Photo.allPhotos.size() == GarageSale.mainPhotoIds().size()) {
 				Photo.mainPhotosLoaded = true;

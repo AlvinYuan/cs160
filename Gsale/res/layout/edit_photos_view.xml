@@ -40,6 +40,23 @@
         android:listSelector="@drawable/list_selector" >
 
     </ListView>
+    <ProgressBar
+        android:id="@+id/LoadingPhotosProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txtHeader" />
+
+    <TextView
+        android:id="@+id/LoadingPhotosTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LoadingPhotosProgressBar"
+        android:layout_centerHorizontal="true"
+        android:text="Loading photos..."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:fontFamily="sans-serif-light" />
     
     
 </RelativeLayout>

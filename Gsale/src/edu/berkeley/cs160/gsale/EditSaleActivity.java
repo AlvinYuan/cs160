@@ -1,8 +1,6 @@
 package edu.berkeley.cs160.gsale;
 
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -35,12 +33,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -174,11 +170,11 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 			editingSale = new GarageSale();
 			editingSale.plannerId = User.currentUser.id;
 		}
-		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos());
-		editPhotosListView.setAdapter(photoAdapter);
+		Photo.getPhotosFromServer(this, editingSale.photoIds);
+		/* Further set up happens in photoLoaded called by GetPhotoAsyncTask */
+		// Also call photoLoaded here in case all photos are already loaded
+		photoLoaded();
 		
-		editPhotosListView.setOnItemClickListener(this);
-
 		backButton = (Button) findViewById(R.id.BackButton);
 		nextButton = (Button) findViewById(R.id.NextButton);
 		
@@ -195,6 +191,19 @@ public class EditSaleActivity extends FragmentActivity implements OnSeekBarChang
 		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) editProgressBar.getLayoutParams();
 		params.setMargins(margin, 0, margin, 0);
 		editProgressBar.setLayoutParams(params);
+	}
+	
+	/* Called when a photo has been pulled from the server */
+	public void photoLoaded() {
+		if (editingSale.photos() == null) {
+			return;
+		}
+		/* All photos are loaded into running program */
+		((ProgressBar) findViewById(R.id.LoadingPhotosProgressBar)).setVisibility(View.INVISIBLE);
+		((TextView) findViewById(R.id.LoadingPhotosTextView)).setVisibility(View.INVISIBLE);
+		photoAdapter = new PhotoAdapter(this, android.R.layout.simple_list_item_1, editingSale.photos());
+		editPhotosListView.setAdapter(photoAdapter);		
+		editPhotosListView.setOnItemClickListener(this);
 	}
 
 	@Override
