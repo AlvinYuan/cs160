@@ -191,6 +191,7 @@ def addSalePhoto():
 [int(params.get('saleid')), int(params.get('photoid'))])
     return json.dumps({'id' : new_item_id})
 
+
 """
 @app.route('/delete/photos', methods=['GET'])
 def deletePhotos():
