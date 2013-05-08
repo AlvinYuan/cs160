@@ -197,12 +197,11 @@ public class HomeActivity extends Activity implements LocationListener {
 		GarageSale.allSales = new HashMap<Integer, GarageSale>();
 		Photo.allPhotos = new HashMap<Integer, Photo>();
 		Message.allMessages = new HashMap<Integer, Message>();
-		GarageSale.generateAllSales(this);
+		//GarageSale.generateAllSales(this);
 		GetAllSalesAsyncTask getSalesTask = new GetAllSalesAsyncTask(this);
 		getSalesTask.execute();
 		GetAllMessagesAsyncTask getMessagesTask = new GetAllMessagesAsyncTask(this, true);
 		getMessagesTask.execute();
-		/*
 		Timer repeat = new Timer("Repeating Get Messages Task");
 		repeat.schedule(new TimerTask() {
 
@@ -213,14 +212,13 @@ public class HomeActivity extends Activity implements LocationListener {
 			}
 			
 		}, 0, 60000); // 1 minute repeating
-		*/
 	}
 	
 	/* Checks if sales, mainPhotos, and messages have been retrieved */
 	public void checkReady() {
 		TextView initialLoadingTextView = (TextView) findViewById(R.id.InitialLoadingTextView);
 		if (GarageSale.salesLoaded) {
-			if (Photo.mainPhotosLoaded) {
+			if (Photo.mainPhotosLoaded || GarageSale.mainPhotoIds().size() == 0) {
 				if (Message.messagesLoaded) {
 					/* all ready */
 					((ProgressBar) findViewById(R.id.InitialLoadingProgressBar)).setVisibility(View.INVISIBLE);

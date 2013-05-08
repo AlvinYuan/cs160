@@ -44,7 +44,7 @@ public class GarageSale implements java.io.Serializable{
 	
 	/* Instance Variables */
 	/* General */
-	public int id; //Unique identifier
+	public int id = INVALID_INT; //Unique identifier
 	public String title = INVALID_STRING;
 	public String description = INVALID_STRING;
 	public int plannerId = User.NOT_LOGGED_IN;
@@ -108,6 +108,7 @@ public class GarageSale implements java.io.Serializable{
 
 	public UrlEncodedFormEntity HttpPostEntity() {
 		ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
+		postParameters.add(new BasicNameValuePair("id",""+id));
 		postParameters.add(new BasicNameValuePair("title", title));
 		postParameters.add(new BasicNameValuePair("description", description));
 		postParameters.add(new BasicNameValuePair("plannerId", ""+plannerId));
