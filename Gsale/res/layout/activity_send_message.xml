@@ -21,7 +21,9 @@
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentTop="true"
 	            android:layout_alignParentLeft="true"
-	            android:text="To" />
+	            android:text="To"
+	            android:fontFamily="sans-serif-light"
+        	    android:textAppearance="?android:attr/textAppearanceMedium" />
 	        
 	        <TextView
 	            android:id="@+id/textView3"
@@ -29,7 +31,9 @@
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/ToTextView"
 	            android:layout_alignParentLeft="true"
-	            android:text="Subject" />
+	            android:text="Subject"
+	            android:fontFamily="sans-serif-light"
+            	android:textAppearance="?android:attr/textAppearanceMedium" />
 	        
 	        <EditText
 	            android:id="@+id/SubjectEditText"
@@ -53,7 +57,9 @@
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/SubjectEditText"
 	            android:layout_alignParentLeft="true"
-	            android:text="Content" />
+	            android:text="Content"
+	            android:fontFamily="sans-serif-light"
+            	android:textAppearance="?android:attr/textAppearanceMedium" />
 	
 	        <EditText
 	            android:id="@+id/ContentEditText"
@@ -76,7 +82,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="Send"
-        android:onClick="SendButtonOnClick" />
+        android:onClick="SendButtonOnClick"
+        android:fontFamily="sans-serif-light" />
 
     <Button
         android:id="@+id/CancelButton"
@@ -85,6 +92,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/SendButton"
         android:text="Cancel"
-        android:onClick="CancelButtonOnClick" />
+        android:onClick="CancelButtonOnClick"
+        android:fontFamily="sans-serif-light" />
 
 </RelativeLayout>
