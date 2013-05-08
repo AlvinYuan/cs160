@@ -67,15 +67,15 @@ public class PostSaleAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 				User.currentUser.plannedSales.add(sale);
 				System.out.println("PostSaleAsyncTask: SALE ID - " + sale.id);
 				Storage.storeList(context, User.currentUser.plannedSales, Storage.PLANNED_SALES);
+				for (int i = 0; i < sale.photoIds.size(); i++) {
+					Photo p = Photo.allPhotos.get(sale.photoIds.get(i));
+					PostSalePhotoAsyncTask postSalePhotoTask = new PostSalePhotoAsyncTask(sale.id, p.id);
+					postSalePhotoTask.execute();
+				}
 				Toast.makeText(context, "Published!", Toast.LENGTH_SHORT).show();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		}
-		for (int i = 0; i < sale.photoIds.size(); i++) {
-			Photo p = Photo.allPhotos.get(sale.photoIds.get(i));
-			PostSalePhotoAsyncTask postSalePhotoTask = new PostSalePhotoAsyncTask(sale.id, p.id);
-			postSalePhotoTask.execute();
 		}
 		((EditSaleActivity) context).finish();
 

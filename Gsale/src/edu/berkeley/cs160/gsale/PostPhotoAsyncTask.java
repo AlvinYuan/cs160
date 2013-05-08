@@ -67,6 +67,10 @@ public class PostPhotoAsyncTask extends AsyncTask<Void, Void, JSONObject> {
 				activity.editingSale.mainPhotoId = photo.id;				
 			}
 			activity.editingSale.photoIds.add(photo.id);
+			if (activity.editingSale.id != GarageSale.INVALID_INT) {
+				PostSalePhotoAsyncTask postSalePhotoTask = new PostSalePhotoAsyncTask(activity.editingSale.id, photo.id);
+				postSalePhotoTask.execute();
+			}
 
 			System.out.println("PostPhotoAsyncTask: PHOTO ID - " + photo.id);
 			Toast.makeText(context, "Photo Uploaded!", Toast.LENGTH_SHORT).show();
